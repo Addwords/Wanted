@@ -88,7 +88,7 @@ background-color: rgba( 255, 255, 255, 0.9);}
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <div class="panel-heading">팀명</div>
-        <div class="panel-body"><img src="images/avatar2.png" class="img-responsive" style="width:100%" alt="Image" onclick="onClick(this)"></div>
+        <div class="panel-body"><img src="resources/images/avatar2.png" class="img-responsive" style="width:100%" alt="Image" onclick="onClick(this)"></div>
         <div class="panel-footer">여기에 상세설명</div>
       </div>
     </div>
