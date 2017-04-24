@@ -726,40 +726,7 @@ to {
 		<h4></h4>
 		<br>
 		<div class="row slideanim">
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-off logo-small"></span>
-				<h4></h4>
-				<p></p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-heart logo-small"></span>
-				<h4></h4>
-				<p></p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-lock logo-small"></span>
-				<h4></h4>
-				<p></p>
-			</div>
-		</div>
-		<br> <br>
-		<div class="row slideanim">
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-leaf logo-small"></span>
-				<h4></h4>
-				<p></p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-certificate logo-small"></span>
-				<h4></h4>
-				<p></p>
-			</div>
-			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-wrench logo-small"></span>
-				<h4 style="color: #303030;"></h4>
-				<p></p>
-			</div>
-		</div>
+			
 	</div>
 
 	<!-- Container (Portfolio Section) -->

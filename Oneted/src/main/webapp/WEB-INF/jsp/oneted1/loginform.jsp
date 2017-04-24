@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix ="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -151,17 +152,19 @@ to {
 					class="close" title="Close Modal">&times;</span> <img
 					src="resources/images/img_avatar2.png" alt="Avatar" class="avatar">
 			</div>
-
+	
 			<div class="container">
-				<label><b>E-mail</b></label> <input type="text" id ="E-mail"
-					placeholder="Enter E-mail" name="uname" required> <label><b>Password</b></label>
-				<input type="password" id="password" placeholder="Enter Password" name="psw"
-					required>
+				<form action="login.do">
+					<label><b>E-mail</b></label> <input type="text" id="E-mail"
+						placeholder="Enter E-mail" name="uname" required> <label><b>Password</b></label>
+					<input type="password" id="password" placeholder="Enter Password"
+						name="psw" required>
 
-				<button type="submit">Login</button>
-				<input type="checkbox" checked="checked"> Remember me
+					<button type="submit">Login</button>
+					<input type="checkbox" checked="checked"> Remember mes
+				</form>
 			</div>
-
+	
 			<div class="container" style="background-color: #f1f1f1">
 				<button type="button"
 					onclick="document.getElementById('id01').style.display='none'"
