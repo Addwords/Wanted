@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mber">
+
+	<select id="detailMberView" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			MBER_INFO_IDX
+			MBER_NAME
+			MBER_PHONE
+			MBER_LOCAL
+			MBER_SKILL
+			MBER_INTRODUCE
+			MBER_IMG
+		FROM
+			MBER_INFO
+		WHERE
+			MBER_INFO_IDX = #{IDX}
+	</select>
+</mapper>

@@ -30,7 +30,7 @@
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
-	<a href="#this" class="btn" id="write">글쓰기</a>
+	<a href="openBoardWrite.do" class="btn" id="write">글쓰기</a>
 	
 	<%@ include file="/WEB-INF/include/include-body.jspf" %>
 	<script type="text/javascript">
