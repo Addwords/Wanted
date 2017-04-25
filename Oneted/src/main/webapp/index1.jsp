@@ -42,8 +42,9 @@ h4 {
 }
 
 .jumbotron {
-	background-color: black;
-	color: #fff;
+	background-color: #ebebe0;
+	color: #000000;
+	border:thick;
 	padding: 100px 25px;
 	font-family: Montserrat, sans-serif;
 }
@@ -57,14 +58,15 @@ h4 {
 }
 
 .logo-small {
-	color: black;
+	color:#ebebe0;
 	font-size: 50px;
 }
 
-.logo{
-color:black;
-font-size:200px;
+.logo {
+	color: #ebebe0;
+	font-size: 200px;
 }
+
 .thumbnail {
 	padding: 0 0 15px 0;
 	border: none;
@@ -79,15 +81,16 @@ font-size:200px;
 
 .carousel-control.right, .carousel-control.left {
 	background-image: none;
-	color: black;
+	color:#ebebe0;
 }
 
 .carousel-indicators li {
-	border-color: black;
+	border-color: #ebebe0;
 }
 
 .carousel-indicators li.active {
-	background-color: black;
+	background-color: 
+#ebebe0;
 }
 
 .item h4 {
@@ -103,7 +106,7 @@ font-size:200px;
 }
 
 .panel {
-	border: 1px solid balck;
+	border: 1px solid #ebebe0;
 	border-radius: 0 !important;
 	transition: box-shadow 0.5s;
 }
@@ -113,14 +116,14 @@ font-size:200px;
 }
 
 .panel-footer .btn:hover {
-	border: 1px solid black;
+	border: 1px solid #ebebe0;
 	background-color: #fff !important;
 	color: black;
 }
 
 .panel-heading {
 	color: #fff !important;
-	background-color: black !important;
+	background-color:#ebebe0 !important;
 	padding: 25px;
 	border-bottom: 1px solid transparent;
 	border-top-left-radius: 0px;
@@ -144,13 +147,13 @@ font-size:200px;
 
 .panel-footer .btn {
 	margin: 15px 0;
-	background-color: black;
+	background-color: #ebebe0;
 	color: #fff;
 }
 
 .navbar {
 	margin-bottom: 0;
-	background-color: black;
+	background-color: #ebebe0;
 	z-index: 9999;
 	border: 0;
 	font-size: 12px !important;
@@ -165,7 +168,7 @@ font-size:200px;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-	color: black !important;
+	color: #ebebe0 !important;
 	background-color: #fff !important;
 }
 
@@ -177,7 +180,7 @@ font-size:200px;
 footer .glyphicon {
 	font-size: 20px;
 	margin-bottom: 20px;
-	color: black;
+	color: #ebebe0;
 }
 
 .slideanim {
@@ -215,7 +218,7 @@ footer .glyphicon {
 }
 
 .image {
-	display: block;
+	display: #ebebe0;
 	width: 100%;
 	height: auto;
 }
@@ -238,7 +241,7 @@ footer .glyphicon {
 }
 
 .text {
-	color: white;
+	color: balck;
 	font-size: 20px;
 	position: absolute;
 	top: 50%;
@@ -511,15 +514,47 @@ to {
 		<div id="id01" class="modal">
 			<span onclick="document.getElementById('id01').style.display='none'"
 				class="close" title="Close Modal">×</span>
-			<form class="modal-content animate" action="/action_page.php">
+			<form class="modal-content animate" action="signup.do">
 				<div class="container">
 					<label><b>Email</b></label> <input type="text"
 						placeholder="Enter Email" name="email" required> <label><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="psw"
 						required> <label><b>Repeat Password</b></label> <input
 						type="password" placeholder="Repeat Password" name="psw-repeat"
-						required> <input type="checkbox" checked="checked">
-					Remember me
+						required> <label><b>name</b></label> <input type="text"
+						placeholder="Enter Name" name="name" required> <label><b>Nick name</b></label>
+					<input type="text" placeholder="Enter Nick" name="nick" required>
+					<label><b>Address</b></label> <input type="text"
+						placeholder="Enter Addr" name="addr" required> <label><b>Birthday</b></label>
+					<select name="year">
+						<%
+							for (int i = 2014; i > 1949; i--) {
+						%>
+						<option value="<%=i%>"><%=i%>년
+						</option>
+						<%
+							}
+						%>
+					</select> <select name="month">
+						<%
+							for (int i = 1; i < 13; i++) {
+						%>
+						<option value="<%=i%>"><%=i%>월
+						</option>
+						<%
+							}
+						%>
+					</select> <select name="day">
+
+						<%
+							for (int i = 1; i < 31; i++) {
+						%>
+						<option value="<%=i%>"><%=i%>일
+						</option>
+						<%
+							}
+						%>
+					</select><br> <input type="checkbox" checked="checked"> Remember me
 					<p>
 						By creating an account you agree to our <a href="#">Terms &
 							Privacy</a>.
@@ -570,7 +605,7 @@ to {
 				</div>
 
 				<div class="container">
-				
+
 					<label><b>E-mail</b></label> <input type="text"
 						placeholder="Enter E-mail" name="uname" required> <label><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="psw"
@@ -578,16 +613,16 @@ to {
 
 					<button type="submit">Login</button>
 					<input type="checkbox" checked="checked"> Remember me
-					</div>
-				</form>
-				
-
-				<div class="container" style="background-color: #f1f1f1">
-					<button type="button"
-						onclick="document.getElementById('id02').style.display='none'"
-						class="cancelbtn">Cancel</button>
-					<span class="psw">Forgot <a href="#">password?</a></span>
 				</div>
+			</form>
+
+
+			<div class="container" style="background-color: #f1f1f1">
+				<button type="button"
+					onclick="document.getElementById('id02').style.display='none'"
+					class="cancelbtn">Cancel</button>
+				<span class="psw">Forgot <a href="#">password?</a></span>
+			</div>
 			</form>
 		</div>
 
@@ -631,369 +666,367 @@ to {
 		<h2></h2>
 		<h4></h4>
 		<br>
-		<div class="row slideanim">
-			
-	</div>
+		<div class="row slideanim"></div>
 
-	<!-- Container (Portfolio Section) -->
-	<div id="portfolio" class="container-fluid text-center bg-grey">
-		<h2>portfolio</h2>
-		<br>
-		<h4></h4>
-		<div class="row text-center slideanim">
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar3.png" alt="team1" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar5.png" alt="team2" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar3.png" alt="team3" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar5.png" alt="team2" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar3.png" alt="team3" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar5.png" alt="team2" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar3.png" alt="team3" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar5.png" alt="team2" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="thumbnail">
-					<img src="resources/images/img_avatar3.png" alt="team3" width="300"
-						height="200">
-					<div class="overlay">
-						<div class="text">상세내용</div>
-					</div>
-					<p>
-						<strong>상세내용</strong>
-					</p>
-					<p></p>
-				</div>
-			</div>
-		</div>
-		<br>
-
-		<h2></h2>
-		<div id="myCarousel" class="carousel slide text-center"
-			data-ride="carousel">
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-			</ol>
-
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" role="listbox">
-				<div class="item active">
-					<h4>
-						"This company is the best. I am so happy with the result!"<br>
-						<span></span>
-					</h4>
-				</div>
-				<div class="item">
-					<h4>
-						"One word... WOW!!"<br> <span></span>
-					</h4>
-				</div>
-				<div class="item">
-					<h4>
-						"Could I... BE any more happy with this company?"<br> <span></span>
-					</h4>
-				</div>
-			</div>
-
-			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button"
-				data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</div>
-
-	<!-- Container (Pricing Section) -->
-	<div id="pricing" class="container-fluid">
-		<div class="text-center">
-			<h2></h2>
+		<!-- Container (Portfolio Section) -->
+		<div id="portfolio" class="container-fluid text-center bg-grey">
+			<h2>portfolio</h2>
+			<br>
 			<h4></h4>
-		</div>
-		<div class="row slideanim">
-			<div class="col-sm-4 col-xs-12">
-				<div class="panel panel-default text-center">
-					<div class="panel-heading">
-						<h1>1</h1>
+			<div class="row text-center slideanim">
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar3.png" alt="team1"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
 					</div>
-					<div class="panel-body">
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar5.png" alt="team2"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
 						<p>
-							<strong>20</strong> Lorem
+							<strong>상세내용</strong>
 						</p>
-						<p>
-							<strong>15</strong> Ipsum
-						</p>
-						<p>
-							<strong>5</strong> Dolor
-						</p>
-						<p>
-							<strong>2</strong> Sit
-						</p>
-						<p>
-							<strong>Endless</strong> Amet
-						</p>
+						<p></p>
 					</div>
-					<div class="panel-footer">
-						<h3>$19</h3>
-						<h4>per month</h4>
-						<button class="btn btn-lg">Sign Up</button>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar3.png" alt="team3"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar5.png" alt="team2"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar3.png" alt="team3"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar5.png" alt="team2"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar3.png" alt="team3"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar5.png" alt="team2"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<img src="resources/images/img_avatar3.png" alt="team3"
+							width="300" height="200">
+						<div class="overlay">
+							<div class="text">상세내용</div>
+						</div>
+						<p>
+							<strong>상세내용</strong>
+						</p>
+						<p></p>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4 col-xs-12">
-				<div class="panel panel-default text-center">
-					<div class="panel-heading">
-						<h1>2</h1>
-					</div>
-					<div class="panel-body">
-						<p>
-							<strong>50</strong> Lorem
-						</p>
-						<p>
-							<strong>25</strong> Ipsum
-						</p>
-						<p>
-							<strong>10</strong> Dolor
-						</p>
-						<p>
-							<strong>5</strong> Sit
-						</p>
-						<p>
-							<strong>Endless</strong> Amet
-						</p>
-					</div>
-					<div class="panel-footer">
-						<h3>$29</h3>
-						<h4>per month</h4>
-						<button class="btn btn-lg">Sign Up</button>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4 col-xs-12">
-				<div class="panel panel-default text-center">
-					<div class="panel-heading">
-						<h1>3</h1>
-					</div>
-					<div class="panel-body">
-						<p>
-							<strong>100</strong> Lorem
-						</p>
-						<p>
-							<strong>50</strong> Ipsum
-						</p>
-						<p>
-							<strong>25</strong> Dolor
-						</p>
-						<p>
-							<strong>10</strong> Sit
-						</p>
-						<p>
-							<strong>Endless</strong> Amet
-						</p>
-					</div>
-					<div class="panel-footer">
-						<h3>$49</h3>
-						<h4>per month</h4>
-						<button class="btn btn-lg">Sign Up</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+			<br>
 
-	<!-- Container (Contact Section) -->
-	<div id="contact" class="container-fluid bg-grey">
-		<h2 class="text-center">CONTACT</h2>
-		<div class="row">
-			<div class="col-sm-5">
-				<p>Contact us and we'll get back to you within 24 hours.</p>
-				<p>
-					<span class="glyphicon glyphicon-map-marker"></span> mapo, south
-					korea
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-phone"></span> +00 1515151515
-				</p>
-				<p>
-					<span class="glyphicon glyphicon-envelope"></span>
-					myemail@oneted.com
-				</p>
-			</div>
-			<div class="col-sm-7 slideanim">
-				<div class="row">
-					<div class="col-sm-6 form-group">
-						<input class="form-control" id="name" name="name"
-							placeholder="Name" type="text" required>
+			<h2></h2>
+			<div id="myCarousel" class="carousel slide text-center"
+				data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<h4>
+							"This company is the best. I am so happy with the result!"<br>
+							<span></span>
+						</h4>
 					</div>
-					<div class="col-sm-6 form-group">
-						<input class="form-control" id="email" name="email"
-							placeholder="Email" type="email" required>
+					<div class="item">
+						<h4>
+							"One word... WOW!!"<br> <span></span>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+							"Could I... BE any more happy with this company?"<br> <span></span>
+						</h4>
 					</div>
 				</div>
-				<textarea class="form-control" id="comments" name="comments"
-					placeholder="Comment" rows="5"></textarea>
-				<br>
-				<div class="row">
-					<div class="col-sm-12 form-group">
-						<button class="btn btn-default pull-right" type="submit">Send</button>
+
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#myCarousel" role="button"
+					data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a> <a class="right carousel-control" href="#myCarousel" role="button"
+					data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- Container (Pricing Section) -->
+		<div id="pricing" class="container-fluid">
+			<div class="text-center">
+				<h2></h2>
+				<h4></h4>
+			</div>
+			<div class="row slideanim">
+				<div class="col-sm-4 col-xs-12">
+					<div class="panel panel-default text-center">
+						<div class="panel-heading">
+							<h1>1</h1>
+						</div>
+						<div class="panel-body">
+							<p>
+								<strong>20</strong> Lorem
+							</p>
+							<p>
+								<strong>15</strong> Ipsum
+							</p>
+							<p>
+								<strong>5</strong> Dolor
+							</p>
+							<p>
+								<strong>2</strong> Sit
+							</p>
+							<p>
+								<strong>Endless</strong> Amet
+							</p>
+						</div>
+						<div class="panel-footer">
+							<h3>$19</h3>
+							<h4>per month</h4>
+							<button class="btn btn-lg">Sign Up</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+					<div class="panel panel-default text-center">
+						<div class="panel-heading">
+							<h1>2</h1>
+						</div>
+						<div class="panel-body">
+							<p>
+								<strong>50</strong> Lorem
+							</p>
+							<p>
+								<strong>25</strong> Ipsum
+							</p>
+							<p>
+								<strong>10</strong> Dolor
+							</p>
+							<p>
+								<strong>5</strong> Sit
+							</p>
+							<p>
+								<strong>Endless</strong> Amet
+							</p>
+						</div>
+						<div class="panel-footer">
+							<h3>$29</h3>
+							<h4>per month</h4>
+							<button class="btn btn-lg">Sign Up</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+					<div class="panel panel-default text-center">
+						<div class="panel-heading">
+							<h1>3</h1>
+						</div>
+						<div class="panel-body">
+							<p>
+								<strong>100</strong> Lorem
+							</p>
+							<p>
+								<strong>50</strong> Ipsum
+							</p>
+							<p>
+								<strong>25</strong> Dolor
+							</p>
+							<p>
+								<strong>10</strong> Sit
+							</p>
+							<p>
+								<strong>Endless</strong> Amet
+							</p>
+						</div>
+						<div class="panel-footer">
+							<h3>$49</h3>
+							<h4>per month</h4>
+							<button class="btn btn-lg">Sign Up</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!--
+		<!-- Container (Contact Section) -->
+		<div id="contact" class="container-fluid bg-grey">
+			<h2 class="text-center">CONTACT</h2>
+			<div class="row">
+				<div class="col-sm-5">
+					<p>Contact us and we'll get back to you within 24 hours.</p>
+					<p>
+						<span class="glyphicon glyphicon-map-marker"></span> mapo, south
+						korea
+					</p>
+					<p>
+						<span class="glyphicon glyphicon-phone"></span> +00 1515151515
+					</p>
+					<p>
+						<span class="glyphicon glyphicon-envelope"></span>
+						myemail@oneted.com
+					</p>
+				</div>
+				<div class="col-sm-7 slideanim">
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<input class="form-control" id="name" name="name"
+								placeholder="Name" type="text" required>
+						</div>
+						<div class="col-sm-6 form-group">
+							<input class="form-control" id="email" name="email"
+								placeholder="Email" type="email" required>
+						</div>
+					</div>
+					<textarea class="form-control" id="comments" name="comments"
+						placeholder="Comment" rows="5"></textarea>
+					<br>
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<button class="btn btn-default pull-right" type="submit">Send</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
 To use this code on your website, get a free API key from Google.
 Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 -->
 
-	<footer class="container-fluid text-center"> <a href="#myPage"
-		title="To Top"> <span class="glyphicon glyphicon-chevron-up"></span>
-	</a>
-	<p>
-		team project <a href="https://www.w3schools.com"
-			title="Visit w3schools">www.oented.com</a>
-	</p>
-	</footer>
+		<footer class="container-fluid text-center"> <a
+			href="#myPage" title="To Top"> <span
+			class="glyphicon glyphicon-chevron-up"></span>
+		</a>
+		<p>
+			team project <a href="https://www.w3schools.com"
+				title="Visit w3schools">www.oented.com</a>
+		</p>
+		</footer>
 
-	<script>
-		$(document).ready(
-				function() {
-					// Add smooth scrolling to all links in navbar + footer link
-					$(".navbar a, footer a[href='#myPage']").on('click',
-							function(event) {
-								// Make sure this.hash has a value before overriding default behavior
-								if (this.hash !== "") {
-									// Prevent default anchor click behavior
-									event.preventDefault();
+		<script>
+			$(document).ready(
+					function() {
+						// Add smooth scrolling to all links in navbar + footer link
+						$(".navbar a, footer a[href='#myPage']").on('click',
+								function(event) {
+									// Make sure this.hash has a value before overriding default behavior
+									if (this.hash !== "") {
+										// Prevent default anchor click behavior
+										event.preventDefault();
 
-									// Store hash
-									var hash = this.hash;
+										// Store hash
+										var hash = this.hash;
 
-									// Using jQuery's animate() method to add smooth page scroll
-									// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-									$('html, body').animate({
-										scrollTop : $(hash).offset().top
-									}, 900, function() {
+										// Using jQuery's animate() method to add smooth page scroll
+										// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+										$('html, body').animate({
+											scrollTop : $(hash).offset().top
+										}, 900, function() {
 
-										// Add hash (#) to URL when done scrolling (default click behavior)
-										window.location.hash = hash;
-									});
-								} // End if
+											// Add hash (#) to URL when done scrolling (default click behavior)
+											window.location.hash = hash;
+										});
+									} // End if
+								});
+
+						$(window).scroll(function() {
+							$(".slideanim").each(function() {
+								var pos = $(this).offset().top;
+
+								var winTop = $(window).scrollTop();
+								if (pos < winTop + 600) {
+									$(this).addClass("slide");
+								}
 							});
-
-					$(window).scroll(function() {
-						$(".slideanim").each(function() {
-							var pos = $(this).offset().top;
-
-							var winTop = $(window).scrollTop();
-							if (pos < winTop + 600) {
-								$(this).addClass("slide");
-							}
 						});
-					});
-				})
-	</script>
-
+					})
+		</script>
 </body>
 </html>

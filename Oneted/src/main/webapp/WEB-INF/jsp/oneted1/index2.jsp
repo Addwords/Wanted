@@ -42,8 +42,8 @@ h4 {
 }
 
 .jumbotron {
-	background-color: black;
-	color: #fff;
+	background-color:#ebebe0;
+	color: #000000;
 	padding: 100px 25px;
 	font-family: Montserrat, sans-serif;
 }
@@ -57,12 +57,12 @@ h4 {
 }
 
 .logo-small {
-	color: black;
+	color: #ebebe0;
 	font-size: 50px;
 }
 
 .logo{
-color:black;
+color:#ebebe0;
 font-size:200px;
 }
 .thumbnail {
@@ -79,15 +79,15 @@ font-size:200px;
 
 .carousel-control.right, .carousel-control.left {
 	background-image: none;
-	color: black;
+	color: #ebebe0;
 }
 
 .carousel-indicators li {
-	border-color: black;
+	border-color: #ebebe0;
 }
 
 .carousel-indicators li.active {
-	background-color: black;
+	background-color: #ebebe0;
 }
 
 .item h4 {
@@ -103,7 +103,7 @@ font-size:200px;
 }
 
 .panel {
-	border: 1px solid balck;
+	border: 1px solid #ebebe0;
 	border-radius: 0 !important;
 	transition: box-shadow 0.5s;
 }
@@ -113,14 +113,14 @@ font-size:200px;
 }
 
 .panel-footer .btn:hover {
-	border: 1px solid black;
+	border: 1px solid #ebebe0;
 	background-color: #fff !important;
-	color: black;
+	color:#ebebe0;
 }
 
 .panel-heading {
 	color: #fff !important;
-	background-color: black !important;
+	background-color:#ebebe0 !important;
 	padding: 25px;
 	border-bottom: 1px solid transparent;
 	border-top-left-radius: 0px;
@@ -150,7 +150,7 @@ font-size:200px;
 
 .navbar {
 	margin-bottom: 0;
-	background-color: black;
+	background-color: #ebebe0;
 	z-index: 9999;
 	border: 0;
 	font-size: 12px !important;
@@ -165,7 +165,7 @@ font-size:200px;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-	color: black !important;
+	color:#ebebe0 !important;
 	background-color: #fff !important;
 }
 
@@ -177,7 +177,7 @@ font-size:200px;
 footer .glyphicon {
 	font-size: 20px;
 	margin-bottom: 20px;
-	color: black;
+	color: #ebebe0;
 }
 
 .slideanim {
@@ -277,10 +277,10 @@ footer .glyphicon {
 	<div>
 		<ul class="nav navbar-nav navbar-right">
 		
-        <a href="#" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </a>
-      </p> 
+  <li><a
+				onclick="document.getElementById('id01').style.display='block'"
+				style="width: auto;"><span class="glyphicon glyphicon-user"></span>
+					logout</a></li>
 		</ul>
 
 	</div>
