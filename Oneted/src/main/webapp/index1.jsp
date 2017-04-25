@@ -561,7 +561,7 @@ to {
 		<!-- login -->
 		<div id="id02" class="modal">
 
-			<form class="modal-content animate" action="/action_page.php">
+			<form class="modal-content animate" action="login.do">
 				<div class="imgcontainer">
 					<span
 						onclick="document.getElementById('id02').style.display='none'"
@@ -570,7 +570,7 @@ to {
 				</div>
 
 				<div class="container">
-				<form action="login.do">
+				
 					<label><b>E-mail</b></label> <input type="text"
 						placeholder="Enter E-mail" name="uname" required> <label><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="psw"
@@ -578,8 +578,9 @@ to {
 
 					<button type="submit">Login</button>
 					<input type="checkbox" checked="checked"> Remember me
+					</div>
 				</form>
-				</div>
+				
 
 				<div class="container" style="background-color: #f1f1f1">
 					<button type="button"

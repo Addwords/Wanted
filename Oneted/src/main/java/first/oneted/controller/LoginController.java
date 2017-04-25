@@ -21,9 +21,9 @@ public class LoginController {
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
-	@RequestMapping(value="/login/login.do")
+	@RequestMapping(value="login.do")
     public ModelAndView openBoardList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/oneted1/loginform");
+    	ModelAndView mv = new ModelAndView("/oneted1/index2");
     	
     	List<Map<String, Object>> login = loginService.selectlogin(commandMap.getMap());
     	mv.addObject("login",login);
