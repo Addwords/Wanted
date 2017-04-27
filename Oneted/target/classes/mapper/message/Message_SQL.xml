@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="message">
+
+	<insert id="sendMsg" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO message
+			(
+				mid,
+			    sender, 
+			    recipient, 
+			    subject, 
+			    cont,
+			    deleted
+			)
+			VALUES
+			(
+				message_seq.NEXTVAL, 
+				#{SENDER},
+				#{RECIPIENT},
+				#{SUBJECT},
+				#{CONTENTS},
+				'N'
+			)
+		]]>
+	</insert>
+
+	<update id="delMsg" parameterType="hashmap">
+		<![CDATA[
+			UPDATE message
+			SET
+				deleted = 'Y'
+			WHERE
+				mid = #{MID}
+		]]>
+	</update>
+
+	<select id="listMsg" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			     
+			    subject,			    
+			    writeday
+			FROM
+				message
+			WHERE
+				recipient = #{RECIPIENT}
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+	<select id="searchSenderMsg" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			     
+			    subject,			    
+			    writeday
+			FROM
+				message
+			WHERE
+				recipient = #{RECIPIENT}
+				AND sender LIKE '%'||#{SEARCHKEY}||'%'				
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+	<select id="searchSubjectMsg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			     
+			    subject,			    
+			    writeday
+			FROM
+				message
+			WHERE
+				recipient = #{RECIPIENT}				
+				AND subject LIKE '%'||#{SEARCHKEY}||'%'				
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+	<select id="searchContentsMsg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			     
+			    subject,			    
+			    writeday
+			FROM
+				message
+			WHERE
+				recipient = #{RECIPIENT}
+				AND cont LIKE '%'||#{SEARCHKEY}||'%'
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+	<select id="searchWritedayMsg" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			     
+			    subject,			    
+			    writeday
+			FROM
+				message
+			WHERE
+				recipient = #{RECIPIENT}
+				AND writeday >= TO_DATE(#{SEARCHKEY},'YYYY/MM/DD')
+   				AND writeday <  TO_DATE(#{SEARCHKEY},'YYYY/MM/DD')+1
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+
+	<select id="detailMsg" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mid,
+			    sender,			    
+			    subject, 
+			    cont,
+			    writeday		    
+			FROM
+				message
+			WHERE
+				mid = #{MID}
+				AND deleted = 'N'		
+		]]>
+	</select>
+
+</mapper>

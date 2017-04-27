@@ -32,6 +32,7 @@ function ComSubmit(opt_formId) {
 		frm.method = "post";
 		frm.submit();	
 	};
+	
 }
 
 var gfv_ajaxCallback = "";
