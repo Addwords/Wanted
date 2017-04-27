@@ -236,7 +236,7 @@ aria-valuenow="92" role="progressbar" class="progress-bar progress-bar-u"></div>
 			
 			$("input[name='FACEFILE_1']").change(function(e){
 				var file = this.files[0];
-			    
+			    if(!file) return;
 			    /** 파일 확장자 체크부분 **/
 			    var filename = file['name'];
 				var extension = filename.replace(/^.*\./, '');
