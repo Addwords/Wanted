@@ -36,12 +36,12 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		
+			
 		<repository>
-			<id>codelds</id>
+			<id>oracle</id>
 			<name>ORACLE JDBC Repository</name>
-			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
-		</repository> 
+			<url>https://maven.atlassian.com/3rdparty/</url>
+		</repository>
 	</repositories>
 	
 	<dependencies>
@@ -142,11 +142,11 @@
 		</dependency>
 		
 		<!-- Oracle -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.oracle</groupId> -->
-<!-- 			<artifactId>ojdbc6</artifactId> -->
-<!-- 			<version>11.2.0.3</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>12.1.0.1-atlassian-hosted</version>
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>

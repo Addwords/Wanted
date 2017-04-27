@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+
 @Component("fileUtils")
 public class FileUtils {
 	
@@ -105,4 +106,48 @@ public class FileUtils {
         }
 		return list;
 	}
+	
+    //파일 하나만 업로드시킬려고만듬
+    public Map<String,Object> parseInsertFileInfoOne(Map<String,Object> map, HttpServletRequest request) throws Exception{
+        
+    	MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+    	Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+    	
+        MultipartFile multipartFile = null;
+        String originalFileName = null;
+        String originalFileExtension = null;
+        String storedFileName = null;
+        
+        Map<String, Object> FileInfoMap = null;
+        
+        
+        //폴더가 없으면 해당 폴더 생성
+        File file = new File(CommonUtils.filePath);
+        if(file.exists() == false){
+            file.mkdirs();
+        }
+    	
+        while(iterator.hasNext()){
+	        multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+	        if(multipartFile.isEmpty() == false){
+	            originalFileName = multipartFile.getOriginalFilename();
+	            originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	            storedFileName = CommonUtils.getRandomString() + originalFileExtension;
+	            
+	            file = new File(CommonUtils.filePath + storedFileName);
+	            multipartFile.transferTo(file);
+	            
+	            FileInfoMap = new HashMap<String,Object>();
+	            
+	            FileInfoMap.put("ORIGINAL_FILE_NAME", originalFileName);
+	            FileInfoMap.put("STORED_FILE_NAME", storedFileName);
+	            FileInfoMap.put("FILE_SIZE", multipartFile.getSize());
+	            FileInfoMap.put("REFER_IDX", (String)map.get("IDX"));
+	            FileInfoMap.put("NAME", (String)map.get("NAME"));
+	            FileInfoMap.put("PJT_SCH_TITLE", (String)map.get("PJT_SCH_TITLE"));
+	            FileInfoMap.put("PJT_SCH_CONTENT", (String)map.get("PJT_SCH_CONTENT"));
+	        }
+        }
+        return FileInfoMap;
+    }
 }

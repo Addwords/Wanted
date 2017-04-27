@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mber">
+	
+	<sql id="joinSelectMber">
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY MI.MBER_INFO_IDX DESC) RNUM,
+			MI.*,
+			M.MBER_NAME
+		FROM
+			MBER M, MBER_INFO MI
+		WHERE
+			M.MBER_EMAIL = MI.MBER_EMAIL
+	</sql>
+	
+	
+	<select id="selectMberList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
+		<include refid="joinSelectMber"/>
+			ORDER BY MI.MBER_INFO_IDX DESC
+		<include refid="common.pagingPost"/> 
+	</select>
+	
+
+</mapper>
