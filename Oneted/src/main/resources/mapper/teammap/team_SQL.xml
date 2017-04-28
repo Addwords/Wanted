@@ -14,6 +14,17 @@
 		]]>
 	</select>
 	
+	<select id="selectProjectList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_board
+			ORDER BY
+				pseq desc
+		]]>
+	</select>
+	
 	<select id="selectTeamOne" parameterType="int" resultType="hashmap">
 		<![CDATA[
 			SELECT
@@ -25,6 +36,15 @@
 		]]>
 	</select>
 	
-	
+	<select id="selectProjectOne" parameterType="int" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_board
+			WHERE
+				PSEQ = #{IDX2}
+		]]>
+	</select>
 	
 </mapper>

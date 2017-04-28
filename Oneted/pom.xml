@@ -247,6 +247,12 @@
             <version>1.2.2</version>
         </dependency>
         
+        <dependency>
+            <groupId>servlets.com</groupId>
+            <artifactId>cos</artifactId>
+            <version>05Nov2002</version>
+        </dependency>
+        
         <!-- Apache Codec -->
         <dependency>
 			<groupId>commons-codec</groupId>

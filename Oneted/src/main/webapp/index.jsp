@@ -1,2 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<jsp:forward page="/team/openTeamList.do"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<h1><a href=<c:url value='/team/openTeamList.do'/>> GO </a></h1>
+<%-- <jsp:forward page="/team/openTeamList.do"/> --%>

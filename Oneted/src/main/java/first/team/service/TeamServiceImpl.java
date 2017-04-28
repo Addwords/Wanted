@@ -25,7 +25,17 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public List<Map<String, Object>> selectTeam(Map<String, Object> map) throws Exception {
-		return teamDAO.selectBoard(map);
+		return teamDAO.selectTeam(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectProjectList(Map<String, Object> map) throws Exception {
+		return teamDAO.selectProjectList(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectProject(Map<String, Object> map) throws Exception {
+		return teamDAO.selectProject(map);
 	}
 
 }

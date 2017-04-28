@@ -16,10 +16,20 @@ public class TeamDAO extends AbstractDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectBoard(Map<String, Object> map) throws Exception{
+	public List<Map<String, Object>> selectProjectList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectPagingList("team.selectProjectList", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectTeam(Map<String, Object> map) throws Exception{
 		System.out.println("durl");
 		return (List<Map<String, Object>>)selectPagingList("team.selectTeamOne", map);
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectProject(Map<String, Object> map) throws Exception{
+		System.out.println("durl");
+		return (List<Map<String, Object>>)selectPagingList("team.selectProjectOne", map);
+	}
 
 }
