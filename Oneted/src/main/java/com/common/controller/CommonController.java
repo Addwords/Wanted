@@ -2,6 +2,7 @@ package com.common.controller;
 
 import java.io.File;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.common.common.CommandMap;
 import com.common.service.CommonService;
+import com.common.util.CommonUtils;
+
 
 @Controller
 public class CommonController {
@@ -39,4 +42,23 @@ public class CommonController {
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
 	}
+	
+    //이미지 파일을 컨트롤러를 경유해서 로컬 저장소에서 띄우기 위한것 가장어려웠던부분 포스팅할 것
+    @RequestMapping(value="common/getImage.do")
+    protected void getImageFile(CommandMap commandMap, HttpServletResponse response) throws Exception
+    {
+        String fileName = (String) commandMap.get("IMG_NAME");
+
+        if(!fileName.isEmpty())
+        {
+	        File file = new File(CommonUtils.filePath+fileName);
+	        response.setHeader("Content-Type", "image/*");
+	        response.setHeader("Content-Length", String.valueOf(file.length()));
+	        response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
+	        Files.copy(file.toPath(), response.getOutputStream());
+	        
+	        response.getOutputStream().flush();
+	        response.getOutputStream().close();
+        }
+    }
 }

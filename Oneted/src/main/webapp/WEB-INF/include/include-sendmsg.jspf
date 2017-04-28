@@ -1,0 +1,31 @@
+
+<div id="id01" class="w3-modal" style="z-index: 4">
+	<div class="w3-modal-content w3-animate-zoom">
+		<div class="w3-container w3-padding w3-red">
+			<span onclick="document.getElementById('id01').style.display='none'"
+				class="w3-button w3-red w3-right w3-xxlarge"><i
+				class="fa fa-remove"></i></span>
+			<h2>Send Message</h2>
+		</div>
+		<div class="w3-panel">
+			<label>To</label> <input id="srecipient"
+				class="w3-input w3-border w3-margin-bottom" type="text"
+				placeholder="e-mail"> <label>Subject</label> <input
+				id="ssubject" class="w3-input w3-border w3-margin-bottom"
+				type="text">
+			<div id="scontents" class="w3-input w3-border w3-margin-bottom"
+				style="height: 150px; -webkit-user-modify: read-write; word-wrap: break-word; -webkit-line-break: after-white-space;"></div>
+			<div class="w3-section">
+				<a class="w3-button w3-red"
+					onclick="document.getElementById('id01').style.display='none'">Cancel
+					 <i class="fa fa-remove"></i>
+				</a> <a class="w3-button w3-light-grey w3-right"
+					onclick="document.getElementById('id01').style.display='none'"
+					id="sendMsg">Send  <i class="fa fa-paper-plane"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="<c:url value='/resources/js/sendmsg.js?ver=1'/>" charset="utf-8"></script>

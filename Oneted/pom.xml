@@ -325,7 +325,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>	  
+		</dependency>	 
+				<!-- gson 219-->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.5</version>
+			<scope>compile</scope>
+		</dependency> 
 	</dependencies>
 	
 	

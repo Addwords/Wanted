@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 
 
 public class CommonUtils {
+	
+	public static final String filePath = "C:\\dev\\upload\\";
+	
 	private static final Logger log = Logger.getLogger(CommonUtils.class);
 	
 	public static String getRandomString(){

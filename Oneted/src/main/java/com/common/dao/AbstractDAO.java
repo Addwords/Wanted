@@ -1,5 +1,6 @@
 package com.common.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 public class AbstractDAO {
 	protected Log log = LogFactory.getLog(AbstractDAO.class);
@@ -58,8 +61,9 @@ public class AbstractDAO {
 		return sqlSession.selectList(queryId,params);
 	}
 	
-	/*@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map selectPagingList(String queryId, Object params){
+	//전자정부
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map selectPagingList(String queryId, Object params, int contentNum){
 		printQueryId(queryId);
 		
 		Map<String,Object> map = (Map<String,Object>)params;
@@ -71,7 +75,7 @@ public class AbstractDAO {
 		paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(Integer.parseInt(map.get("currentPageNo").toString()));
 		if(map.containsKey("PAGE_ROW") == false || StringUtils.isEmpty(map.get("PAGE_ROW")) == true){
-			paginationInfo.setRecordCountPerPage(15);
+			paginationInfo.setRecordCountPerPage(contentNum);
 		}
 		else{
 			paginationInfo.setRecordCountPerPage(Integer.parseInt(map.get("PAGE_ROW").toString()));
@@ -106,7 +110,7 @@ public class AbstractDAO {
 		}
 		returnMap.put("result", list);
 		return returnMap;
-	}*/
+	}
 	
 	@SuppressWarnings("unchecked")
 	public Object selectPagingList(String queryId, Object params){

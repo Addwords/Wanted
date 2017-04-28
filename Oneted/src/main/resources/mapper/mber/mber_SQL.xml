@@ -3,19 +3,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mber">
-
-	<select id="detailMberView" parameterType="hashmap" resultType="hashmap">
+	<select id="selectMberDetail" parameterType="hashmap" resultType="hashmap">
 		SELECT
-			MBER_INFO_IDX
-			MBER_NAME
-			MBER_PHONE
-			MBER_LOCAL
-			MBER_SKILL
-			MBER_INTRODUCE
-			MBER_IMG
+			MBER_INFO_IDX	as "IDX",
+			MBER_PHONE		as "PHONE",
+			MBER_LOCAL		as "LOCAL",
+			MBER_SKILL		as "SKILL",
+			MBER_INTRODUCE	as "INTRODUCE",
+			MBER_IMG		as "IMG"
 		FROM
 			MBER_INFO
 		WHERE
 			MBER_INFO_IDX = #{IDX}
 	</select>
+	
+	<!-- 상하꺼 쿼리 -->
+	<!-- 인클루드 하기위해-->
+	<sql id="joinSelectMber">
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY MI.MBER_INFO_IDX DESC) RNUM,
+			MI.*,
+			M.MBER_NAME
+		FROM
+			MBER M, MBER_INFO MI
+		WHERE
+			M.MBER_EMAIL = MI.MBER_EMAIL
+	</sql>
+	
+	
+	<select id="selectMberList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
+		<include refid="joinSelectMber"/>
+			AND 
+				M.MBER_DEL = 'N'
+			AND	
+				MI.MBER_INFO_DEL = 'N'
+			ORDER BY MI.MBER_INFO_IDX DESC
+		<include refid="common.pagingPost"/> 
+	</select>
+	
 </mapper>

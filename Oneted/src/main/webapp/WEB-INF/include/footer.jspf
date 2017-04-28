@@ -1,0 +1,7 @@
+	<!-- z-index: 출력 되는 순서 숫자가 클수록 나중에 출력 되서 가장 위에 배치됨; width: 100% -->
+	
+	<footer class="footer container-fluid text-center w3-black">
+
+		<p class="w3-hover-text-white"><span class="w3-text-red w3-hover-text-white">One</span>ted Copyright</p>
+
+	</footer>
