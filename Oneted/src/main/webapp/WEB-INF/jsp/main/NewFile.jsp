@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Oented</title>
+  <title>Oneted</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -41,7 +41,7 @@ background-color: rgba( 255, 255, 255, 0.9);}
   
 <div class="jumbotron">
   <div class="container text-center">
-    <h1> One ted</h1>      
+    <h1><font></font> One ted</h1>      
     <p>TEAM PROJECT</p>
     <form class="form-inline">search:
     <input type="text" class="form-control" size="50" placeholder="search">
