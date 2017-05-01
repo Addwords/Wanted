@@ -20,10 +20,19 @@ public class TeamServiceImpl implements TeamService {
 	
 	@Resource(name="teamDAO")
 	private TeamDAO teamDAO;
-	
+
 	@Override
-	public List<Map<String, Object>> selectTeamList(Map<String, Object> map) throws Exception {
-		return teamDAO.selectTeamList(map);
+	public Map<String, Object> selectTeamInfo(Map<String, Object> map) {
+		return teamDAO.selectTeamInfo(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectTeamMember(Map<String, Object> map) {
+		return teamDAO.selectTeamMember(map);
+	}
+
+	@Override
+	public Map<String, Object> selectMemberInfo(Map<String, Object> map) {
+		return teamDAO.selectMemberInfo(map);
+	}
 }

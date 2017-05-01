@@ -18,10 +18,10 @@ import first.sample.service.SampleService;
 public class SampleController {
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Resource(name="teamService")
+	@Resource(name="sampleService")
 	private SampleService sampleService;
 	
-	@RequestMapping(value="/team/openTeamDetail.do")
+	@RequestMapping(value="/sample/openBoardList.do")
     public ModelAndView openBoardList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/sample/boardList");
     	

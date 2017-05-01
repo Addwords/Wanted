@@ -4,5 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface TeamService {
-	List<Map<String, Object>> selectTeamList(Map<String, Object> map) throws Exception;
+
+	Map<String, Object> selectTeamInfo(Map<String, Object> map);
+
+	List<Map<String, Object>> selectTeamMember(Map<String, Object> map);
+
+	Map<String, Object> selectMemberInfo(Map<String, Object> map);
+	
 }

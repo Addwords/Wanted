@@ -2,21 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="team">
-	
-	<select id="selectTeamList" parameterType="hashmap" resultType="hashmap">
-		<include refid="common.pagingPre"/> 
+	<select id="selectTeamInfo" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT
-				ROW_NUMBER() OVER (ORDER BY IDX DESC) RNUM,
-			    IDX,
-			    TITLE,
-			    HIT_CNT,
-			    TO_CHAR(CREA_DTM, 'YYYY.MM.DD') AS CREA_DTM
+				TEAM_ID,
+				L_EMAIL,
+			    TEAM_NAME,
+			    TEAM_IMG,
+			    TEAM_EXP
 			FROM
-			    TB_BOARD
+			    TEAM
 			WHERE
-				DEL_GB = 'N'
+				TEAM_ID=#{IDX}
 		]]>
-		<include refid="common.pagingPost"/> 
+	</select>
+	<select id="selectTeamMember" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    TM_EMAIL,
+			    TM_ROLE,
+			    MEMBER_IMG,
+                TEAM_NAME,
+                TEAM_IMG,
+                MEMBER_NAME
+			FROM
+			    TEAM_MEMBER tm,MEMBER m,TEAM t
+			WHERE
+				tm.TM_EMAIL=m.MEMBER_EMAIL
+                AND
+                tm.TEAM_ID=t.TEAM_ID 
+		]]>
+	        <if test="ROLE!=null">  
+        		AND
+        		TM_ROLE LIKE '%'||#{ROLE}
+        	</if>
+	</select>
+	<select id="selectMemberInfo" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				MEMBER_NAME,
+				MEMBER_EMAIL,
+				MEMBER_IMG
+			FROM
+			    MEMBER
+			WHERE
+				MEMBER_EMAIL=#{SEARCH_MEMBER_EMAIL}
+		]]>
 	</select>
 </mapper>
