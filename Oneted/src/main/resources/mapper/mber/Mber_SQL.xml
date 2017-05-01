@@ -18,6 +18,10 @@
 	<select id="selectMberList" parameterType="hashmap" resultType="hashmap">
 		<include refid="common.pagingPre"/> 
 		<include refid="joinSelectMber"/>
+			AND 
+				M.MBER_DEL = 'N'
+			AND	
+				MI.MBER_INFO_DEL = 'N'
 			ORDER BY MI.MBER_INFO_IDX DESC
 		<include refid="common.pagingPost"/> 
 	</select>

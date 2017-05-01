@@ -52,73 +52,77 @@
 		</div>
 	</div>
 
-<nav class="navbar navbar-inverse">
-<div class="container-fluid">
-	<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>                        
-		</button>
-		<a class="navbar-brand" href="#">WebSiteName</a>
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>                        
+			</button>
+			<a class="navbar-brand" href="#">WebSiteName</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Page 1-1</a></li>
+						<li><a href="#">Page 1-2</a></li>
+						<li><a href="#">Page 1-3</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Page 3</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+		</div>
 	</div>
-	<div class="collapse navbar-collapse" id="myNavbar">
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Home</a></li>
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Page 1-1</a></li>
-					<li><a href="#">Page 1-2</a></li>
-					<li><a href="#">Page 1-3</a></li>
-				</ul>
-			</li>
-			<li><a href="#">Page 2</a></li>
-			<li><a href="#">Page 3</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		</ul>
-	</div>
-</div>
-</nav>
+	</nav>
 
-<div class="container">    
-	<div class="row">
-		<c:choose>
-		    <c:when test="${fn:length(list) > 0}">
-		        <c:forEach items="${list}" var="mber">   	
-					<div class="col-sm-4" style="width: 25%">
-						<div class="panel panel-primary">
-							<div class="panel-heading" style="background-color: #333;">
-								<a href="#this" name="mber_name" style="text-decoration:none">${mber.MBER_NAME }</a>
+	<div class="container">
+		<div style="width: 100%; margin-bottom: 100px;">
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="float: right;">Open Genie</button>
+			<%@ include file="/WEB-INF/include/mber-search-modal.jsp"%>
+		</div>    
+		<div class="row">
+			<c:choose>
+			    <c:when test="${fn:length(list) > 0}">
+			        <c:forEach items="${list}" var="mber">   	
+						<div class="col-sm-4" style="width: 25%">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="background-color: #333;">
+									<a href="#this" name="mber_name" style="text-decoration:none">${mber.MBER_NAME }</a>
+								</div>
+								<div class="panel-body" style="max-height: 229px; overflow:hidden;">
+									<a href="#this" name="mber_img" style="text-decoration:none">
+										<img src="<c:url value='/common/getImage.do?IMG_NAME=${mber.MBER_IMG}'/>" class="img-responsive" style="width:100%" alt="Image">
+									</a>
+								</div>
+								<input id="IDX" type="hidden" name="IDX" value="${mber.MBER_INFO_IDX }">
+								<div class="panel-footer" style="height: 44px">${mber.MBER_SKILL }</div>
+								<div class="panel-footer" style="height: 88px">${mber.MBER_INTRODUCE }</div>
 							</div>
-							<div class="panel-body" style="max-height: 229px; overflow:hidden;">
-								<a href="#this" name="mber_img" style="text-decoration:none">
-									<img src="<c:url value='/common/getImage.do?IMG_NAME=${mber.MBER_IMG}'/>" class="img-responsive" style="width:100%" alt="Image">
-								</a>
-							</div>
-							<input id="IDX" type="hidden" name="IDX" value="${mber.MBER_INFO_IDX }">
-							<div class="panel-footer" style="height: 44px">${mber.MBER_SKILL }</div>
-							<div class="panel-footer" style="height: 88px">${mber.MBER_INTRODUCE }</div>
 						</div>
-					</div>
-		        </c:forEach>
-		    </c:when>
-		    <c:otherwise>
-		            조회된 결과가 없습니다.
-		    </c:otherwise>
-		</c:choose>       		
+			        </c:forEach>
+			    </c:when>
+			    <c:otherwise>
+			            조회된 결과가 없습니다.
+			    </c:otherwise>
+			</c:choose>       		
+		</div>
+	</div><br>
+	<div style="text-align: center;">
+		<c:if test="${not empty paginationInfo}">
+			<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="fn_search" />
+		</c:if>
+		<input type="hidden" id="currentPageNo" name="currentPageNo" />
+		<br><br>
 	</div>
-</div><br>
-<div style="text-align: center;">
-	<c:if test="${not empty paginationInfo}">
-		<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="fn_search" />
-	</c:if>
-	<input type="hidden" id="currentPageNo" name="currentPageNo" />
-	<br><br>
-</div>
 
 
 <form id="commonForm" name="commonForm"></form>
