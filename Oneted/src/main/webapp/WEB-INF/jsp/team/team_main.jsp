@@ -55,7 +55,7 @@ padding-top:100px;
 position:fixed;
 left:0; top:0;width:100%;height:100%;
 overflow:auto;
-background-color: rgba( 255, 255, 255, 0.9);}
+background-color: rgba( 255, 255, 255, 1);}
 
     .navbar {
       margin-bottom: 50px;
@@ -93,30 +93,31 @@ background-color: rgba( 255, 255, 255, 0.9);}
         <span class="icon-bar"></span>                        
       </button>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href='../team/openTeamList.do'>[Home]</a></li>
-        <li><a href='../team/openTeamList.do' >[Team List]</a></li>
-        <li><a href='../team/openProjectList.do' >[Project List]</a></li>
-        <li><form class="form-inline" id='ft' action='../team/searchList.do'>
-    <input type="text" id='search' name='search' class="form-control" size="50" placeholder="검색">
-    <input type="submit" class="btn btn-danger" value='검색'>
-  </form></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li id='joinup'><a href="#"><span class="glyphicon glyphicon-user"></span> Join us</a></li>
-        <li id='loginup'><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-<!--         <span class="w3-left w3-padding"><a href='main.jsp'><img src='image/Logo1.png' width='250' height='40'></a></span> -->
-  <li><a href="javascript:void(0)" class="w3-right w3-button w3-white w3-light-grey" id='asd' onclick="w3_open()">☰</a>
-      </ul>
-    </div>
+<!--     <div class="collapse navbar-collapse" id="myNavbar"> -->
+<!--       <ul class="nav navbar-nav"> -->
+<!--         <li><a href='../team/openTeamList.do'>[Home]</a></li> -->
+<!--         <li><a href='../team/openTeamList.do' >[Team List]</a></li> -->
+<!--         <li><a href='../team/openProjectList.do' >[Project List]</a></li> -->
+<!--         <li><form class="form-inline" id='ft' action='../team/searchList.do'> -->
+<!--     <input data-ved= type="text" id='search' name='search' class="form-control" size="50" placeholder="검색"> -->
+<!--     <input type="submit" class="btn btn-danger" value='검색'> -->
+<!--   </form></li> -->
+<!--       </ul> -->
+<!--       <ul class="nav navbar-nav navbar-right"> -->
+<!--         <li id='joinup'><a href="#"><span class="glyphicon glyphicon-user"></span> Join us</a></li> -->
+<!--         <li id='loginup'><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+<!-- <!--         <span class="w3-left w3-padding"><a href='main.jsp'><img src='image/Logo1.png' width='250' height='40'></a></span> --> -->
+<!--   <li><a href="javascript:void(0)" class="w3-right w3-button w3-white w3-light-grey" id='asd' onclick="w3_open()">☰</a> -->
+<!--       </ul> -->
+<!--     </div> -->
+<%@include file="/WEB-INF/include/include.jspf" %>
   </div>
 </nav>
 <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
 	  <a href="../team/createTeam.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Team</a> 
 	  <a href="../team/createProject.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Project</a> 
-	  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Team</a>
-	  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Project</a>
+	  <a href="../team/myteam_list.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Team</a>
+	  <a href="../team/myproject_list.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Project</a>
 	  <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">LogOut</a>
 </nav>
 <div class="container">   

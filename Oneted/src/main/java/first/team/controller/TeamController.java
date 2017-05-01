@@ -85,4 +85,18 @@ public class TeamController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/team/myteam_list.do")
+	public ModelAndView myTeam(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/team/my_list");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/team/myproject_list.do")
+	public ModelAndView myProject(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/team/my_list");
+		
+		return mv;
+	}
 }
