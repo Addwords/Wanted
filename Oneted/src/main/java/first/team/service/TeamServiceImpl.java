@@ -18,6 +18,8 @@ public class TeamServiceImpl implements TeamService{
 	@Resource(name="teamDAO")
 	private TeamDAO teamDAO;
 	
+	
+	
 	@Override
 	public List<Map<String, Object>> selectTeamList(Map<String, Object> map) throws Exception {
 		return teamDAO.selectBoardList(map);
@@ -36,6 +38,16 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public List<Map<String, Object>> selectProject(Map<String, Object> map) throws Exception {
 		return teamDAO.selectProject(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> searchTeamList(Map<String, Object> map) throws Exception {
+		return teamDAO.searchTeamList(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> searchProjectList(Map<String, Object> map) throws Exception {
+		return teamDAO.searchProjectList(map);
 	}
 
 }

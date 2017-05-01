@@ -7,7 +7,6 @@ ServletContext context = getServletContext();
 String absFolder = context.getRealPath(path);
  %> 
 <%=absFolder%>
-<%--   <%@ include file="/WEB-INF/include/include-header.jspf" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +24,25 @@ String absFolder = context.getRealPath(path);
   width: 30%;
   height: 70%;
   }
+  
+.tn{
+background-color:orange;
+}
+
+.pn{
+background-color:skyblue;
+}
+
 .panel-body{
 width: 100%;
 margin: auto;
 }
+
 .img-responsive{
 width: 400px;
 height: 310px;
 }
+
 .detimg{ 
 width: 400px;
 height: 300px;
@@ -60,6 +70,9 @@ background-color: rgba( 255, 255, 255, 0.9);}
       background-color: #f2f2f2;
       padding: 25px;
     }
+    ft{
+    margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -68,11 +81,6 @@ background-color: rgba( 255, 255, 255, 0.9);}
   <div class="container text-center">
     <h1><font color="red">One</font>ted</h1>      
     <p>TEAM PROJECT</p>
-    <img src="C:/Users/Addword/Desktop/picture/bg4.jpg">
-    <form class="form-inline">검색:
-    <input type="text" class="form-control" size="50" placeholder="팀 검색">
-    <button type="button" class="btn btn-danger">Sign Up</button>
-  </form>
   </div>
 </div>
 
@@ -90,6 +98,10 @@ background-color: rgba( 255, 255, 255, 0.9);}
         <li><a href='../team/openTeamList.do'>[Home]</a></li>
         <li><a href='../team/openTeamList.do' >[Team List]</a></li>
         <li><a href='../team/openProjectList.do' >[Project List]</a></li>
+        <li><form class="form-inline" id='ft' action='../team/searchList.do'>
+    <input type="text" id='search' name='search' class="form-control" size="50" placeholder="검색">
+    <input type="submit" class="btn btn-danger" value='검색'>
+  </form></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li id='joinup'><a href="#"><span class="glyphicon glyphicon-user"></span> Join us</a></li>
@@ -101,18 +113,20 @@ background-color: rgba( 255, 255, 255, 0.9);}
   </div>
 </nav>
 <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
-	  <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">팀 만들기</a> 
-	  <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">내 팀보기</a>
+	  <a href="../team/createTeam.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Team</a> 
+	  <a href="../team/createProject.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Project</a> 
+	  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Team</a>
+	  <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">My Project</a>
 	  <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">LogOut</a>
 </nav>
-<div class="container">    
+<div class="container">   
   <div class="row">
 <!--   <h1><a href=<c:url value='/team/openTeamList.do'/> >[Team List]</a> &nbsp; &nbsp; &nbsp;<a href=<c:url value='/team/openProjectList.do'/> >[Project List]</a></h1> -->
   <br>
    <c:forEach items="${tlist}" var="dto">
-    <div class="col-sm-4">
+    <div class="col-sm-4 w3-animate-zoom">
       <div class="panel panel-primary">
-        <div class="panel-heading">${dto.TNAME }</div>
+        <div class='tn'><div class="panel-heading"><strong>${dto.TNAME }</strong></div></div>
         <div class="panel-body">
         <img src="../resources/images/${dto.TIMG }"
          class="img-responsive" id="${dto.TSEQ}" alt="${dto.EMAIL }" 
@@ -125,9 +139,9 @@ background-color: rgba( 255, 255, 255, 0.9);}
      </c:forEach>
      
      <c:forEach items="${plist}" var="dtos">
-    <div class="col-sm-4">
+    <div class="col-sm-4 w3-animate-zoom">
       <div class="panel panel-primary">
-        <div class="panel-heading">${dtos.PNAME }</div>
+        <div class='pn'><div class="panel-heading"><strong>${dtos.PNAME }</strong></div></div>
         <div class="panel-body">
         <img src="../resources/images/${dtos.PIMG }"
          class="img-responsive" id="${dtos.PSEQ}" alt="${dtos.EMAIL }" 
@@ -182,6 +196,8 @@ background-color: rgba( 255, 255, 255, 0.9);}
   </div>
 <!--   모달2끝 -->
   </div>
+  <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+  
 </div><br><br>
 
 <script>
@@ -206,6 +222,7 @@ function onClick(element){
 	  seqParam.setAttribute("alt",se);
 	  
 }
+
 function onClick2(element){
 	
 	  document.getElementById("modal02").style.display = "block";
@@ -217,9 +234,11 @@ function onClick2(element){
 	  seqParam.setAttribute("alt",se);
 	  
 }
+
 function ajwidl(){
 	document.getElementById("modal01").style.display = "none";
 }
+
 function ajwidl2(){
 	document.getElementById("modal02").style.display = "none";
 }
@@ -227,11 +246,12 @@ function ajwidl2(){
 function godetail(obj){
 	var tet = obj.getAttribute("alt");
 	console.log(tet);
-	var logi = obj.alt;
+	//var logi = obj.alt;
 	$('#frm1').append("<input type='hidden' name='IDX' id='IDX' value='"+tet+"'/>");
 	var forming = document.getElementById("frm1");
 	forming.submit();
 }
+
 function godetail2(obj){
 	var tet = obj.getAttribute("alt");
 	console.log(tet);
@@ -240,6 +260,7 @@ function godetail2(obj){
 	var forming = document.getElementById("frm2");
 	forming.submit();
 }
+
 </script>
 </body>
 </html>

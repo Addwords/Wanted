@@ -9,7 +9,14 @@ import first.common.dao.AbstractDAO;
 
 @Repository("teamDAO")
 public class TeamDAO extends AbstractDAO{
-
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> searchTeamList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectPagingList("team.searchTeamList", map);
+	}
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> searchProjectList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectPagingList("team.searchProjectList", map);
+	}
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectPagingList("team.selectTeamList", map);

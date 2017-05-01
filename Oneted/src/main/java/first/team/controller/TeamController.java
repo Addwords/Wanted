@@ -21,6 +21,17 @@ public class TeamController {
 	private TeamService teamService;
 	
 	
+	@RequestMapping(value="/team/searchList.do")
+    public ModelAndView searchTeamList(CommandMap commandMap) throws Exception{
+    	ModelAndView mv = new ModelAndView("/team/team_main");
+    	List<Map<String,Object>> tlist = teamService.searchTeamList(commandMap.getMap());
+    	List<Map<String,Object>> plist = teamService.searchProjectList(commandMap.getMap());
+    	mv.addObject("tlist", tlist);
+    	mv.addObject("plist", plist);
+    	
+    	return mv;
+    }
+	
 	@RequestMapping(value="/team/openTeamList.do")
     public ModelAndView selectTeamList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/team/team_main");
@@ -57,6 +68,20 @@ public class TeamController {
 		
 		List<Map<String,Object>> projectone = teamService.selectProject(commandMap.getMap());
 		mv.addObject("projectone", projectone);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/team/createProject.do")
+	public ModelAndView createProject(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/team/create_project");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/team/createTeam.do")
+	public ModelAndView createTeam(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/team/create_team");
 		
 		return mv;
 	}

@@ -6,6 +6,8 @@ import java.util.Map;
 
 public interface TeamService {
 
+	List<Map<String, Object>> searchTeamList(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> searchProjectList(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectTeamList(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectProjectList(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectTeam(Map<String, Object> map) throws Exception;
