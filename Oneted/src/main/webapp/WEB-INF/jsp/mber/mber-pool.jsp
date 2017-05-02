@@ -87,7 +87,7 @@
 	<div class="container">
 		<div style="width: 100%; margin-bottom: 100px;">
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="float: right;">Open Genie</button>
-			<%@ include file="/WEB-INF/include/mber-search-modal.jsp"%>
+			<%@ include file="/WEB-INF/include/include-ssearch.jsp"%>
 		</div>    
 		<div class="row">
 			<c:choose>
@@ -100,7 +100,7 @@
 								</div>
 								<div class="panel-body" style="max-height: 229px; overflow:hidden;">
 									<a href="#this" name="mber_img" style="text-decoration:none">
-										<img src="<c:url value='/common/getImage.do?IMG_NAME=${mber.MBER_IMG}'/>" class="img-responsive" style="width:100%" alt="Image">
+										<img src="<c:url value='/common/getImage.do?IMG_NAME=${mber.MBER_IMG}'/>" class="img-responsive" style="width:100%;height: 205px;" alt="Image">
 									</a>
 								</div>
 								<input id="IDX" type="hidden" name="IDX" value="${mber.MBER_INFO_IDX }">
