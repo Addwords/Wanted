@@ -70,7 +70,7 @@ DELETE FROM MBER_INFO;
 BEGIN
   FOR i IN 1..500 LOOP
     insert into Mber (Mber_Email,MBER_NAME,Mber_Pwd) Values(i||'@gmail.com','한상하'||i,'1111');
-    END LOOP;
+  END LOOP;
 END;
 
 BEGIN
@@ -83,12 +83,9 @@ END;
 CREATE TABLE MBER_TQ
 (  
 	TQ_IDX         NUMBER  PRIMARY KEY,
-	TQ_MBER_IDX        NUMBER NULL,
-	TQ_Q1           number ,
-  TQ_Q2           number ,
-  TQ_Q3           number ,
-  TQ_Q4           number ,
-  TQ_Q5           number 
+	TQ_MBER_IDX		NUMBER NULL,
+	TQ_QUESTION 	number null,
+	TQ_ANSWER		number null
 );
 drop table MBER_TQ;
 --질문은 최대 25자 답변은 최대 30자
@@ -127,3 +124,75 @@ From MBER_TQ;
 
 select TQ_MBER_IDX , TQ_QUESTION , '액형' ,TQ_ANSWER , '12323' ,UTL_MATCH.JARO_WINKLER_SIMILARITY(TQ_QUESTION,'혈액형') as SIMIMLAR 
 from MBER_TQ;
+
+CREATE TABLE MBER_TQ
+(  
+	TQ_IDX         NUMBER  PRIMARY KEY,
+	MBER_EMAIL		varchar2(50) NULL,
+	TQ_QUESTION 	number null,
+	TQ_ANSWER		number null
+);
+drop table MBER_TQ;
+
+
+
+create SEQUENCE SEQ_MBER_TQ_IDX
+  START WITH 1
+  INCREMENT BY 1
+  NOMAXVALUE
+  NOCACHE;
+  
+  
+  --------------sub 쿼리
+SELECT MBER_EMAIL, SCORE
+FROM  
+  (select A.MBER_EMAIL ,sum(B.SCORE) AS SCORE
+  from MBER_TQ A JOIN 
+    (select  MBER_EMAIL, TQ_QUESTION, TQ_ANSWER, 1 score 
+     from MBER_TQ 
+     WHERE MBER_EMAIL='bnnel@gmail.com') B 
+  ON A.TQ_QUESTION = B.TQ_QUESTION 
+  AND A.TQ_ANSWER = B.TQ_ANSWER
+  AND A.MBER_EMAIL != 'bnnel@gmail.com'
+  AND SCORE IS NOT NULL
+  GROUP BY A.MBER_EMAIL 
+  order by SUM(B.SCORE) desc)
+WHERE ROWNUM <= 4;
+-----------------
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'1@gmail.com' ,1,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'2@gmail.com' ,1,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'3@gmail.com' ,1,3);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'4@gmail.com' ,1,4);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'5@gmail.com' ,1,2);
+
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'1@gmail.com' ,2,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'2@gmail.com' ,2,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'3@gmail.com' ,2,4);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'4@gmail.com' ,2,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'5@gmail.com' ,2,3);
+
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'1@gmail.com' ,3,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'2@gmail.com' ,3,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'3@gmail.com' ,3,3);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'4@gmail.com' ,3,4);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'5@gmail.com' ,3,2);
+
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'1@gmail.com' ,4,3);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'2@gmail.com' ,4,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'3@gmail.com' ,4,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'4@gmail.com' ,4,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'5@gmail.com' ,4,4);
+
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'1@gmail.com' ,5,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'2@gmail.com' ,5,4);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'3@gmail.com' ,5,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'4@gmail.com' ,5,3);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'5@gmail.com' ,5,2);
+
+commit;
+--2,1,3,4,2
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'bnnel@gmail.com' ,1,2);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'bnnel@gmail.com' ,2,1);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'bnnel@gmail.com' ,3,3);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'bnnel@gmail.com' ,4,4);
+insert into MBER_TQ values(SEQ_MBER_TQ_IDX.nextval ,'bnnel@gmail.com' ,5,2);

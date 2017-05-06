@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<style type="text/css">
 		.modal-dialog{
-			height: 83%;
+			height: 90%;
 			width: 60%;
 			max-width: 800px;
 		}
@@ -30,9 +30,9 @@
 		}
 		.modal-back{
 			background-image: url("${pageContext.request.contextPath}/resources/images/mber-tq/bg-img.png");
-			padding: 50px;
-			width: 650px;
-	    	height: 300px;		
+			padding: 30px 30px 10px 30px;
+			width: 95%;
+	    	max-height: 300px;		
 			background-size: cover;
 			display: inline-block;
 		}
@@ -43,7 +43,7 @@
 		}
 		.btn-default.option{
 			margin: 0 auto;
-			width: 450px;
+			width: 95%;
 			background-color: #ffe6b3;
 			margin-bottom: 20px;
 		}
