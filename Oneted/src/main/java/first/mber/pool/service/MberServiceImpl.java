@@ -1,5 +1,6 @@
 package first.mber.pool.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,7 +19,22 @@ public class MberServiceImpl implements MberService {
 	private MberDAO mberDAO;
 
 	@Override
-	public Map<String, Object> selectMberList(Map<String, Object> map) {
+	public Map<String, Object> selectMberList(Map<String, Object> map) throws Exception {
 		return mberDAO.selectMberList(map);
+	}
+
+	@Override
+	public void insertChoice(Map<String, Object> map) throws Exception {
+		mberDAO.insertChoice(map);
+	}
+
+	@Override
+	public void initGenie(Map<String, Object> map) throws Exception {
+		mberDAO.initGenie(map);
+	}
+
+	@Override
+	public ArrayList<Map<String, Object>> selectGenieList(Map<String, Object> map) throws Exception {
+		return mberDAO.selectGenieList(map);
 	}
 }

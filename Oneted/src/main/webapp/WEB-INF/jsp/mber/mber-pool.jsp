@@ -34,6 +34,36 @@
 			opacity: 0.5;
 			filter: alpha(opacity=50); /* For IE8 and earlier */
 		}
+
+		.common-title {
+		    padding-bottom: 5px;
+		}
+		.common-title {
+		    margin: 0;
+		    padding: 0 0 12px 0;
+		    color: #3e4b51;
+		    line-height: 1.2em;
+		    font-size: 2.154em;
+		    font-weight: normal;
+		    font-family: 'Open Sans', sans-serif;
+		    font-weight: 700;
+		}
+		.count-result {
+		    padding-bottom: 20px;
+		    color: #afbbc1;
+		    font-size: 1.384615384615385em;
+		    line-height: 1.2em;
+		}
+		.fc-black {
+		    color: #3e4b51;
+		}
+		.fw-b {
+		    font-family: 'Open Sans', sans-serif;
+		    font-weight: 700;
+		}
+		.fc-orange{
+		    color: #ea503d;
+		}
 	</style>
 </head>
 
@@ -84,12 +114,22 @@
 	</div>
 	</nav>
 
+	<!-- 추가부분 -->
+    <div class="container">
+        <h3 class="common-title" id="mber-pool-title">Category / <span class="fc-orange">ALL</span></h3>
+        <div class="count-result" id="mber-pool-result">
+            <span class="fw-b fc-black">${list[0].TOTAL_COUNT}</span> People are registered.
+        </div>
+    </div>
+	<!-- -------------- -->
+	
+	
 	<div class="container">
 		<div style="width: 100%; margin-bottom: 100px;">
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="float: right;">Open Genie</button>
 			<%@ include file="/WEB-INF/include/include-ssearch.jsp"%>
 		</div>    
-		<div class="row">
+		<div class="row" id="row_area">
 			<c:choose>
 			    <c:when test="${fn:length(list) > 0}">
 			        <c:forEach items="${list}" var="mber">   	
@@ -116,7 +156,7 @@
 			</c:choose>       		
 		</div>
 	</div><br>
-	<div style="text-align: center;">
+	<div id="paging-bar" style="text-align: center;">
 		<c:if test="${not empty paginationInfo}">
 			<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="fn_search" />
 		</c:if>
@@ -124,12 +164,22 @@
 		<br><br>
 	</div>
 
-
-<form id="commonForm" name="commonForm"></form>
+	<div class="container" id ="div-return" style="text-align: center; visibility: hidden; margin-top:50px; margin-bottom:50px;">
+		<button type="button" class="btn btn-info btn-lg" id="btn-return">RETURN</button>
+	</div>
+	
+	<form id="commonForm" name="commonForm"></form>
+	
 <script>
 	$("a[name='mber_name'], a[name='mber_img']").on("click", function(e){ //제목 이나 섬네일 클릭시
 	    e.preventDefault();
 	    fn_openMberDetail($(this));
+	});	
+	
+	$("#btn-return").on("click", function(e){ //제목 이나 섬네일 클릭시
+	    var comSubmit = new ComSubmit();
+	    comSubmit.setUrl("<c:url value='/mber/pool.do' />");
+	    comSubmit.submit();
 	});	
 	
 	function fn_openMberDetail(obj) {

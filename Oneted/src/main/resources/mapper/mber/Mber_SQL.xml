@@ -26,5 +26,67 @@
 		<include refid="common.pagingPost"/> 
 	</select>
 	
-
+	<insert id="insetChoice" parameterType="hashmap">
+			INSERT INTO MBER_TQ
+			(
+				TQ_IDX,
+			    MBER_EMAIL, 
+			    TQ_QUESTION, 
+			    TQ_ANSWER, 
+			    DEL_FLAG
+			)
+			VALUES
+			(
+				SEQ_MBER_TQ_IDX.NEXTVAL, 
+				#{EMAIL},
+				#{QUESTION},
+			    #{ANSWER}, 
+			    'N'
+			)
+	</insert>
+	
+	<update id="initGenie" parameterType="hashmap">
+			UPDATE 
+				MBER_TQ
+			SET 
+				DEL_FLAG = 'Y'
+			WHERE 
+				MBER_EMAIL = #{EMAIL}
+	</update>
+	
+	<select id="smartSearch" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MBER_NAME, 
+				MBER_IMG, 
+				MBER_INFO_IDX, 
+				MBER_SKILL, 
+				MBER_INTRODUCE,
+				MI.MBER_EMAIL, 
+				SCORE
+			FROM(
+				SELECT MBER_EMAIL EMAIL, SCORE
+				FROM  
+				  (SELECT A.MBER_EMAIL ,SUM(B.SCORE) AS SCORE
+				  from MBER_TQ A JOIN 
+				    (SELECT  MBER_EMAIL, TQ_QUESTION, TQ_ANSWER, 1 SCORE 
+				     FROM MBER_TQ 
+				     WHERE MBER_EMAIL= #{EMAIL}
+				     AND DEL_FLAG = 'N') B 
+				  ON A.TQ_QUESTION = B.TQ_QUESTION 
+				  AND A.TQ_ANSWER = B.TQ_ANSWER
+				  AND A.MBER_EMAIL != #{EMAIL}
+				  AND DEL_FLAG = 'N'
+				  AND SCORE IS NOT NULL
+				  GROUP BY A.MBER_EMAIL 
+				  ORDER BY SUM(B.SCORE) DESC)
+				WHERE ROWNUM <= 4) GENIE, MBER_INFO MI , MBER
+			WHERE GENIE.EMAIL = MI.MBER_EMAIL
+			AND MBER_INFO_DEL = 'N'
+			AND MBER.MBER_EMAIL = MI.MBER_EMAIL
+			ORDER BY GENIE.SCORE DESC
+		]]>
+	</select>
+	
+	
 </mapper>
