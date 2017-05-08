@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mberLog">
+
+	<insert id="createLog" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO mberlog
+			(
+				mberlog_email
+			)
+			VALUES
+			(
+				#{REGEMAIL}
+			)
+		]]>
+	</insert>
+
+	<update id="inLog" parameterType="hashmap">
+		<![CDATA[
+			UPDATE mberlog
+			SET
+				mberlog_in = SYSDATE
+			WHERE
+				mberlog_email = #{LOGEMAIL}
+		]]>
+	</update>
+
+	<update id="outLog" parameterType="hashmap">
+		<![CDATA[
+			UPDATE mberlog
+			SET
+				mberlog_out = SYSDATE
+			WHERE
+				mberlog_email = #{OUTEMAIL}
+		]]>
+	</update>
+
+	<select id="searchLog" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mberlog_in, mberlog_out
+			FROM
+				mberlog
+			WHERE
+				mberlog_email = #{SEARCHEMAIL}		
+		]]>
+	</select>
+
+
+</mapper>

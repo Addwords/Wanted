@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.oreilly.servlet.MultipartRequest, com.oreilly.servlet.multipart.DefaultFileRenamePolicy,java.io.*,java.util.*" %>
-<%
-String path = "/";
-ServletContext context = getServletContext();
-String absFolder = context.getRealPath(path);
- %> 
-<%=absFolder%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
+  <%
+		if (session.getAttribute("LOGEMAIL") == null) {System.out.println("attribute null");%>			 
+			<%@include file="/WEB-INF/include/include-outnavbar.jspf" %><%
+		}else{System.out.println("attribute exist");%>
+			<%@include file="/WEB-INF/include/include-innavbar.jspf" %><%
+		}
+ 	%> 
   <title>Oneted</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,101 +19,51 @@ String absFolder = context.getRealPath(path);
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
   <style>
-  .col-sm-4{
-  width: 30%;
-  height: 70%;
-  }
-  
-.tn{
-background-color:orange;
-}
-
-.pn{
-background-color:skyblue;
-}
-
-.panel-body{
-width: 100%;
-margin: auto;
-}
-
-.img-responsive{
-width: 400px;
-height: 310px;
-}
-
-.detimg{ 
-width: 400px;
-height: 300px;
-}
-
-.modal{
-z-index:3;
-display:none;
-padding-top:100px;
-position:fixed;
-left:0; top:0;width:100%;height:100%;
-overflow:auto;
+.col-sm-4{width: 30%; height: 70%;}
+.tn{background-color:orange;}
+.pn{background-color:skyblue;}
+.panel-body{width: 100%;margin: auto;}
+.img-responsive{width: 400px;height: 310px;}
+.detimg{width: 400px;height: 300px;}
+.modal{z-index:3;display:none;padding-top:100px;position:fixed;
+left:0; top:0;width:100%;height:100%;overflow:auto;
 background-color: rgba( 255, 255, 255, 1);}
-
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-    ft{
-    margin-top: 5px;
-    }
+.navbar {margin-bottom: 50px;border-radius: 0;}
+.jumbotron {margin-bottom: 0;}
+footer{background-color: #f2f2f2;padding: 25px;}
+ft{margin-top: 5px;}
+#open_search{display: none;}
   </style>
+
 </head>
 <body>
-<%--   <%@ include file="/WEB-INF/include/include-body.jspf" %> --%>
 <div class="jumbotron">
   <div class="container text-center">
-    <h1><font color="red">One</font>ted</h1>      
+    <h1><a href="../main.jsp" style="text-decoration:none;"><font color="red">ONE</font>TED</a></h1>
     <p>TEAM PROJECT</p>
+    <div id="open_search" class="w3-animate-zoom">
+    <form action="../team/searchList.do">
+    <input type="text" size="40" autofocus id="search" name="search" placeholder="Search...">
+    </form>
+    <span class="cs w3-button w3-large w3-hover-red" onclick="csearch()">&times;</span>
+    </div>
   </div>
 </div>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar">123</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-    </div>
-<!--     <div class="collapse navbar-collapse" id="myNavbar"> -->
-<!--       <ul class="nav navbar-nav"> -->
-<!--         <li><a href='../team/openTeamList.do'>[Home]</a></li> -->
-<!--         <li><a href='../team/openTeamList.do' >[Team List]</a></li> -->
-<!--         <li><a href='../team/openProjectList.do' >[Project List]</a></li> -->
-<!--         <li><form class="form-inline" id='ft' action='../team/searchList.do'> -->
-<!--     <input data-ved= type="text" id='search' name='search' class="form-control" size="50" placeholder="검색"> -->
-<!--     <input type="submit" class="btn btn-danger" value='검색'> -->
-<!--   </form></li> -->
-<!--       </ul> -->
-<!--       <ul class="nav navbar-nav navbar-right"> -->
-<!--         <li id='joinup'><a href="#"><span class="glyphicon glyphicon-user"></span> Join us</a></li> -->
-<!--         <li id='loginup'><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
-<!-- <!--         <span class="w3-left w3-padding"><a href='main.jsp'><img src='image/Logo1.png' width='250' height='40'></a></span> --> -->
-<!--   <li><a href="javascript:void(0)" class="w3-right w3-button w3-white w3-light-grey" id='asd' onclick="w3_open()">☰</a> -->
-<!--       </ul> -->
+<!-- <nav class="navbar navbar-inverse"> -->
+<!--   <div class="container-fluid"> -->
+<!--     <div class="navbar-header"> -->
+<!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> -->
+<!--         <span class="icon-bar"></span> -->
+<!--         <span class="icon-bar"></span> -->
+<!--         <span class="icon-bar"></span>                         -->
+<!--       </button> -->
 <!--     </div> -->
-<%@include file="/WEB-INF/include/include.jspf" %>
-  </div>
-</nav>
+<%-- <%@include file="/WEB-INF/include/include.jspf" %> --%>
+
+<!--   </div> -->
+<!-- </nav> -->
 <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
 	  <a href="../team/createTeam.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Team</a> 
 	  <a href="../team/createProject.do" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Make Project</a> 
@@ -130,7 +81,7 @@ background-color: rgba( 255, 255, 255, 1);}
         <div class='tn'><div class="panel-heading"><strong>${dto.TNAME }</strong></div></div>
         <div class="panel-body">
         <img src="../resources/images/${dto.TIMG }"
-         class="img-responsive" id="${dto.TSEQ}" alt="${dto.EMAIL }" 
+         class="img-responsive" id="${dto.TID}" alt="${dto.EMAIL }" 
          onclick="onClick(this)">
          </div>
         <div class="panel-footer"><a href='#'>팀장  ${dto.EMAIL } <img src='../resources/images/mail.png' width='30' height='30'></a></div>
@@ -145,7 +96,7 @@ background-color: rgba( 255, 255, 255, 1);}
         <div class='pn'><div class="panel-heading"><strong>${dtos.PNAME }</strong></div></div>
         <div class="panel-body">
         <img src="../resources/images/${dtos.PIMG }"
-         class="img-responsive" id="${dtos.PSEQ}" alt="${dtos.EMAIL }" 
+         class="img-responsive" id="${dtos.PID}" alt="${dtos.EMAIL }" 
          onclick="onClick2(this)">
          </div>
         <div class="panel-footer"><a href='#'>리더  ${dtos.EMAIL } <img src='../resources/images/mail.png' width='30' height='30'></a></div>

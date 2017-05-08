@@ -27,6 +27,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
 <body class="w3-white">
+<%
+		if (session.getAttribute("LOGEMAIL") == null) {System.out.println("attribute null");%>			
+			<%@include file="../WEB-INF/include/include-outnavbar.jspf" %><%
+		}else{System.out.println("attribute exist");%>
+			<%@include file="../WEB-INF/include/include-innavbar.jspf" %><%
+		}
+	%>
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
@@ -77,11 +84,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <!-- About Section -->
   <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
     <h1>팀원들 정보</h1>
+    
   </div>
   
   <!-- Portfolio Section -->
   <div class="w3-padding-64 w3-content" id="photos">
     <h1>자료공유</h1>
+    
   </div>
 
   <!-- Contact Section -->

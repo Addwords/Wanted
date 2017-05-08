@@ -2,7 +2,7 @@
 <beans xmlns:context="http://www.springframework.org/schema/context"
     xmlns:p="http://www.springframework.org/schema/p"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.springframework.org/schema/beans"
+    xmlns="http://www.springframework.org/schema/beans" 
     xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:util="http://www.springframework.org/schema/util"
@@ -24,7 +24,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
+			<mvc:mapping path="/**"/> 
 			<bean id="loggerInterceptor" class="first.common.logger.LoggerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

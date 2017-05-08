@@ -1,11 +1,11 @@
    <%@ page pageEncoding="utf-8"%>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href='../team/openTeamList.do'>[Home]</a></li>
+        <li><a href='../main.jsp'>[Home]</a></li>
         <li><a href='../team/openTeamList.do' >[Team List]</a></li>
         <li><a href='../team/openProjectList.do' >[Project List]</a></li>
         <li><form class="form-inline" id='ft' action='../team/searchList.do'>
-    <input data-ved= type="text" id='search' name='search' class="form-control" size="50" placeholder="검색">
+    <input type="text" id='search' name='search' class="form-control" size="50" placeholder="검색">
     <input type="submit" class="btn btn-danger" value='검색'>
   </form></li>
       </ul>
