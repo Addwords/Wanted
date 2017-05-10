@@ -1,0 +1,501 @@
+/*********************************************************************************/
+/* Global                                                                        */
+/*********************************************************************************/
+	
+	body {
+		background: #e7e7e7;
+		color: #000000;
+		font-family: 'Lustria', serif;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 180%;
+	}
+	
+	a {
+		color: #3d89b9;
+		text-decoration: none;
+	}
+
+	.justify {
+		text-align: justify;
+	}
+	
+	.alignleft {
+		float: left;
+		margin-right: 20px;
+	}
+	
+	.alignright {
+		float: right;
+		margin-left: 20px;
+	}
+	
+	.aligncenter {
+		margin: 0 auto;
+	}
+	
+	.wrapper {
+		background: #fff;
+	}
+	
+	/*****************************************************************************/
+	/* Header                                                                    */
+	/*****************************************************************************/		
+	
+		header h1 {
+			text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
+			font-size: 48px;
+			letter-spacing: -2px;
+			margin: 70px 0 10px 0;
+			font-weight: 900;
+			font-family: 'Lustria', serif;
+			color: #FFF;
+			text-align: center;
+		}
+		
+		header h1 span {
+			color: #3d89b9;
+		}
+		
+		header p {
+			color: #b1b1b1;
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 13px;
+			text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
+		}
+	
+	/*****************************************************************************/
+	/* Forms                                                                    */
+	/*****************************************************************************/	
+	
+	.fwt_input, .fwt_textarea, .fwt_select {
+		display: block;
+		width: 97%;
+		padding: 10px;
+		background: url(images/bg.png);
+		border: 1px solid #e3e3e3;
+		color: #5c5c5c;
+		margin-bottom: 20px;
+		font-family: 'Lustria', serif;
+		text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+		font-size: 14px;
+	}
+	
+	.fwt_select {
+		width: 100%;
+	}
+	
+	.fwt_button {
+		background: #2678A8 url(images/bg.png);
+		border: 1px solid #2678A8;
+		padding: 10px;
+		font-family: 'Lustria', serif;
+		text-transform: lowercase;
+		font-size: 14px;	
+		color: #fff;	
+		text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.30);		
+	}
+	
+	/*****************************************************************************/
+	/* Post                                                                     */
+	/*****************************************************************************/
+		
+		.post {
+			border-radius: 10px;
+			background: #FFF;
+			position: relative;		
+			margin-top: 40px!important;			
+		}
+		
+		.post section {
+			padding: 0 40px 20px 100px;
+		}
+		
+		.post img {
+			border-radius: 10px;
+		}
+		
+		.post p {
+			margin-bottom: 20px;
+		}
+		.post .date {
+			position: absolute;
+			background: url(images/date.png) no-repeat top left;
+			width: 105px;
+			height: 86px;
+			left: -27px;
+			margin-top: 30px;
+		}
+		
+		.post .date .month {
+			color: rgba( 99, 192, 233, 1);
+			text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+			text-transform: uppercase;
+			font-size: 14px;
+			text-align: right;
+			margin: 0 10px 0 0;
+		}
+		
+		.post .date .day {
+			color: rgba( 255, 255, 255, 1);
+			text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+			text-transform: lowercase;
+			font-size: 36px;
+			font-weight: bold;
+			text-align: right;
+			margin: 0 22px 0 0;
+		}	
+		
+		.post .date sup {
+			font-size: 10px;
+			position: absolute;
+			top: 18px;
+		}
+		
+		
+		.post h2 {
+			color: #3d89b9;
+			font-size: 34px;
+			letter-spacing: -2px;
+			margin: 50px 0 30px 0px;
+		}
+	
+	/*****************************************************************************/
+	/* Navigation                                                                     */
+	/*****************************************************************************/
+		
+		.navigation {
+			padding: 20px 0;
+		}
+		
+		.navigation a {
+			color: #FFF;
+		}
+		
+		.navigation .previous a {
+			float: left;
+			text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+			line-height: 21px;
+			height: 21px;
+			background: url(images/prev.png) no-repeat top left;	
+			padding-left: 25px;
+		}
+		
+		.navigation .next a {
+			float: right;
+			text-align: right;
+			text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+			line-height: 21px;
+			height: 21px;
+			padding-right: 27px;
+			background: url(images/next.png) no-repeat top right;
+		}
+	
+	/*****************************************************************************/
+	/*Slider                                                                     */
+	/*****************************************************************************/
+
+		#slider {
+			padding: 20px;
+			position: relative;
+			background: #FFF;
+			border-radius: 10px;
+		}
+		
+		#slider .previous-button {
+			position: absolute;
+			background: url(images/arrow-left.png) no-repeat top left;
+			left: -27px;
+			bottom: 75px;
+			width: 59px;
+			height: 86px;
+			text-indent: -99999em;
+			z-index: 99;
+		}
+		
+		#slider .next-button {
+			position: absolute;
+			background: url(images/arrow-right.png) no-repeat top left;
+			right: -28px;
+			bottom: 75px;
+			width: 59px;
+			height: 86px;
+			text-indent: -99999em;
+			z-index: 99;
+		}
+		
+			#slider .viewer {
+				margin: 0;
+				overflow: hidden;
+				border-radius: 10px;
+				z-index: 98;
+				
+			}
+
+				#slider .viewer .reel h2 {
+					position: absolute;
+					bottom: 28px;
+					left: 0;
+					width: 100%;
+					height: 65px;
+					line-height: 65px;
+					background: url(images/sliderbg.png) repeat-x top left;
+					text-align: center;
+					font-weight: normal;
+					color: #ffffff;
+					font-size: 2em;
+					z-index: 5;
+					text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+				}
+
+				#slider .viewer .reel p {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 30px;
+					line-height: 30px;
+					background: #3d89b9;
+					text-align: center;
+					opacity: 0.85;
+					font-weight: normal;
+					color: #ffffff;
+					font-size: .8em;
+					text-transform: uppercase;
+					font-family: 'Lustria', serif;
+					z-index: 4;
+					text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+				}
+
+
+			#slider .indicator {
+				margin: 20px auto 0 auto;
+			}
+
+				#slider .indicator ul {
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					text-align: center;
+				}
+
+					#slider .indicator ul li {
+						display: inline-block;
+						width: 12px;
+						height: 12px;
+						text-indent: -9999em;
+						background: #b1b1b1;
+						margin: 0 2px 0 2px;
+						border-radius: 8px;
+						border-bottom: solid 1px #ffffff;
+						border-top: solid 1px #909090;
+						line-height: 12px;
+					}
+
+					#slider .indicator ul li.active {
+						background: #3d89b9;
+						border-top: solid 1px #3d89b9;
+					}
+
+					
+
+
+		
+
+
+
+	footer {
+		background: #2f93cd url(images/bg.png);
+		color: #FFF;
+	}
+	
+	footer .inner {
+		background: none;
+	}
+	
+	footer li {
+		padding: 10px 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	}
+	
+	footer li:last-child {
+		border: none;
+		box-shadow: none;
+	}
+	
+	footer li a { 
+		color: #FFF;
+	}
+	
+	.copyright {
+		text-align: center;
+		font-size: 0.9em;
+		color: #b1b1b1;
+	}
+	
+	.copyright a {
+		color: #b1b1b1;
+	}
+
+
+
+/*********************************************************************************/
+/* 1200px (>= 1200px)                                                            */
+/*********************************************************************************/
+
+	@media only screen and (min-width: 1200px) {
+	
+		#slider {
+			width: 956px;
+			padding: 20px;
+		}
+		
+		#slider .viewer {
+			width: 956px;
+			height: 375px;
+		}
+		
+		#slider .viewer .reel {
+			display: none;
+			height: 375px;
+		}			
+		
+		#slider .viewer .reel .slide {
+			width: 956px;
+			height: 375px;
+			position: relative;
+		}		
+		
+		#slider .viewer .reel .slide img {
+			max-width: 956px;
+		}
+		
+		.sidebar section {
+			margin-bottom: 24px;
+		}	
+
+		.shadow {
+			background: url(images/shadow.png) no-repeat top center;
+			width: 972px;
+			height: 38px;
+			position: absolute;
+			bottom: -38px;
+		}		
+	}
+	
+/*********************************************************************************/
+/* 1000px (> 480px && < 1200px)                                                  */
+/*********************************************************************************/
+
+	@media only screen and (max-width: 1199px) and (min-width: 481px) {
+
+		#slider {
+			width: 790px;
+		}
+		
+		#slider .viewer {
+			width: 790px;
+			height: 300px;
+		}
+		
+		#slider .viewer .reel {
+			display: none;
+			height: 300px;
+		}			
+		
+		#slider .viewer .reel .slide {
+			width: 790px;
+			height: 300px;
+			position: relative;
+		}	
+		
+		#slider .viewer .reel .slide img {
+			max-width: 790px;
+		}	
+		
+		.shadow {
+			background: url(images/shadow2.png) no-repeat top center;
+			width: 790px;
+			height: 31px;
+			position: absolute;
+			bottom: -31px;
+		}		
+			
+		
+	}
+	
+/*********************************************************************************/
+/* Mobile (<= 480px)                                                             */
+/*********************************************************************************/
+
+	@media only screen and (max-width: 480px) {
+	
+		h1 {
+			font-size: 38px;
+			letter-spacing: -2px;
+			margin: 30px;
+			font-weight: 900;
+		
+		}	
+		
+		.post h2 {
+			font-size: 24px;
+			padding-top: 50px;
+		}
+		
+		#slider {
+			width: 440px;
+		}
+		
+		#slider .viewer {
+			width: 440px;
+			height: 138px;
+		}	
+		
+		#slider .viewer .reel {
+			display: none;
+			height: 138px;
+		}			
+		
+		#slider .viewer .reel .slide {
+			width: 440px;
+			height: 138px;
+			position: relative;
+		}	
+		
+		#slider .viewer .reel .slide img {
+			max-width: 440px;
+		}	
+	
+		#slider .previous-button {
+			display: none;
+		}
+		
+		#slider .next-button {
+			display: none;
+		}	
+
+				#slider .viewer .reel h2 {
+					position: absolute;
+					bottom: 0px;
+					left: 0;
+					width: 100%;
+					height: 35px;
+					line-height: 35px;
+					background: url(images/sliderbg.png) repeat-x top left;
+					text-align: center;
+					font-weight: normal;
+					color: #ffffff;
+					font-size: 1.25em;
+					z-index: 5;
+					text-shadow: 0 1px 1px rgba( 0, 0, 0, 1);
+				}
+
+				#slider .viewer .reel p {
+					display: none;
+				}
+		
+		
+	}
