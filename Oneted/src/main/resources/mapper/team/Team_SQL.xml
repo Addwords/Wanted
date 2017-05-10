@@ -16,7 +16,8 @@
 				TEAM_ID=#{IDX}
 		]]>
 	</select>
-	<select id="selectTeamMember" parameterType="hashmap" resultType="hashmap">
+	<select id="selectTeamMember" parameterType="hashmap"
+		resultType="hashmap">
 		<![CDATA[
 			SELECT
 			    TM_EMAIL,
@@ -32,12 +33,13 @@
                 AND
                 tm.TEAM_ID=t.TEAM_ID 
 		]]>
-	        <if test="ROLE!=null">  
-        		AND
-        		TM_ROLE LIKE '%'||#{ROLE}
-        	</if>
+		<if test="ROLE!=null">
+			AND
+			TM_ROLE LIKE '%'||#{ROLE}
+		</if>
 	</select>
-	<select id="selectMemberInfo" parameterType="hashmap" resultType="hashmap">
+	<select id="selectMemberInfo" parameterType="hashmap"
+		resultType="hashmap">
 		<![CDATA[
 			SELECT
 				MEMBER_NAME,
@@ -47,6 +49,59 @@
 			    MEMBER
 			WHERE
 				MEMBER_EMAIL=#{SEARCH_MEMBER_EMAIL}
+		]]>
+	</select>
+	<select id="selectTeamContact" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				L_EMAIL,
+			    TEAM_NAME,
+			    TEAM_IMG
+			FROM
+			    TEAM
+			WHERE
+				TEAM_ID=#{IDX}
+		]]>
+	</select>
+	<select id="selectBoardList" parameterType="hashmap" resultType="hashmap">
+	<include refid="common.pagingPre"/>
+		<![CDATA[
+			SELECT
+                ROW_NUMBER() OVER (ORDER BY BOARD_ID DESC) RNUM,
+    			BOARD_ID,
+   				WRITER_EMAIL,
+   				BOARD_TITLE,
+    			WRITE_TIME,
+    			CONTENT
+			FROM
+				TEAM_BOARD
+			WHERE
+				DELETE_GB='N'
+			ORDER BY
+				BOARD_ID DESC
+		]]>
+		<include refid="common.pagingPost"/>
+	</select>
+	<select id="insertBoard" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			INSERT INTO team_board
+			(
+				BOARD_ID,
+				WRITER_EMAIL,
+				BOARD_TITLE,
+				CONTENT,
+				DELETE_GB
+			)
+			VALUES
+			(
+				TEAM_BOARD_SEQ.NEXTVAL,
+				#{WRITER},
+				#{TITLE},
+				#{CONTENTS},
+				'N'
+			)
 		]]>
 	</select>
 </mapper>

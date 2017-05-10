@@ -24,4 +24,22 @@ public class TeamDAO extends AbstractDAO {
 	public Map<String, Object> selectMemberInfo(Map<String, Object> map) {
 		return (Map<String, Object>) selectOne("team.selectMemberInfo", map);
 	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectTeamContact(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("team.selectTeamContact", map);
+	}
+
+//	@SuppressWarnings("unchecked")
+//	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
+//		return selectList("team.selectBoardList",map);
+//	}
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectBoardList(Map<String, Object> map) {
+		return selectPagingList("team.selectBoardList",map);
+	}
+
+	public void inserBoard(Map<String, Object> map) {
+		insert("team.insertBoard", map);
+	}
 }

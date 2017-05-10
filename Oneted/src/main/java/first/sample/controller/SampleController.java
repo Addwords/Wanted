@@ -21,10 +21,9 @@ public class SampleController {
 	@Resource(name="sampleService")
 	private SampleService sampleService;
 	
-	@RequestMapping(value="/sample/openBoardList.do")
+	@RequestMapping(value="/team/openBoardList.do")
     public ModelAndView openBoardList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/sample/boardList");
-    	
+    	ModelAndView mv = new ModelAndView("/teamboard");
     	return mv;
     }
 	

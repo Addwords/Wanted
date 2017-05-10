@@ -115,6 +115,22 @@ html, body, h1, h2, h3, h4, h5, h6 {
 									<td>Explane</td>
 									<td><i>${TEAMINFO.TEAM_EXP}</i></td>
 								</tr>
+								<tr>
+									<td colspan="3" class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+										<div class="w3-quarter">
+											<span class="w3-xxlarge">14+</span> <br>Partners
+										</div>
+										<div class="w3-quarter">
+											<span class="w3-xxlarge">55+</span> <br>Projects Done
+										</div>
+										<div class="w3-quarter">
+											<span class="w3-xxlarge">89+</span> <br>Happy Clients
+										</div>
+										<div class="w3-quarter">
+											<span class="w3-xxlarge">150+</span> <br>Meetings
+										</div>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -148,9 +164,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 								John <span class="w3-opacity w3-medium">Sep 29, 2014,
 									9:12 PM</span>
 							</h4>
-							<p>Keep up the GREAT work! I am cheering for you!! Lorem
-								ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							<p>게시판 최신글.. 게시판 링크</p>
 							<br>
 						</div>
 					</div>

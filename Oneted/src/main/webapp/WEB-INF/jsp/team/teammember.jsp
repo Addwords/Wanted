@@ -13,7 +13,7 @@
 	href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+
 <style>
 body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
@@ -51,7 +51,7 @@ body, h1, h2, h3, h4, h5, h6 {
 				href=<c:url value='/team/openTeamMember.do'/> onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding w3-text-teal" id="all"
 				value=""><i class="fa fa-user fa-fw w3-margin-right"></i>Member</a>
-			<a href=<c:url value='/team/openTeamContact.do'/>
+			<a href=<c:url value='/team/openTeamBoard.do'/>
 				onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
 		</div>
@@ -81,7 +81,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<!-- Header -->
 		<header id="portfolio">
-			<a href="#"><img src="  " alt="로고" style="width: 65px;"
+			<a href="# "><img src="  " alt="로고" style="width: 65px;"
 				class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
 			<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
 				onclick="w3_open()"><i class="fa fa-bars"></i></span> <br> <br>
@@ -153,26 +153,70 @@ body, h1, h2, h3, h4, h5, h6 {
 	</div>
 
 	<!-- 모달1 -->
-	<div id="modal01" class="modal w3-padding-0">
-		<span class="w3-button w3-light-grey w3-xlarge w3-display-topright"
-			onclick="x()">X</span>
-		<div
-			class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-			<form id='frm1' action='../team/openSearchMember.do' method="post">
-				<label id='modal_member_name'></label><br> <img id="img1"
-					class="tm_img"> <input type='button' id="modal_bt1"
-					name='search_member' value='상세정보' onclick="go_detail(this)">
-				<input type='button' id="modal_bt2" name='message_to_member'
-					value='쪽지' onclick="go_message(this)">
-			</form>
+	<div id="modal01" class="w3-modal">
+		<div class="w3-modal-content w3-animate-zoom" style="width: 250px;height:380px;">
+			<div class="w3-container w3-black w3-display-container">
+				<span class="w3-button w3-display-topright w3-large" onclick="x()">&times;</span>
+				<h4>
+					<label id='modal_member_name'></label><br>
+				</h4>
+			</div>
+			<div class="w3-container"
+				style="padding-left: 0px; padding-bottom: 0px;">
+				<form id='frm1' action='../team/openSearchMember.do' method="post">
+					<img id="img1" class="tm_img" width="250px">
+					<button style="width: 250px" class="w3-button w3-black" type='button' id="modal_bt1"
+						name='search_member' onclick="go_detail(this)">Info</button>
+					<button style="width: 250px"
+						onclick="document.getElementById('contact').style.display='block'"
+						class="w3-button w3-black">Contact</button>
+				</form>
+			</div>
 		</div>
 	</div>
-
+	<!-- Contact Modal -->
+	<div id="contact" class="w3-modal">
+		<div class="w3-modal-content w3-animate-zoom">
+			<div class="w3-container w3-black">
+				<span
+					onclick="document.getElementById('contact').style.display='none'"
+					class="w3-button w3-display-topright w3-large">x</span>
+				<h1>Contact</h1>
+			</div>
+			<div class="w3-container">
+				<p>Reserve a table, ask for today's special or just send us a
+					message:</p>
+				<form action="/action_page.php" target="_blank">
+					<p>
+						<input class="w3-input w3-padding-16 w3-border" type="text"
+							placeholder="Name" required name="Name">
+					</p>
+					<p>
+						<input class="w3-input w3-padding-16 w3-border" type="number"
+							placeholder="How many people" required name="People">
+					</p>
+					<p>
+						<input class="w3-input w3-padding-16 w3-border"
+							type="datetime-local" placeholder="Date and time" required
+							name="date" value="2017-11-16T20:00">
+					</p>
+					<p>
+						<input class="w3-input w3-padding-16 w3-border" type="text"
+							placeholder="Message \ Special requirements" required
+							name="Message">
+					</p>
+					<p>
+						<button class="w3-button" type="submit">SEND MESSAGE</button>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
 	<form id="commonForm" name="commonForm"></form>
 	<script>
-		function tm_detail(element){
-			
+		function tm_detail(element) {
+
 			document.getElementById("modal01").style.display = "block";
 			document.getElementById("img1").src = element.src;
 			var midText = document.getElementById("modal_member_name");
@@ -181,11 +225,12 @@ body, h1, h2, h3, h4, h5, h6 {
 			var sBE = document.getElementById("modal_bt1");
 			sBE.setAttribute("alt", searchByEmail);
 		}
-		
-		function go_detail(obj){
-			var s_email=obj.getAttribute("alt");
-			$('#frm1').append("<input type='hidden' id='SEARCH_MEMBER_EMAIL' value='"+s_email+"'/>");
-			var f=document.getElementById("frm1");
+		function go_detail(obj) {
+			var s_email = obj.getAttribute("alt");
+			$('#frm1')
+					.append(
+							"<input type='hidden' name='SEARCH_MEMBER_EMAIL' value='"+s_email+"'/>");
+			var f = document.getElementById("frm1");
 			f.submit();
 		}
 		function x() {
@@ -197,12 +242,10 @@ body, h1, h2, h3, h4, h5, h6 {
 			document.getElementById("mySidebar").style.display = "block";
 			document.getElementById("myOverlay").style.display = "block";
 		}
-
 		function w3_close() {
 			document.getElementById("mySidebar").style.display = "none";
 			document.getElementById("myOverlay").style.display = "none";
 		}
-
 		function filter_p(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/team/openTeamMember.do' />");

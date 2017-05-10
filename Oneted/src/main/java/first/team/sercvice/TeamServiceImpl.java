@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,24 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Map<String, Object> selectMemberInfo(Map<String, Object> map) {
 		return teamDAO.selectMemberInfo(map);
+	}
+
+	@Override
+	public Map<String, Object> selectTeamContact(Map<String, Object> map) {
+		return teamDAO.selectTeamContact(map);
+	}
+
+//	@Override
+//	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
+//		return teamDAO.selectBoardList(map);
+//	}
+	@Override
+	public Map<String, Object> selectBoardList(Map<String, Object> map) {
+		return teamDAO.selectBoardList(map);
+	}
+
+	@Override
+	public void insertBoard(Map<String, Object> map, HttpServletRequest request) {
+		teamDAO.inserBoard(map);
 	}
 }
