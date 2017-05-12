@@ -55,4 +55,14 @@ public class TeamServiceImpl implements TeamService {
 	public void insertBoard(Map<String, Object> map, HttpServletRequest request) {
 		teamDAO.inserBoard(map);
 	}
+
+	@Override
+	public void updateBoard(Map<String, Object> map, HttpServletRequest request) {
+		teamDAO.updateBoard(map);
+	}
+	
+	@Override
+	public void deleteBoard(Map<String, Object> map) {
+		teamDAO.deleteBoard(map);
+	}
 }

@@ -19,4 +19,8 @@ public interface TeamService {
 	Map<String, Object> selectBoardList(Map<String, Object> map);
 
 	void insertBoard(Map<String, Object> map, HttpServletRequest request);
+
+	void updateBoard(Map<String, Object> map, HttpServletRequest request);
+	
+	void deleteBoard(Map<String, Object> map);
 }

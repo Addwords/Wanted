@@ -86,7 +86,7 @@
 	<select id="insertBoard" parameterType="hashmap"
 		resultType="hashmap">
 		<![CDATA[
-			INSERT INTO team_board
+			INSERT INTO TEAM_BOARD
 			(
 				BOARD_ID,
 				WRITER_EMAIL,
@@ -104,4 +104,23 @@
 			)
 		]]>
 	</select>
+	<update id="updateBoard" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TEAM_BOARD
+			SET
+				BOARD_TITLE = #{TITLE},
+				CONTENT = #{CONTENTS}
+			WHERE
+				BOARD_ID = #{IDX}
+		]]>
+	</update>
+	<update id="deleteBoard" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TEAM_BOARD
+			SET
+				DELETE_GB = 'Y'
+			WHERE
+				BOARD_ID = #{IDX}
+		]]>
+	</update>
 </mapper>

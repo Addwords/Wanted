@@ -19,6 +19,7 @@ function ComSubmit(opt_formId) {
 	}
 	
 	this.setUrl = function setUrl(url){
+		this.url = "";
 		this.url = url;
 	};
 	

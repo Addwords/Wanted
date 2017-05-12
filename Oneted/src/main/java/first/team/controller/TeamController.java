@@ -77,4 +77,19 @@ public class TeamController {
 		teamService.insertBoard(commandMap.getMap(), request);
 		return mv;
 	}
+	
+	@RequestMapping(value="/team/updateBoard.do")
+	public ModelAndView updateBoard(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/team/teamBoardList.do");
+		teamService.updateBoard(commandMap.getMap(), request);
+		mv.addObject("IDX", commandMap.get("IDX"));
+		return mv;
+	}
+	
+	@RequestMapping(value="/team/deleteBoard.do")
+	public ModelAndView deleteBoard(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/team/teamBoardList.do");
+		teamService.deleteBoard(commandMap.getMap());
+		return mv;
+	}
 }

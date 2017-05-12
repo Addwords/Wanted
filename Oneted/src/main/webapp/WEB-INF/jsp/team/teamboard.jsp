@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ taglib uri="/resources/tld/el-function.tld" prefix="moutil" %>
+<%@ taglib uri="/resources/tld/el-function.tld" prefix="moutil"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,9 @@
 	href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
@@ -93,107 +96,30 @@ html, body, h1, h2, h3, h4, h5, h6 {
 	<div class="5grid">
 		<div class="1u-first"></div>
 		<header class="10u">
+			<br> <br>
 			<h1>
 				<span>Team</span>Name
 			</h1>
 			<p>News Feed</p>
 		</header>
 		<div class="1u"></div>
-		<!-- ****************************************************************************************************************** -->
-		<!-- 		<div class="1u-first"></div> -->
-		<!-- 		<div id="slider" class="10u"> -->
-		<!-- 			<a href="#" class="previous-button">&lt;</a> <a href="#" -->
-		<!-- 				class="next-button">&gt;</a> -->
-		<!-- 			<div class="shadow"></div> -->
-		<!-- 			<div class="viewer"> -->
-		<!-- 				<ul class="reel"> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the first slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-1">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/1.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the second slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-2">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/2.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the third slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-3">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/3.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the fourth slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-4">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/4.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the fifth slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-5">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/5.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the sixth slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-6">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/6.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the seventh slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-7">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/7.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 					<li class="slide"> -->
-		<!-- 						<h2>This is the eighth slide.</h2> -->
-		<!-- 						<p>Lorem ipsum dolor sit amet nullam.</p> <a class="link" -->
-		<!-- 						href="http://nodethirtythree.com/#slidertron-slide-8">Full -->
-		<%-- 							story ...</a> <img src="${pageContext.request.contextPath}/images/8.jpg" alt="" /> --%>
-		<!-- 					</li> -->
-		<!-- 				</ul> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="indicator"> -->
-		<!-- 				<ul> -->
-		<!-- 					<li class="active">1</li> -->
-		<!-- 					<li>2</li> -->
-		<!-- 					<li>3</li> -->
-		<!-- 					<li>4</li> -->
-		<!-- 					<li>5</li> -->
-		<!-- 					<li>6</li> -->
-		<!-- 					<li>7</li> -->
-		<!-- 					<li>8</li> -->
-		<!-- 				</ul> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
-		<!-- 		<div class="1u"></div> -->
-		<!-- 		<script type="text/javascript"> -->
-		<!-- // 			$('#slider').slidertron({ -->
-		<!-- // 				viewerSelector : '.viewer', -->
-		<!-- // 				reelSelector : '.viewer .reel', -->
-		<!-- // 				slidesSelector : '.viewer .reel .slide', -->
-		<!-- // 				advanceDelay : 3000, -->
-		<!-- // 				speed : 'slow', -->
-		<!-- // 				navPreviousSelector : '.previous-button', -->
-		<!-- // 				navNextSelector : '.next-button', -->
-		<!-- // 				indicatorSelector : '.indicator ul li', -->
-		<!-- // 				slideLinkSelector : '.link' -->
-		<!-- // 			}); -->
-		<!-- 		</script> -->
-		<!-- ****************************************************************************************************************** -->
+
 		<!-- Post Block -->
 		<div class="1u-first"></div>
 		<!-- Post Start -->
 		<div class="10u post">
 			<section>
 				<form id="board" name="board">
-					<h2><input type="text" size="44" id="title" name="TITLE" style="border-style:hidden;" placeholder="Write down your idea"></h2>
-					<p><textarea rows="4" cols="96" style="width: 789px; border-style:hidden;" id="contents" name="CONTENTS" placeholder="Join the discussion"></textarea></p>
-					<b><button style="float:right;" class="btn" id="btn-board">Post</button></b>
+					<h2>
+						<input type="text" size="44" id="title" name="TITLE"
+							style="border-style: hidden;" placeholder="Write down your idea">
+					</h2>
+					<p>
+						<textarea rows="4" cols="96"
+							style="width: 789px; border-style: hidden;" id="contents"
+							name="CONTENTS" placeholder="Join the discussion"></textarea>
+					</p>
+					<b><button style="float: right;" class="btn" id="btn-board">Post</button></b>
 					<br>
 				</form>
 			</section>
@@ -208,11 +134,27 @@ html, body, h1, h2, h3, h4, h5, h6 {
 			<!-- Post Start -->
 			<div class="10u post">
 				<section>
-					<h2>
-						<a href="#this" style="text-decoration:none">${b.BOARD_TITLE}</a>
-					</h2>
-					<p>${moutil:getContent(b.CONTENT)}</p>
-					<p style="opacity: 0.9;color: #3d89b9; font-style: italic;"><span style="color: black;">${b.WRITER_EMAIL}</span>　 <span style="font-style:normal; opacity: 1.0 ; color: black;">|</span>　 ${moutil:calculateTime(b.WRITE_TIME)}</p>
+					<div id="re-board">
+						<h2>
+							<a href="#this" style="text-decoration: none" id="board_title">${b.BOARD_TITLE}</a>
+						</h2>
+						<div id="option-button" style="z-index: 10; position: absolute; right: 100px; top: 60px;">
+							<a class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button" style="color: #039be5;">
+								<i class="material-icons icon-button">more_vert</i>
+							</a>
+							<ul class="dropdown-menu" id="dropdown-menu" style="position: absolute; left: 10px; top: 20px;">
+								<li><a href="#this" id="update">Edit</a></li>
+								<li><a href="#this" id="remove">Remove</a></li>
+							</ul>
+						</div>
+						<a id="board_content">${moutil:getContent(b.CONTENT)}</a>
+					</div>
+					<p style="opacity: 0.9; color: #3d89b9; font-style: italic;">
+						<span style="color: black;">${b.WRITER_EMAIL}</span> <span
+							style="font-style: normal; opacity: 1.0; color: black;">|</span>
+						${moutil:calculateTime(b.WRITE_TIME)}
+					</p>
+					<input type="hidden" id="IDX" value="${b.BOARD_ID}">
 				</section>
 				<div class="shadow"></div>
 			</div>
@@ -221,40 +163,35 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		</c:forEach>
 		<!-- End Post Block -->
 
-		<!-- Pagination -->
-		<!-- 		<div class="w3-center w3-padding-32"> -->
-		<!-- 			<div class="w3-bar"> -->
-		<!-- 				<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> <a -->
-		<!-- 					href="#" class="w3-bar-item w3-black w3-button">1</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">2</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">3</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">4</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">»</a> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
 		<div class="10u post" style="text-align: center;">
 			<c:if test="${not empty paginationInfo}">
-				<ui:pagination paginationInfo="${paginationInfo}" type="image"
-					jsFunction="fn_search" />
+				<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fn_search"/>
 			</c:if>
 			<input type="hidden" id="currentPageNo" name="currentPageNo" />
 		</div>
 	</div>
 	<form id="commonForm" name="commonForm"></form>
 
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-	<script src="${pageContext.request.contextPath}/bundle.js"></script>
-	<div class="hiddendiv common"></div>
+<!-- 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+<!-- 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script> -->
+<%-- 	<script src="${pageContext.request.contextPath}/bundle.js"></script> --%>
+<!-- 	<div class="hiddendiv common"></div> -->
 
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
 	<script>
-		$("#btn-board").on("click", function(e){ //글쓰기 버튼
+		$("#btn-board").on("click", function() { //글쓰기 버튼
 			fn_insertBoard();
-		});	
-	
+		});
+		$(document.body).on("click", "a[id='update']", function(){
+			fn_updateBoard($(this));
+		});
+		$(document.body).on("click", "#re-btn-board", function(){
+			console.log("ad");
+			fn_updateBoard2($(this));
+		});
+		$(document.body).on("click", "a[id='remove']", function(){
+		    fn_deleteBoard($(this));
+		});
 		// Script to open and close sidebar
 		function w3_open() {
 			document.getElementById("mySidebar").style.display = "block";
@@ -272,11 +209,54 @@ html, body, h1, h2, h3, h4, h5, h6 {
 			comSubmit.addParam("currentPageNo", pageNo);
 			comSubmit.submit();
 		}
-		
-		function fn_insertBoard(){
+
+		function fn_insertBoard() {
 			var comSubmit = new ComSubmit("board");
 			comSubmit.setUrl("<c:url value='/team/insertBoard.do' />");
 			comSubmit.submit();
+		}
+		
+		function fn_updateBoard(obj) {
+			
+			console.log("hi"+obj.parent().parent().parent().parent().find("#board_title").html());
+			var re_title = obj.parent().parent().parent().parent().find("#board_title").html();
+			var re_content = obj.parent().parent().parent().parent().find("#board_content").html();
+			
+			var BoardForm= obj.parent().parent().parent().parent().parent().find("#re-board");
+			
+			BoardForm.empty();
+			
+			var form = "<form id='re-board' name='re-board'>"+
+						"<h2>"+
+							"<input type='text' size='44' id='title' name='TITLE' style='border-style: hidden;' value='"+re_title+"'>"+
+						"</h2>"+
+						"<p>"+
+							"<textarea rows='4' cols='96'"+
+								"style='width: 789px; border-style: hidden;' id='contents'"+
+								"name='CONTENTS'>"+re_content+"</textarea>"+
+						"</p>"+
+						"<b><a style='float: right;' class='btn' id='re-btn-board'>Re-Post</a></b>"+
+						"<br>"+
+				 	"</form>";
+			BoardForm.append(form);
+		}
+		
+		function fn_updateBoard2(obj) {
+			console.log(obj.parent().parent().parent().parent().find("#title").val());
+	        var comSubmit = new ComSubmit();
+	        comSubmit.setUrl("/first/team/updateBoard.do");
+	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().find("#IDX").val());
+	        comSubmit.addParam("TITLE", obj.parent().parent().parent().parent().find("#title").val());
+	        comSubmit.addParam("CONTENTS", obj.parent().parent().parent().parent().find("#contents").val());
+	        comSubmit.submit();
+		}
+		
+		function fn_deleteBoard(obj) {
+			console.log(obj.parent().parent().parent().parent().parent().find("#IDX").val());
+	        var comSubmit = new ComSubmit();
+	        comSubmit.setUrl("${pageContext.request.contextPath}/team/deleteBoard.do");
+	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().parent().find("#IDX").val());
+	        comSubmit.submit();
 		}
 	</script>
 </body>
