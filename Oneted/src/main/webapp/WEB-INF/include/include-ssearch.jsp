@@ -49,6 +49,8 @@
 			width: 95%;
 			background-color: #ffe6b3;
 			margin-bottom: 20px;
+			border: 0;
+			outline: 0;
 		}
 	</style>
 	
@@ -182,34 +184,9 @@
 							}, i * 1000);
 			})(i);
 		}
-		$('#row_area').empty();
-		
-		$.ajax({
-		    type : "POST",
-		    url : "<c:url value='/genie/getResult.do'/>",
-		    data : "EMAIL="+loginEmail,
-		    dataType: "json",
-		    success : function(data, textStatus, xhr) {
-		    	$.each(data, function(key, val){
-		    		console.log(val['MBER_EMAIL']);
-		    		
-					var format = "<div class='col-sm-4' style='width: 25%'>" +
-									"<div class='panel panel-primary'>" +
-										"<div class='panel-heading' style='background-color: #333;'>" +
-											"<a href='#this' name='mber_name' style='text-decoration:none'>"+val['MBER_NAME']+"</a>" +
-										"</div>" + 
-										"<div class='panel-body' style='max-height: 229px; overflow:hidden;'>" +
-											"<a href='#this' name='mber_img' style='text-decoration:none'>" +
-												"<img src='/first/common/getImage.do?IMG_NAME="+val['MBER_IMG']+"' class='img-responsive' style='width:100%;height: 205px;' alt='Image'>" +
-											"</a>" +
-										"</div>" +
-										"<input id='IDX' type='hidden' name='IDX' value='"+val['MBER_INFO_IDX']+"'>" +
-										"<div class='panel-footer' style='height: 44px'>"+val['MBER_SKILL']+"</div>" +
-										"<div class='panel-footer' style='height: 88px'>"+val['MBER_INTRODUCE']+"</div>" +
-									"</div>" +
-								 "</div>";
-								 
-					$('#row_area').append(format);
+
+
+
 					cnt++;
 		    	});
 		    	$('#mber-pool-title').html("Smart Search / <span class='fc-orange'>Result</span>");
