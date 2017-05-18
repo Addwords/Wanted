@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="register">
+
+	<insert id="register" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO mber
+			(
+				mber_email,
+			    mber_pwd, 
+			    mber_name,
+			    mber_del
+			)
+			VALUES
+			(				 
+				#{REGEMAIL},
+				#{REGPWD},
+				#{REGNAME},
+				'N'
+			)
+		]]>
+	</insert>
+
+	<update id="delUser" parameterType="hashmap">
+		<![CDATA[
+			UPDATE mber
+			SET
+				deleted = 'Y'
+			WHERE
+				mber_email = #{DELEMAIL}
+		]]>
+	</update>
+
+	<select id="regValidateEmail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mber_email
+			FROM
+				mber
+			WHERE
+				mber_email = #{REGEMAIL}		
+		]]>
+	</select>
+
+	<select id="regValidateName" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mber_name
+			FROM
+				mber
+			WHERE
+				mber_name = #{REGNAME}		
+		]]>
+	</select>
+
+	<update id="updateUser" parameterType="hashmap">
+		<![CDATA[
+			UPDATE mber
+			SET
+				mber_pwd = #{UPDATEPWD},
+				mber_name = #{UPDATENAME}
+			WHERE
+				mber_email = #{UPDATEEMAIL}
+		]]>
+	</update>
+
+</mapper>

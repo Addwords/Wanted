@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mber">
+	
+	<sql id="joinSelectMber">
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY MI.MBER_INFO_IDX DESC) RNUM,
+			MI.*,
+			M.MBER_NAME
+		FROM
+			MBER M, MBER_INFO MI
+		WHERE
+			M.MBER_EMAIL = MI.MBER_EMAIL
+	</sql>
+	
+	
+	<select id="selectMberList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
+		<include refid="joinSelectMber"/>
+			AND 
+				M.MBER_DEL = 'N'
+			AND	
+				MI.MBER_INFO_DEL = 'N'
+			<if test="search!=NULL">
+			AND		
+				(lower(M.MBER_EMAIL) like '%'||#{search}||'%'
+					OR
+				lower(M.MBER_NAME) like '%'||#{search}||'%'
+					OR						
+				lower(MI.MBER_PHONE) like '%'||#{search}||'%'
+					OR
+				lower(MI.MBER_LOCAL) like '%'||#{search}||'%'
+					OR
+				lower(MI.MBER_SKILL) like '%'||#{search}||'%')
+			ORDER BY MI.MBER_INFO_IDX DESC
+			</if>	
+		<include refid="common.pagingPost"/> 
+	</select>
+	
+	<insert id="insetChoice" parameterType="hashmap">
+			INSERT INTO MBER_TQ
+			(
+				TQ_IDX,
+			    MBER_EMAIL, 
+			    TQ_QUESTION, 
+			    TQ_ANSWER, 
+			    DEL_FLAG
+			)
+			VALUES
+			(
+				SEQ_MBER_TQ_IDX.NEXTVAL, 
+				#{EMAIL},
+				#{QUESTION},
+			    #{ANSWER}, 
+			    'N'
+			)
+	</insert>
+	
+	<update id="initGenie" parameterType="hashmap">
+			UPDATE 
+				MBER_TQ
+			SET 
+				DEL_FLAG = 'Y'
+			WHERE 
+				MBER_EMAIL = #{EMAIL}
+	</update>
+	
+	<select id="smartSearch" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MBER_NAME, 
+				MBER_IMG, 
+				MBER_INFO_IDX, 
+				MBER_SKILL, 
+				MBER_INTRODUCE,
+				MI.MBER_EMAIL, 
+				SCORE
+			FROM(
+				SELECT MBER_EMAIL EMAIL, SCORE
+				FROM  
+				  (SELECT A.MBER_EMAIL ,SUM(B.SCORE) AS SCORE
+				  from MBER_TQ A JOIN 
+				    (SELECT  MBER_EMAIL, TQ_QUESTION, TQ_ANSWER, 1 SCORE 
+				     FROM MBER_TQ 
+				     WHERE MBER_EMAIL= #{EMAIL}
+				     AND DEL_FLAG = 'N') B 
+				  ON A.TQ_QUESTION = B.TQ_QUESTION 
+				  AND A.TQ_ANSWER = B.TQ_ANSWER
+				  AND A.MBER_EMAIL != #{EMAIL}
+				  AND DEL_FLAG = 'N'
+				  AND SCORE IS NOT NULL
+				  GROUP BY A.MBER_EMAIL 
+				  ORDER BY SUM(B.SCORE) DESC)
+				WHERE ROWNUM <= 4) GENIE, MBER_INFO MI , MBER
+			WHERE GENIE.EMAIL = MI.MBER_EMAIL
+			AND MBER_INFO_DEL = 'N'
+			AND MBER.MBER_EMAIL = MI.MBER_EMAIL
+			ORDER BY GENIE.SCORE DESC
+		]]>
+	</select>
+	
+	
+</mapper>

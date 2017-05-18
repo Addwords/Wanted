@@ -17,14 +17,16 @@
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
 }
-/* .w3-third w3-container w3-margin-bottom { */
-/* 	width: 390px; */
-/* 	height: 520px; */
-/* } */
 </style>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
-	<jsp:include page="/WEB-INF/include/navBar.jspf" />
+ 	<%
+		if (session.getAttribute("LOGEMAIL") == null) {System.out.println("attribute null");%>			
+			<%@include file="/WEB-INF/include/include-outnavbar.jspf" %><%
+		}else{System.out.println("attribute exist");%>
+			<%@include file="/WEB-INF/include/include-innavbar.jspf" %><%
+		}
+	%>
 	<!-- Sidebar/menu -->
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index: 3; width: 300px;" id="mySidebar">
@@ -49,9 +51,9 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				href=<c:url value='/team/openTeamMember.do'/> onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-user fa-fw w3-margin-right"></i>Member</a> <a
-				href=<c:url value='/team/openTeamContact.do'/> onclick="w3_close()"
+				href=<c:url value='/team/teamBoardList.do'/> onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
+				class="fa fa-file fa-fw w3-margin-right"></i>Board</a>
 		</div>
 		<div class="w3-panel w3-large">
 			<a href="http://fb.com" target="b"><i
@@ -87,6 +89,15 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				<br>
 				<h1>
 					<b>Team Info</b>
+					<a href="#this" id="apply"
+						style="font-size: 20px; float: right; display: none; background-color:inherit; color:black" class="w3-btn">Join Us</a>
+					<a href="#this" id="invited"
+						style="font-size: 20px; float: right; display: none; background-color:inherit; color:black" class="w3-btn">Invited</a>
+					<a href="#this" id="applied"
+						style="font-size: 20px; float: right; display: none; background-color:inherit; color:black" class="w3-btn">Applied</a>
+					<a href="#this" id="leave"
+						style="font-size: 20px; float: right; display: none; background-color:inherit; color:black" class="w3-btn">Leave Us</a>
+
 				</h1>
 				<div class="w3-section w3-bottombar w3-padding-16"></div>
 				<div class="w3-panel">
@@ -98,7 +109,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 								style="width: 100%" alt="팀 사진">
 						</div>
 						<div class="w3-twothird">
-							<h5>TEAM INFORMATION</h5>
+							<h5>INFORMATION</h5>
 							<table class="w3-table w3-striped w3-white">
 								<tr>
 									<td><i class="fa fa-user w3-text-red w3-large"></i></td>
@@ -108,26 +119,28 @@ html, body, h1, h2, h3, h4, h5, h6 {
 								<tr>
 									<td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
 									<td>Member</td>
-									<td><i>(8/10) 연결</i></td>
+									<td><i>LINKED&nbsp&nbsp&nbsp&nbsp&nbsp(${INGUSER.COUNT}/${TOTALUSER.COUNT})</i></td>
 								</tr>
 								<tr>
 									<td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
 									<td>Explane</td>
 									<td><i>${TEAMINFO.TEAM_EXP}</i></td>
 								</tr>
+								<tr><td colspan="3">&nbsp</td></tr>
 								<tr>
-									<td colspan="3" class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
-										<div class="w3-quarter">
-											<span class="w3-xxlarge">14+</span> <br>Partners
+									<td colspan="3"
+										class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+										<div class="w3-quarter"><a href="#this" class="w3-btn" style="background-color:inherit;">
+											<span class="w3-xxlarge">14+</span> <br>Partners</a>
 										</div>
-										<div class="w3-quarter">
-											<span class="w3-xxlarge">55+</span> <br>Projects Done
+										<div class="w3-quarter"><a href="#this" class="w3-btn" style="background-color:inherit;">
+											<span class="w3-xxlarge">55+</span> <br>Projects</a>
 										</div>
-										<div class="w3-quarter">
-											<span class="w3-xxlarge">89+</span> <br>Happy Clients
+										<div class="w3-quarter"><a href="#this" class="w3-btn" style="background-color:inherit;">
+											<span class="w3-xxlarge">89+</span> <br>Clients</a>
 										</div>
-										<div class="w3-quarter">
-											<span class="w3-xxlarge">150+</span> <br>Meetings
+										<div class="w3-quarter"><a href="#this" class="w3-btn" style="background-color:inherit;">
+											<span class="w3-xxlarge">150+</span> <br>Meetings</a>
 										</div>
 									</td>
 								</tr>
@@ -139,89 +152,95 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				<div class="w3-container">
 					<h5>Recent Users</h5>
 					<ul class="w3-ul w3-card-4 w3-white">
-						<li class="w3-padding-16"><img src="/w3images/avatar2.png"
+						<c:forEach items="${RECENTUSER}" var="u">
+						<li class="w3-padding-16"><img src="${pageContext.request.contextPath}/resources/images/${u.MBER_IMG}"
 							class="w3-left w3-circle w3-margin-right" style="width: 35px">
-							<span class="w3-xlarge">Mike</span><br></li>
-						<li class="w3-padding-16"><img src="/w3images/avatar5.png"
-							class="w3-left w3-circle w3-margin-right" style="width: 35px">
-							<span class="w3-xlarge">Jill</span><br></li>
-						<li class="w3-padding-16"><img src="/w3images/avatar6.png"
-							class="w3-left w3-circle w3-margin-right" style="width: 35px">
-							<span class="w3-xlarge">Jane</span><br></li>
+							<span class="w3-xlarge">${u.MBERLOG_EMAIL}</span><br></li>
+						</c:forEach>
 					</ul>
 				</div>
 				<hr>
 
 				<div class="w3-container">
 					<h5>Recent Comments</h5>
+					<c:forEach items="${RECENTBOARD}" var="r">
 					<div class="w3-row">
 						<div class="w3-col m2 text-center">
-							<img class="w3-circle" src="/w3images/avatar3.png"
+							<img class="w3-circle" src="${pageContext.request.contextPath}/resources/images/${r.MBER_IMG}"
 								style="width: 96px; height: 96px">
 						</div>
 						<div class="w3-col m10 w3-container">
 							<h4>
-								John <span class="w3-opacity w3-medium">Sep 29, 2014,
-									9:12 PM</span>
+								${r.WRITER_EMAIL} <span class="w3-opacity w3-medium">${r.WRITE_TIME}</span>
 							</h4>
-							<p>게시판 최신글.. 게시판 링크</p>
+							<p>${r.CONTENT}</p>
 							<br>
 						</div>
 					</div>
-
-					<div class="w3-row">
-						<div class="w3-col m2 text-center">
-							<img class="w3-circle" src="/w3images/avatar1.png"
-								style="width: 96px; height: 96px">
-						</div>
-						<div class="w3-col m10 w3-container">
-							<h4>
-								Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15
-									PM</span>
-							</h4>
-							<p>Sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua.</p>
-							<br>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<br>
 			</div>
 		</header>
-
 		<div class="w3-row-padding">
-			<!-- Member -->
-
-			<!-- Member End -->
-
-
 		</div>
-		<!-- Pagination -->
-		<!-- 		<div class="w3-center w3-padding-32"> -->
-		<!-- 			<div class="w3-bar"> -->
-		<!-- 				<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> <a -->
-		<!-- 					href="#" class="w3-bar-item w3-black w3-button">1</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">2</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">3</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">4</a> <a href="#" -->
-		<!-- 					class="w3-bar-item w3-button w3-hover-black">»</a> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
-		<!-- End page content -->
 	</div>
+	<%@ include file="/WEB-INF/include/include-body.jspf"%>
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
+	<%session.setAttribute("EMAIL", "c@c.com"); %>
 	<script>
+		var status='${CHECKSTATUS.MBER_STATUS}';
+		console.log(status);
+		$(document).ready(function(){
+			if(!(status == "leader"||status == "member")){
+				if(status==''||status==null||status=="leaved"){
+					$('#apply').show();
+					return;
+				}else if(status=="applied"){
+					$('#applied').show();
+					return;
+				}else if(status=="invited"){
+					$('#invited').show();
+					return;
+				}
+			}
+			else{
+				$('#leave').show();
+			}
+		});
+		$(document.body).on("click", "a[id='apply']", function() {
+			fn_apply($(this));
+		});
+		$(document.body).on("click", "a[id='leave']", function() {
+			fn_leave($(this));
+		});
+		function fn_apply() {
+			var email = '${sessionScope.EMAIL}';
+			var teamId = '${TEAMINFO.TEAM_ID}';
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/team/teamAplly.do'/>");
+			comSubmit.addParam("LOGEMAIL",email);
+			comSubmit.addParam("TEAMID",teamId);
+			comSubmit.submit();
+		}
+		function fn_leave(p) {
+			var email = '${sessionScope.EMAIL}';
+			var teamId = '${TEAMINFO.TEAM_ID}';
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/team/teamLeave.do'/>");
+			comSubmit.addParam("LOGEMAIL",email);
+			comSubmit.addParam("TEAMID",teamId);
+			comSubmit.submit();
+		}
 		// Script to open and close sidebar
 		function w3_open() {
 			document.getElementById("mySidebar").style.display = "block";
 			document.getElementById("myOverlay").style.display = "block";
 		}
-
 		function w3_close() {
 			document.getElementById("mySidebar").style.display = "none";
 			document.getElementById("myOverlay").style.display = "none";
 		}
 	</script>
-
 </body>
 </html>

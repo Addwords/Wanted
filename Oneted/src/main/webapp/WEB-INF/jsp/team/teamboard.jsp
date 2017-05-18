@@ -23,21 +23,21 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <!-- 5grid -->
-<script src="${pageContext.request.contextPath}/5grid/viewport.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/viewport.js"></script>
 <!-- [if lt IE 9]><script src="5grid/ie.js"></script><![endif] -->
 
-<script src="${pageContext.request.contextPath}/5grid/ie.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/ie.js"></script>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/5grid/core.css" />
+	href="${pageContext.request.contextPath}/resources/css/core.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/style.css" />
+	href="${pageContext.request.contextPath}/resources/css/style.css?ver=0.2" />
 <link href='http://fonts.googleapis.com/css?family=Lustria'
 	rel='stylesheet' type='text/css'>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery-1.7.1.min.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery.slidertron-1.0.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery.slidertron-1.0.js"></script>
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
@@ -45,7 +45,13 @@ html, body, h1, h2, h3, h4, h5, h6 {
 </style>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
-	<jsp:include page="/WEB-INF/include/navBar.jspf" />
+	<%
+		if (session.getAttribute("LOGEMAIL") == null) {System.out.println("attribute null");%>			
+			<%@include file="/WEB-INF/include/include-outnavbar.jspf" %><%
+		}else{System.out.println("attribute exist");%>
+			<%@include file="/WEB-INF/include/include-innavbar.jspf" %><%
+		}
+	%>
 	<!-- Sidebar/menu -->
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index: 3; width: 300px;" id="mySidebar">
@@ -55,10 +61,10 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 				title="close menu"> <i class="fa fa-remove"></i>
 			</a> <img
-				src="${pageContext.request.contextPath}/images/${TEAMCONTACT.TEAM_IMG}"
+				src="${pageContext.request.contextPath}/resources/images/${BOARDLIST[0].TEAM_IMG}"
 				style="width: 45%;" alt="팀사진" class="w3-round"><br> <br>
 			<h4>
-				<b>${TEAMCONTACT.TEAM_NAME}</b>
+				<b>${BOARDLIST[0].TEAM_NAME}</b>
 			</h4>
 			<!-- <p class="w3-text-grey">by 팀 이름</p> -->
 		</div>
@@ -71,7 +77,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 				class="fa fa-user fa-fw w3-margin-right"></i>Member</a> <a
 				href=<c:url value='/team/teamBoardList.do'/> onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding w3-text-teal"><i
-				class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
+				class="fa fa-file fa-fw w3-margin-right"></i>Board</a>
 		</div>
 		<div class="w3-panel w3-large">
 			<a style="color: black;" href="http://fb.com" target="b"><i
@@ -98,7 +104,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		<header class="10u">
 			<br> <br>
 			<h1>
-				<span>Team</span>Name
+				<span>Team-</span>${BOARDLIST[0].TEAM_NAME}
 			</h1>
 			<p>News Feed</p>
 		</header>
@@ -139,7 +145,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							<a href="#this" style="text-decoration: none" id="board_title">${b.BOARD_TITLE}</a>
 						</h2>
 						<div id="option-button" style="z-index: 10; position: absolute; right: 100px; top: 60px;">
-							<a class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button" style="color: #039be5;">
+							<a class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button" style="color: #039be5; cursor:pointer;">
 								<i class="material-icons icon-button">more_vert</i>
 							</a>
 							<ul class="dropdown-menu" id="dropdown-menu" style="position: absolute; left: 10px; top: 20px;">
@@ -170,19 +176,27 @@ html, body, h1, h2, h3, h4, h5, h6 {
 			<input type="hidden" id="currentPageNo" name="currentPageNo" />
 		</div>
 	</div>
-	<form id="commonForm" name="commonForm"></form>
 
 <!-- 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 <!-- 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script> -->
 <%-- 	<script src="${pageContext.request.contextPath}/bundle.js"></script> --%>
 <!-- 	<div class="hiddendiv common"></div> -->
 
+<%@ include file="/WEB-INF/include/include-body.jspf"%>
+<% session.setAttribute("LOGEMAIL", "c@c.com"); %>
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
 	<script>
+		var email = '${sessionScope.LOGEMAIL}';
 		$("#btn-board").on("click", function() { //글쓰기 버튼
 			fn_insertBoard();
 		});
 		$(document.body).on("click", "a[id='update']", function(){
+			var creaEmail = $(this).find("#writer_email").html();
+			if(!email.equal(creaEmail))
+			{
+				alert("글쓴이가 아닙니다.");
+				return;
+			}
 			fn_updateBoard($(this));
 		});
 		$(document.body).on("click", "#re-btn-board", function(){
@@ -218,7 +232,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		
 		function fn_updateBoard(obj) {
 			
-			console.log("hi"+obj.parent().parent().parent().parent().find("#board_title").html());
+// 			console.log("hi"+obj.parent().parent().parent().parent().find("#board_title").html());
 			var re_title = obj.parent().parent().parent().parent().find("#board_title").html();
 			var re_content = obj.parent().parent().parent().parent().find("#board_content").html();
 			
@@ -242,7 +256,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		}
 		
 		function fn_updateBoard2(obj) {
-			console.log(obj.parent().parent().parent().parent().find("#title").val());
+// 			console.log(obj.parent().parent().parent().parent().find("#title").val());
 	        var comSubmit = new ComSubmit();
 	        comSubmit.setUrl("/first/team/updateBoard.do");
 	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().find("#IDX").val());
@@ -252,7 +266,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		}
 		
 		function fn_deleteBoard(obj) {
-			console.log(obj.parent().parent().parent().parent().parent().find("#IDX").val());
+// 			console.log(obj.parent().parent().parent().parent().parent().find("#IDX").val());
 	        var comSubmit = new ComSubmit();
 	        comSubmit.setUrl("${pageContext.request.contextPath}/team/deleteBoard.do");
 	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().parent().find("#IDX").val());

@@ -1,40 +1,87 @@
-drop sequence member_seq;
+drop table mber;
 
-create sequence member_seq start with 0 minvalue 0 increment by 1;
-
-drop table member;
-
-create table member(
-member_id number primary key,
-member_name varchar2(30),
-member_email varchar2(50) not null,
-member_img varchar2(100)
+create table mber(
+mber_email varchar2(30) primary key,
+mber_pwd varchar2(15),
+mber_name varchar2(15),
+mber_del varchar2(1),
+mber_regdate date default sysdate
 );
 
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'¹Ú¼¼ÈÆ','a@a.com','member1.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'±è´ë¿µ','b@b.com','member2.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'¹Ú½ÂÇö','c@c.com','member3.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'±èÀÏ±¤','d@d.com','member4.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'ÇÑ»óÇÏ','e@e.com','member5.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'¼ÕÀçÇü','f@f.com','member6.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'±èÁÖÇö','g@g.com','member7.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'ÀÌÀÏ±Ô','h@h.com','member8.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'ÇÑ»óÈ£','i@i.com','member9.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'±èÅÂÇü','j@j.com','member10.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'±è¹ÎÃ¶','k@k.com','member11.jpg');
-insert into member(member_id,member_name,member_email,member_img) values(member_seq.nextval,'¼Û¼¼Çå','l@l.com','member12.jpg');
+insert into mber(mber_email,mber_name) values('a@a.com','¹Ú¼¼ÈÆ');
+insert into mber(mber_email,mber_name) values('b@b.com','±è´ë¿µ');
+insert into mber(mber_email,mber_name) values('c@c.com','¹Ú½ÂÇö');
+insert into mber(mber_email,mber_name) values('d@d.com','±èÀÏ±¤');
+insert into mber(mber_email,mber_name) values('e@e.com','ÇÑ»óÇÏ');
+insert into mber(mber_email,mber_name) values('f@f.com','¼ÕÀçÇü');
+insert into mber(mber_email,mber_name) values('g@g.com','±èÁÖÇö');
+insert into mber(mber_email,mber_name) values('h@h.com','ÀÌÀÏ±Ô');
+insert into mber(mber_email,mber_name) values('i@i.com','ÇÑ»óÈ£');
+insert into mber(mber_email,mber_name) values('j@j.com','±èÅÂÇü');
+insert into mber(mber_email,mber_name) values('k@k.com','±è¹ÎÃ¶');
+insert into mber(mber_email,mber_name) values('l@l.com','¼Û¼¼Çå');
 
 commit;
+---------------------
+DROP TABLE mberlog;
 
-select * from member;
-----------------------------------
-drop sequence team_seq;
+CREATE TABLE mberlog(
+mberlog_email VARCHAR2(30) PRIMARY KEY,
+mberlog_in DATE DEFAULT SYSDATE,
+mberlog_out DATE DEFAULT SYSDATE
+);
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('a@a.com',to_date('17/05/15 15','DD/MM/RR HH24'),to_date('17/05/15 9','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('b@b.com',to_date('17/05/16 12','DD/MM/RR HH24'),to_date('17/05/15 2','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('c@c.com',to_date('17/05/13 2','DD/MM/RR HH24'),to_date('17/05/11 5','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('d@d.com',to_date('17/05/15 13','DD/MM/RR HH24'),to_date('17/05/15 6','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('e@e.com',to_date('17/05/15 9','DD/MM/RR HH24'),to_date('17/05/15 12','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('f@f.com',to_date('17/05/15 13','DD/MM/RR HH24'),to_date('17/05/15 15','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('g@g.com',to_date('17/05/13 16','DD/MM/RR HH24'),to_date('17/05/16 12','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('h@h.com',to_date('17/05/14 7','DD/MM/RR HH24'),to_date('17/05/15 18','DD/MM/RR HH24'));
+insert into mberlog(mberlog_email,mberlog_in,mberlog_out) values('i@i.com',to_date('17/05/14 23','DD/MM/RR HH24'),to_date('17/05/16 7','DD/MM/RR HH24'));
 
-create sequence team_seq start with 0 minvalue 0 increment by 1;
+COMMIT;
+--------------------------------------------------------
 
-drop table team;
+drop sequence mber_info_seq;
 
-create table team(
+create sequence mber_info_seq start with 0 minvalue 0 increment by 1;
+
+drop table mber_info;
+
+create table mber_info(
+mber_id number primary key,
+mber_email varchar2(50) not null,
+mber_phone varchar2(20),
+mber_local varchar2(200),
+mber_skill varchar2(200),
+mber_introduce varchar2(200),
+mber_img varchar2(100),
+mber_info_del varchar2(1)
+);
+
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'a@a.com','member1.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'b@b.com','member2.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'c@c.com','member3.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'d@d.com','member4.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'e@e.com','member5.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'f@f.com','member6.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'g@g.com','member7.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'h@h.com','member8.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'i@i.com','member9.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'j@j.com','member10.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'k@k.com','member11.jpg');
+insert into mber_info(mber_id,mber_email,mber_img) values(mber_info_seq.nextval,'l@l.com','member12.jpg');
+
+commit;
+-------------------------------------------------
+drop sequence team_info_seq;
+
+create sequence team_info_seq start with 0 minvalue 0 increment by 1;
+
+drop table team_info;
+
+create table team_info(
 team_id number primary key,
 l_email varchar2(50) not null,
 team_name varchar2(50) not null,
@@ -42,32 +89,34 @@ team_img varchar2(100),
 team_exp varchar2(1000)
 );
 
-insert into team(team_id,l_email,team_name,team_img,team_exp) values(team_seq.nextval,'a@a.com','602È£1ÆÀ','team1.jpg','');
-insert into team(team_id,l_email,team_name,team_img,team_exp) values(team_seq.nextval,'b@b.com','602È£2ÆÀ','team1.jpg','¿ìÁÖÃÖ°­ÆÀ2');
+insert into team_info(team_id,l_email,team_name,team_img,team_exp) values(team_info_seq.nextval,'a@a.com','602È£1ÆÀ','team1.jpg','');
+insert into team_info(team_id,l_email,team_name,team_img,team_exp) values(team_info_seq.nextval,'b@b.com','602È£2ÆÀ','team1.jpg','¿ìÁÖÃÖ°­ÆÀ2');
 
 commit;
-
-select * from team;
 --------------------------------
-drop table team_member;
+drop sequence team_mber_seq;
 
-create table team_member(
+create sequence team_mber_seq start with 0 minvalue 0 increment by 1;
+
+drop table team_mber;
+
+create table team_mber(
+tmid number(8) primary key,
 team_id number not null,
-tm_email varchar2(50) primary key,
-tm_role varchar2(100)
+mber_email varchar2(50),
+mber_role varchar2(100),
+mber_status varchar2(100)
 );
 
-insert into team_member(team_id,tm_email,tm_role) values(2,'b@b.com','ÆÀÀå');
-insert into team_member(team_id,tm_email,tm_role) values(2,'c@c.com','°³¹ß');
-insert into team_member(team_id,tm_email,tm_role) values(2,'d@d.com','µğÀÚÀÎ');
-insert into team_member(team_id,tm_email,tm_role) values(2,'e@e.com','µğÀÚÀÎ');
-insert into team_member(team_id,tm_email,tm_role) values(2,'f@f.com','°³¹ß');
-insert into team_member(team_id,tm_email,tm_role) values(2,'g@g.com','±âÈ¹');
-insert into team_member(team_id,tm_email,tm_role) values(2,'h@h.com','°³¹ß');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'b@b.com','ÆÀÀå','leader');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'c@c.com','°³¹ß','member');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'d@d.com','µğÀÚÀÎ','applied');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'e@e.com','µğÀÚÀÎ','member');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'f@f.com','°³¹ß','member');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'g@g.com','±âÈ¹','applied');
+insert into team_mber(tmid,team_id,mber_email,mber_role,mber_status) values(team_mber_seq.nextval,2,'h@h.com','°³¹ß','invited');
 
 commit;
-
-select * from team_member;
 --------------------------------
 drop sequence crew_seq;
 
@@ -96,45 +145,31 @@ insert into crew(crew_id,team_id,crew_email,project_name) values(crew_seq.nextva
 insert into crew(crew_id,team_id,crew_email,project_name) values(crew_seq.nextval,1,'l@l.com','ÇÁ·ÎÁ§Æ®A');
 
 commit;
-
-select * from crew;
-
-			SELECT
-				t.team_id,
-				crew_id,
-			    crew_email,
-			    project_name,
-			    team_name,
-			    leader_email,
-			    team_img
-			FROM
-			    crew c,team t
-			WHERE
-				c.team_id = t.team_id
-			AND
-				t.team_id=1;
 --------------------------------
-            SELECT
-			    TM_EMAIL,
-			    TM_ROLE,
-			    MEMBER_IMG,
-                TEAM_NAME,
-                TEAM_IMG,
-                MEMBER_NAME
-			FROM
-			    TEAM_MEMBER tm,MEMBER m,TEAM t
-			WHERE
-				tm.TM_EMAIL=m.MEMBER_EMAIL
-                AND
-                tm.TEAM_ID=t.TEAM_ID
-                AND
-                TM_ROLE like '%'|| NVL('',null)  ;
---------------------------------
-SELECT
-				MEMBER_NAME,
-				MEMBER_EMAIL,
-				MEMBER_IMG
-			FROM
-			    MEMBER
-			WHERE
-				MEMBER_EMAIL='a@a.com';
+drop sequence team_board_seq;
+
+create sequence team_board_seq start with 0 minvalue 0 increment by 1;
+
+drop table team_board;
+
+create table team_board(
+team_id number not null,
+board_id number primary key,
+writer_email varchar2(50),
+board_title varchar2(100),
+write_time date default sysdate,
+delete_gb varchar2(1) default 'N',
+content varchar2(1000)
+);
+
+insert into team_board(team_id,board_id,writer_email,board_title,content) values(1,team_board_seq.nextval,'a@a.com','°Ô½ÃÆÇ?','Á¶¾ÆÁ¶¾Æ°¡´Â°Å¾ß!!');
+insert into team_board(team_id,board_id,writer_email,board_title,content) values(1,team_board_seq.nextval,'a@a.com','°Ô½ÃÆÇÂÉ¾Æ','°¡ÀÚ´Ï±î¿Ö¾È¿Í!?!?');
+
+BEGIN
+  FOR i IN 1..100 LOOP
+    INSERT INTO team_board (team_id,board_id,writer_email,board_title,content) 
+    Values(1,team_board_seq.nextval,'a'||i||'@gmail.com','°Ô½Ã±Û'||i,'³»¿ë³»¿ë³»¿ë'||i);
+  END LOOP;
+END;
+
+commit;

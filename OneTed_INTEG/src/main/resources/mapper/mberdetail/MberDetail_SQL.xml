@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mberDetail">
+	
+	<select id="selectMberDetail" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			M.MBER_NAME			AS "NAME",
+			M.MBER_EMAIL		AS "EMAIL",
+			MI.MBER_PHONE		as "PHONE",
+			MI.MBER_LOCAL		as "LOCAL",
+			MI.MBER_SKILL		as "SKILL",
+			MI.MBER_INTRODUCE	as "INTRODUCE",
+			MI.MBER_IMG		as "IMG"
+		FROM
+			MBER_INFO MI, MBER M
+		WHERE
+			MI.MBER_EMAIL=M.MBER_EMAIL
+		AND	
+			M.MBER_EMAIL = #{SELEMAIL} 
+	</select>
+	<select id="selectMberWrite" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			M.MBER_NAME		AS "NAME",
+			M.MBER_EMAIL		AS "EMAIL",
+			MI.MBER_PHONE		AS "PHONE",
+			MI.MBER_LOCAL		AS "LOCAL",
+			MI.MBER_SKILL		AS "SKILL",
+			MI.MBER_INTRODUCE	AS "INTRODUCE",
+			MI.MBER_IMG		AS "IMG"
+		FROM
+			MBER_INFO MI, MBER M
+		WHERE
+			MI.MBER_EMAIL=M.MBER_EMAIL
+		AND	
+			M.MBER_EMAIL = #{SELEMAIL}
+	</select>
+	
+	
+	<!-- 상하꺼 쿼리 -->
+	<!-- 인클루드 하기위해-->
+	<sql id="joinSelectMber">
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY MI.MBER_INFO_IDX DESC) RNUM,
+			MI.*,
+			M.MBER_NAME
+		FROM
+			MBER M, MBER_INFO MI
+		WHERE
+			M.MBER_EMAIL = MI.MBER_EMAIL
+	</sql>
+	
+	
+	<select id="selectMberList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
+		<include refid="joinSelectMber"/>
+			AND 
+				M.MBER_DEL = 'N'
+			AND	
+				MI.MBER_INFO_DEL = 'N'
+			ORDER BY MI.MBER_INFO_IDX DESC
+		<include refid="common.pagingPost"/> 
+	</select>
+<!-- 	<insert id="insertMberSkill" parameterType="hashmap"> -->
+<!-- 		INSERT INTO MBER_SKILLS  -->
+<!-- 			( -->
+<!-- 				MBER_INFO_IDX, -->
+<!-- 				MBER_SKILL_IDX, -->
+<!-- 				MBER_SKILL, -->
+<!-- 				MBER_SKILL_PER,				 -->
+<!-- 				MBER_SKILL_DEL -->
+<!-- 			)  -->
+<!-- 		VALUES  -->
+<!-- 			( -->
+<!-- 				#{IDX}, -->
+<!-- 				MBER_SKILL_SEQ.NEXTVAL, -->
+<!-- 				#{MBER_SKILL}, -->
+<!-- 				#{MBER_SKILL_PER}, -->
+<!-- 				'N' -->
+<!-- 			) -->
+<!-- 	</insert> -->
+		<update id="insertMberInfo" parameterType="hashmap">
+		UPDATE MBER_INFO 
+			SET
+				MBER_PHONE = #{PHONE},
+				MBER_LOCAL = #{LOCAL},
+				MBER_SKILL = #{SKILL},
+				MBER_INTRODUCE = #{INTRODUCE},
+				MBER_IMG = #{IMG}
+			
+			WHERE 
+				MBER_EMAIL = #{UEMAIL}	
+			
+	</update>
+
+	
+</mapper>

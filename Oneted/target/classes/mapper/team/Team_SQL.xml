@@ -20,35 +20,39 @@
 		resultType="hashmap">
 		<![CDATA[
 			SELECT
-			    TM_EMAIL,
-			    TM_ROLE,
-			    MEMBER_IMG,
+			    m.MBER_EMAIL,
+			    MBER_ROLE,
+			    MBER_IMG,
                 TEAM_NAME,
                 TEAM_IMG,
-                MEMBER_NAME
+                MBER_NAME
 			FROM
-			    TEAM_MEMBER tm,MEMBER m,TEAM t
+			    TEAM_MBER tm,MBER_INFO mi,TEAM ti,MBER m
 			WHERE
-				tm.TM_EMAIL=m.MEMBER_EMAIL
+				tm.MBER_EMAIL=m.MBER_EMAIL
                 AND
-                tm.TEAM_ID=t.TEAM_ID 
+                m.MBER_EMAIL=mi.MBER_EMAIL
+                AND
+                tm.TEAM_ID=ti.TEAM_ID
 		]]>
 		<if test="ROLE!=null">
 			AND
-			TM_ROLE LIKE '%'||#{ROLE}
+			MBER_ROLE LIKE '%'||#{ROLE}
 		</if>
 	</select>
 	<select id="selectMemberInfo" parameterType="hashmap"
 		resultType="hashmap">
 		<![CDATA[
 			SELECT
-				MEMBER_NAME,
-				MEMBER_EMAIL,
-				MEMBER_IMG
+				MBER_NAME,
+				m.MBER_EMAIL,
+				MBER_IMG
 			FROM
-			    MEMBER
+			    MBER m,MBER_INFO mi
 			WHERE
-				MEMBER_EMAIL=#{SEARCH_MEMBER_EMAIL}
+				m.MBER_EMAIL=#{SEARCH_MBER_EMAIL}
+				AND
+				m.MBER_EMAIL=mi.MBER_EMAIL
 		]]>
 	</select>
 	<select id="selectTeamContact" parameterType="hashmap"
@@ -65,7 +69,7 @@
 		]]>
 	</select>
 	<select id="selectBoardList" parameterType="hashmap" resultType="hashmap">
-	<include refid="common.pagingPre"/>
+		<include refid="common.pagingPre" />
 		<![CDATA[
 			SELECT
                 ROW_NUMBER() OVER (ORDER BY BOARD_ID DESC) RNUM,
@@ -73,21 +77,27 @@
    				WRITER_EMAIL,
    				BOARD_TITLE,
     			WRITE_TIME,
-    			CONTENT
+    			CONTENT,
+    			TEAM_NAME,
+    			TEAM_IMG
 			FROM
-				TEAM_BOARD
+				TEAM_BOARD tb,TEAM ti
 			WHERE
 				DELETE_GB='N'
+				AND
+				tb.TEAM_ID=#{TEAM_ID}
+				AND
+				tb.TEAM_ID=ti.TEAM_ID
 			ORDER BY
 				BOARD_ID DESC
 		]]>
-		<include refid="common.pagingPost"/>
+		<include refid="common.pagingPost" />
 	</select>
-	<select id="insertBoard" parameterType="hashmap"
-		resultType="hashmap">
+	<select id="insertBoard" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			INSERT INTO TEAM_BOARD
 			(
+				TEAM_ID,
 				BOARD_ID,
 				WRITER_EMAIL,
 				BOARD_TITLE,
@@ -96,6 +106,7 @@
 			)
 			VALUES
 			(
+				#{TEAM_ID},
 				TEAM_BOARD_SEQ.NEXTVAL,
 				#{WRITER},
 				#{TITLE},
@@ -123,4 +134,113 @@
 				BOARD_ID = #{IDX}
 		]]>
 	</update>
+	<select id="checkStatus" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				MBER_STATUS
+			FROM
+			    TEAM_MBER
+			WHERE
+				TEAM_ID=#{IDX}
+			AND
+				MBER_EMAIL=#{LOGEMAIL}
+		]]>
+	</select>
+	<insert id="teamApply" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TEAM_MBER
+			(
+				TMID,
+				MBER_EMAIL,
+			    TEAM_ID,			    
+			    MBER_STATUS
+			)
+			VALUES
+			(				 
+				TEAM_MBER_SEQ.NEXTVAL,
+				#{LOGEMAIL},
+				#{TEAMID},
+				'APPLIED'
+			)
+		]]>
+	</insert>
+	<delete id="teamLeave" parameterType="hashmap">
+		<![CDATA[
+			DELETE
+			FROM
+				TEAM_MBER
+			WHERE
+				TEAM_ID = #{TEAMID}
+			AND
+				MBER_EMAIL = #{LOGEMAIL}
+		]]>
+	</delete>
+	<select id="selectBoard" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+  			    (SELECT
+  			  		BOARD_ID,
+   			 		WRITER_EMAIL,
+					BOARD_TITLE,
+					WRITE_TIME,
+					CONTENT,
+					MBER_IMG
+				FROM
+					TEAM_BOARD tb,MBER_INFO mi
+				WHERE
+  			  		DELETE_GB='N'
+  			  	AND
+  			  		TEAM_ID=#{TEAM_ID}
+  			  	AND
+  			  		tb.WRITER_EMAIL=mi.MBER_EMAIL
+ 			    ORDER BY
+ 			   		BOARD_ID DESC)
+			WHERE
+  			  	ROWNUM<4
+		]]>
+	</select>
+	<select id="selectUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+  			    (SELECT
+  			  		MBERLOG_EMAIL,
+                    MBER_IMG
+				FROM
+					MBERLOG ML,MBER_INFO MI,TEAM TI
+				WHERE
+  			  		TEAM_ID=#{TEAM_ID}
+                AND
+                    ML.MBERLOG_EMAIL=MI.MBER_EMAIL
+ 			    ORDER BY
+ 			   		MBERLOG_IN DESC)
+			WHERE
+  			  	ROWNUM<4
+		]]>
+	</select>
+	<select id="totalUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				COUNT(*) COUNT
+			FROM
+				TEAM_MBER
+		]]>
+	</select>
+	<select id="ingUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[		
+			SELECT
+				COUNT(*) COUNT
+			FROM
+				MBERLOG ML,TEAM_MBER TM
+			WHERE
+				ML.MBERLOG_EMAIL=TM.MBER_EMAIL
+				AND
+				(MBER_STATUS='MEMBER' OR MBER_STATUS='LEADER')
+				AND
+				TO_DATE(ML.MBERLOG_IN)-TO_DATE(ML.MBERLOG_OUT)>0
+		]]>
+	</select>
 </mapper>

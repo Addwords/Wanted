@@ -1,0 +1,107 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
+<div id="teamMberModal" class="w3-modal" style="z-index: 4">
+	<div class="w3-modal-content w3-animate-zoom" style="width: 400px">
+		<div class="w3-container w3-padding w3-black">
+			<span onclick="document.getElementById('teamMberModal').style.display='none'"
+				class="w3-button w3-black w3-right w3-xxlarge"><i
+				class="fa fa-remove"></i></span>
+			<h2>Invitation List</h2>
+		</div>
+		<div id="invitation" class="w3-panel" style="padding: 30px; padding-top: 0px;">
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+
+	$(document.body).on("click", "button[id='join']", function() {
+		fn_accept($(this));
+	});
+	
+	$(document.body).on("click", "button[id='decline']", function() {
+		fn_decline($(this));
+	});
+	
+
+	function fn_selInvitation() {
+		$
+			.ajax({
+				type : 'POST',
+				url : "<c:url value='/teamMber/selInvitation.do'/>",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				processData : false,
+				async : false,
+				datatype : 'json',
+				success : function(data, textStatus, xhr) {
+					var inviteList = $.parseJSON(data);
+					$("#invitation").empty();					
+					$.each(inviteList, function(index) {
+						$("#invitation").append("<div><input class='tmid' type='hidden' value='" + inviteList[index].TMID + "'/><h5 class='teamName' style='text-align:center;'>"
+							+ inviteList[index].TEAM_NAME
+							+ "</h5><div class='w3-row'><div class='w3-half'><button id='join' type='button' class='w3-button w3-block w3-green'>Join</button></div><div class='w3-half'><button id='decline' type='button' class='w3-button w3-block w3-red'>Decline</button></div></div></div>");
+				
+					});
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "error:"
+						+ error);
+				}
+			});
+	}
+
+	function fn_accept(obj) {		
+		$
+		.ajax({
+			type : 'POST',
+			url : "<c:url value='/teamMber/accept.do'/>",
+			data : "TMID=" + obj.parent().parent().parent().find(".tmid").val(),
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				fn_selInvitation();
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:"
+					+ error);
+			}
+		});
+	}
+
+	function fn_decline(obj) {
+
+		$
+		.ajax({
+			type : 'POST',
+			url : "<c:url value='/teamMber/decline.do'/>",
+			data : "TMID=" + obj.parent().parent().parent().find(".tmid").val(),
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				fn_selInvitation();
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:"
+					+ error);
+			}
+		});
+	}
+	function fn_teamMberModalOpen() {
+		fn_selInvitation();
+		$("#teamMberModal").css("display", "block");
+	}
+</script>

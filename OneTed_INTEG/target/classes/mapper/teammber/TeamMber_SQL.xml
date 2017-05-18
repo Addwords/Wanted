@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="teamMber">
+
+	<insert id="leader" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO team_mber
+			(
+				tmid,
+				mber_email,
+			    team_id,			    
+			    mber_status
+			)
+			VALUES
+			(				 
+				teammber_seq.NEXTVAL,
+				#{USER},
+				#{LEADERTEAM},
+				'LEADER'
+			)
+		]]>
+	</insert>
+
+	<insert id="apply" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO team_mber
+			(
+				tmid,
+				mber_email,
+			    team_id,			    
+			    mber_status
+			)
+			VALUES
+			(				 
+				teammber_seq.NEXTVAL,
+				#{APPLYEMAIL},
+				#{APPLYTEAM},
+				'APPLIED'
+			)
+		]]>
+	</insert>
+
+	<insert id="invite" parameterType="hashmap">		
+		<![CDATA[
+			INSERT INTO team_mber
+			(
+				tmid,
+				mber_email,
+			    team_id,			    
+			    mber_status
+			)
+			VALUES
+			(				 
+				teammber_seq.NEXTVAL,
+				#{INVITEEMAIL},
+				#{INVITETEAM},
+				'INVITED'
+			)
+		]]>
+	</insert>
+	
+	<select id="inviteValidate" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				tmid
+			FROM
+				team_mber
+			WHERE
+				team_id = #{INVITETEAM}
+				AND mber_email = #{INVITEEMAIL}
+				AND (mber_status = 'INVITED'
+					OR	mber_status = 'LEADER'
+					OR	mber_status = 'TEAMMBER'
+					OR	mber_status = 'APPLICANT')
+		]]>
+	</select>
+
+	<update id="accept" parameterType="hashmap">
+		<![CDATA[
+			UPDATE team_mber
+			SET
+				mber_status = 'TEAMMBER'
+			WHERE				
+				tmid = #{TMID}
+		]]>
+	</update>
+
+	<update id="decline" parameterType="hashmap">
+		<![CDATA[
+			UPDATE team_mber
+			SET
+				mber_status = 'DECLINED'
+			WHERE				
+				tmid = #{TMID}
+		]]>
+	</update>
+
+	<update id="leave" parameterType="hashmap">
+		<![CDATA[
+			UPDATE team_mber
+			SET
+				mber_status = 'LEFT'
+			WHERE
+ 				mber_email = #{LEAVEEMAIL} 
+ 				AND team_id = #{LEAVETEAM} 
+		]]>
+	</update>
+
+	<update id="disband" parameterType="hashmap">
+		<![CDATA[
+			UPDATE team_mber
+			SET
+				mber_status = 'DISBANDED'
+			WHERE 				
+ 				team_id = #{DISTEAM} 
+		]]>
+	</update>
+
+
+	<select id="selApplicant" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				team_mber.tmid, team_mber.mber_email
+			FROM
+				team_mber
+			WHERE
+				team_id = #{SELTEAM}
+				AND mber_status = 'APPLICANT'		
+		]]>
+	</select>
+
+
+	<select id="selInvitation" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				team_mber.tmid, team.team_name
+			FROM
+				team_mber
+					INNER JOIN team
+					ON team_mber.team_id = team.team_id
+			WHERE
+				team_mber.mber_email = #{SELEMAIL}
+				AND team_mber.mber_status = 'INVITED'		
+		]]>
+	</select>
+
+	<select id="selTeamMember" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mber_email
+			FROM
+				team_mber
+			WHERE
+				team_id = #{SELTEAM}
+				AND mber_status = 'TEAMMBER'		
+		]]>
+	</select>
+
+	<select id="selTeamLeader" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				mber_email
+			FROM
+				team_mber
+			WHERE
+				team_id = #{SELTEAM}
+				AND mber_status = 'LEADER'		
+		]]>
+	</select>
+
+	<select id="selLeaderTeam" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				team.team_id, team.team_name
+			FROM
+				team_mber
+					INNER JOIN team
+					ON team_mber.team_id = team.team_id
+			WHERE
+				team_mber.mber_email = #{SELEMAIL}
+				AND team_mber.mber_status = 'LEADER'		
+		]]>
+	</select>
+
+	<select id="selMyTeam" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				team.team_id, team.team_name
+			FROM
+				team_mber
+					INNER JOIN team
+					ON team_mber.team_id = team.team_id
+			WHERE
+				team_mber.mber_email = #{SELEMAIL}
+				AND team_mber.mber_status = 'TEAMMBER'		
+		]]>
+	</select>
+
+</mapper>

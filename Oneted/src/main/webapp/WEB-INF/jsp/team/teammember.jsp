@@ -25,7 +25,13 @@ body, h1, h2, h3, h4, h5, h6 {
 </style>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
-	<jsp:include page="/WEB-INF/include/navBar.jspf" />
+	<%
+		if (session.getAttribute("LOGEMAIL") == null) {System.out.println("attribute null");%>			
+			<%@include file="/WEB-INF/include/include-outnavbar.jspf" %><%
+		}else{System.out.println("attribute exist");%>
+			<%@include file="/WEB-INF/include/include-innavbar.jspf" %><%
+		}
+	%>
 	<!-- Sidebar/menu -->
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index: 3; width: 300px;" id="mySidebar">
@@ -51,9 +57,9 @@ body, h1, h2, h3, h4, h5, h6 {
 				href=<c:url value='/team/openTeamMember.do'/> onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding w3-text-teal" id="all"
 				value=""><i class="fa fa-user fa-fw w3-margin-right"></i>Member</a>
-			<a href=<c:url value='/team/openTeamBoard.do'/>
+			<a href=<c:url value='/team/teamBoardList.do'/>
 				onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-				class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
+				class="fa fa-file fa-fw w3-margin-right"></i>Board</a>
 		</div>
 		<div class="w3-panel w3-large">
 			<a href="http://fb.com" target="b"><i
@@ -117,38 +123,21 @@ body, h1, h2, h3, h4, h5, h6 {
 			<c:forEach items="${TEAMMEMBER}" var="tm">
 				<div class="w3-third w3-container w3-margin-bottom"
 					style="width: 20%; height: 20%;">
-					<img id="${tm.TM_EMAIL}"
-						src="${pageContext.request.contextPath}/resources/images/${tm.MEMBER_IMG}"
-						alt="${tm.MEMBER_NAME}" style="width: 100%; height: 100%;"
+					<img id="${tm.MBER_EMAIL}"
+						src="${pageContext.request.contextPath}/resources/images/${tm.MBER_IMG}"
+						alt="${tm.MBER_NAME}" style="width: 100%; height: 100%;"
 						class="w3-hover-opacity" onclick="tm_detail(this)">
 					<div class="w3-container w3-white">
 						<p>
-							<br> <b>${tm.MEMBER_NAME}</b>
+							<br> <b>${tm.MBER_NAME}</b>
 						</p>
-						<p>${tm.TM_ROLE}</p>
-						<p>${tm.TM_EMAIL}</p>
+						<p>${tm.MBER_ROLE}</p>
+						<p>${tm.MBER_EMAIL}</p>
 					</div>
 				</div>
 			</c:forEach>
 			<!-- Member End -->
-
-
 		</div>
-
-		<!-- Pagination -->
-		<div class="w3-center w3-padding-32">
-			<div class="w3-bar">
-				<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> <a
-					href="#" class="w3-bar-item w3-black w3-button">1</a> <a href="#"
-					class="w3-bar-item w3-button w3-hover-black">2</a> <a href="#"
-					class="w3-bar-item w3-button w3-hover-black">3</a> <a href="#"
-					class="w3-bar-item w3-button w3-hover-black">4</a> <a href="#"
-					class="w3-bar-item w3-button w3-hover-black">»</a>
-			</div>
-		</div>
-
-
-
 		<!-- End page content -->
 	</div>
 
@@ -175,43 +164,43 @@ body, h1, h2, h3, h4, h5, h6 {
 		</div>
 	</div>
 	<!-- Contact Modal -->
-	<div id="contact" class="w3-modal">
-		<div class="w3-modal-content w3-animate-zoom">
-			<div class="w3-container w3-black">
-				<span
-					onclick="document.getElementById('contact').style.display='none'"
-					class="w3-button w3-display-topright w3-large">x</span>
-				<h1>Contact</h1>
-			</div>
-			<div class="w3-container">
-				<p>Reserve a table, ask for today's special or just send us a
-					message:</p>
-				<form action="/action_page.php" target="_blank">
-					<p>
-						<input class="w3-input w3-padding-16 w3-border" type="text"
-							placeholder="Name" required name="Name">
-					</p>
-					<p>
-						<input class="w3-input w3-padding-16 w3-border" type="number"
-							placeholder="How many people" required name="People">
-					</p>
-					<p>
-						<input class="w3-input w3-padding-16 w3-border"
-							type="datetime-local" placeholder="Date and time" required
-							name="date" value="2017-11-16T20:00">
-					</p>
-					<p>
-						<input class="w3-input w3-padding-16 w3-border" type="text"
-							placeholder="Message \ Special requirements" required
-							name="Message">
-					</p>
-					<p>
-						<button class="w3-button" type="submit">SEND MESSAGE</button>
-					</p>
-				</form>
-			</div>
-		</div>
-	</div>
+<!-- 	<div id="contact" class="w3-modal"> -->
+<!-- 		<div class="w3-modal-content w3-animate-zoom"> -->
+<!-- 			<div class="w3-container w3-black"> -->
+<!-- 				<span -->
+<!-- 					onclick="document.getElementById('contact').style.display='none'" -->
+<!-- 					class="w3-button w3-display-topright w3-large">x</span> -->
+<!-- 				<h1>Contact</h1> -->
+<!-- 			</div> -->
+<!-- 			<div class="w3-container"> -->
+<!-- 				<p>Reserve a table, ask for today's special or just send us a -->
+<!-- 					message:</p> -->
+<!-- 				<form action="/action_page.php" target="_blank"> -->
+<!-- 					<p> -->
+<!-- 						<input class="w3-input w3-padding-16 w3-border" type="text" -->
+<!-- 							placeholder="Name" required name="Name"> -->
+<!-- 					</p> -->
+<!-- 					<p> -->
+<!-- 						<input class="w3-input w3-padding-16 w3-border" type="number" -->
+<!-- 							placeholder="How many people" required name="People"> -->
+<!-- 					</p> -->
+<!-- 					<p> -->
+<!-- 						<input class="w3-input w3-padding-16 w3-border" -->
+<!-- 							type="datetime-local" placeholder="Date and time" required -->
+<!-- 							name="date" value="2017-11-16T20:00"> -->
+<!-- 					</p> -->
+<!-- 					<p> -->
+<!-- 						<input class="w3-input w3-padding-16 w3-border" type="text" -->
+<!-- 							placeholder="Message \ Special requirements" required -->
+<!-- 							name="Message"> -->
+<!-- 					</p> -->
+<!-- 					<p> -->
+<!-- 						<button class="w3-button" type="submit">SEND MESSAGE</button> -->
+<!-- 					</p> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
 	<form id="commonForm" name="commonForm"></form>
 	<script>

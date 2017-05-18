@@ -28,8 +28,16 @@ public class TeamController {
     public ModelAndView selectTeamInfo(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/team/teaminfo");
     	commandMap.put("IDX", 2);
-    	Map<String,Object> selectTeamInfo = teamService.selectTeamInfo(commandMap.getMap());
-    	mv.addObject("TEAMINFO", selectTeamInfo);
+    	commandMap.put("LOGEMAIL", "c@c.com");
+    	commandMap.put("TEAM_ID", 1);
+    	Map<String,Object> returnMap = teamService.selectTeamInfo(commandMap.getMap());
+    	mv.addObject("TEAMINFO", returnMap.get("TEAMINFO"));
+    	mv.addObject("CHECKSTATUS", returnMap.get("CHECKSTATUS"));
+	    mv.addObject("RECENTBOARD", returnMap.get("RECENTBOARD"));
+	    mv.addObject("RECENTUSER", returnMap.get("RECENTUSER"));
+	    
+	    mv.addObject("TOTALUSER", returnMap.get("TOTALUSER"));
+	    mv.addObject("INGUSER", returnMap.get("INGUSER"));
     	return mv;
     }
 	
@@ -37,7 +45,7 @@ public class TeamController {
     public ModelAndView selectTeamMember(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/team/teammember");
     	List<Map<String,Object>> selectTeamMember = teamService.selectTeamMember(commandMap.getMap());
-    	mv.addObject("TEAMMEMBER", selectTeamMember);    	
+    	mv.addObject("TEAMMEMBER", selectTeamMember);
     	return mv;
     }
 	
@@ -49,21 +57,12 @@ public class TeamController {
     	return mv;
     }
 	
-	@RequestMapping(value="/team/openTeamContact.do")
-    public ModelAndView selectTeamContact(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/team/teamcontact");
-    	commandMap.put("IDX", 2);
-    	Map<String,Object> selectTeamContact = teamService.selectTeamContact(commandMap.getMap());
-    	mv.addObject("TEAMCONTACT", selectTeamContact);
-    	return mv;
-    }
-	
 	@RequestMapping(value="/team/teamBoardList.do")
     public ModelAndView teamBoardList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/team/teamboard");
-//    	List<Map<String,Object>> selectBoardList=teamService.selectBoardList(commandMap.getMap());
-//    	mv.addObject("BOARDLIST", selectBoardList);
+    	commandMap.put("TEAM_ID", 1);
     	Map<String,Object> resultMap = teamService.selectBoardList(commandMap.getMap());
+    	
     	
 	    mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
 	    mv.addObject("BOARDLIST", resultMap.get("result"));
@@ -90,6 +89,19 @@ public class TeamController {
 	public ModelAndView deleteBoard(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/team/teamBoardList.do");
 		teamService.deleteBoard(commandMap.getMap());
+		return mv;
+	}
+	
+	@RequestMapping(value="/team/teamAplly.do")
+	public ModelAndView teamApply(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/team/openTeamInfo.do");
+		teamService.teamApply(commandMap.getMap(), request);
+		return mv;
+	}
+	@RequestMapping(value="/team/teamLeave.do")
+	public ModelAndView teamLeave(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/team/openTeamInfo.do");
+		teamService.teamLeave(commandMap.getMap(), request);
 		return mv;
 	}
 }

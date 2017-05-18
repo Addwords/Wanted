@@ -23,4 +23,8 @@ public interface TeamService {
 	void updateBoard(Map<String, Object> map, HttpServletRequest request);
 	
 	void deleteBoard(Map<String, Object> map);
+
+	void teamApply(Map<String, Object> map, HttpServletRequest request);
+
+	void teamLeave(Map<String, Object> map, HttpServletRequest request);
 }

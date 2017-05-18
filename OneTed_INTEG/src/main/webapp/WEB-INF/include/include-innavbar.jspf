@@ -1,0 +1,116 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<!--   <link rel="stylesheet" href="./css/w3.css"> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<nav class="navbar navbar-inverse"
+	style="position: fixed; top: 0; width: 100%; z-index: 10;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<c:url value='/common/main.do'/>"><span
+				style="color: #ff0000;">ONE</span>TED</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul id="leftNav" class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Team Menu<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="<c:url value='/team/createTeam.do' />">New Team</a></li>
+						<li><a href="<c:url value='/team/myteam_list.do' />">My
+								Team</a></li>
+						<li><a href="javascript:fn_teamMberModalOpen()">Invitations</a></li>
+						<li><a href="<c:url value='/teamDetail/openTeamInfo.do' />">임시 팀멤버</a></li>
+					</ul></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><input id="search" type="text" class="w3-animate-zoom"
+					style="margin-top: 3%; display: none; margin-left: 15px; width: 320px"></li>
+				<li id="searchLi" class="dropdown"><a id="searchDD"
+					class="dropdown-toggle" data-toggle="dropdown" href="#"
+					onclick="fn_toggleSearch();"><span
+						class="glyphicon glyphicon-search"></span> Search<span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:fn_allSearch()">All</a></li>
+						<li><a href="javascript:fn_projectSearch()">Project</a></li>
+						<li><a href="javascript:fn_teamSearch()">Team</a></li>
+						<li><a href="javascript:fn_memberSearch()">Member</a></li>
+					</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"><span
+						class="glyphicon glyphicon-user"></span><%=session.getAttribute("LOGNAME") %>'s Page<span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="<c:url value='/mberDetail/myDetail.do'/>">Profile</a></li>
+						<li><a href="<c:url value='/message/listMsg.do'/>">Message
+								Inbox</a></li>
+						<li><a href="javascript:fn_newMsg()">Send Message</a></li>
+					</ul></li>
+				<li><a href="<c:url value='/logio/logout.do'/>"><span
+						class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<script>
+	function fn_toggleSearch() {
+		setTimeout(function() {
+			if ($("#searchDD").attr("aria-expanded") === "true") {
+				$("#search").css("display", "block");
+				$("#leftNav").css("display", "none");
+				$("#search").focus();
+			} else {
+				$("#search").css("display", "none");
+				$("#leftNav").css("display", "block");
+			}
+		}, 10);
+	}
+
+	function fn_allSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val().toLowerCase());
+		comSubmit.setUrl("<c:url value='/team/searchList.do' />");
+		comSubmit.submit();
+	}
+	function fn_teamSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val().toLowerCase());
+		comSubmit.setUrl("<c:url value='/team/openTeamList.do' />");
+		comSubmit.submit();
+	}
+	function fn_projectSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val().toLowerCase());
+		comSubmit.setUrl("<c:url value='/team/openProjectList.do' />");
+		comSubmit.submit();
+	}
+	function fn_memberSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val().toLowerCase());
+		comSubmit.setUrl("<c:url value='/mber/pool.do' />");
+		comSubmit.submit();
+	}
+	
+</script>
+
+<%@ include file="/WEB-INF/include/include-teamMber.jspf"%>
+<%@ include file="/WEB-INF/include/include-sendmsg.jspf"%>
+<%@ include file="/WEB-INF/include/include-header.jspf"%>
+<%@ include file="/WEB-INF/include/include-body.jspf"%>

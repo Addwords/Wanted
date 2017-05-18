@@ -29,8 +29,6 @@ public class TimeDistance {
         else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN)
         {
             // min
-            System.out.println(diffTime);
-            
             msg = diffTime + " minutes ago";
         }
         else if ((diffTime /= TIME_MAXIMUM.MIN) < TIME_MAXIMUM.HOUR)

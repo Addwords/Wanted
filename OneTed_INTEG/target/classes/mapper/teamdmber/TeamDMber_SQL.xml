@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="teamDMber">
+	<select id="selectTeamInfo" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				TEAM_ID,
+				L_EMAIL,
+			    TEAM_NAME,
+			    TEAM_IMG,
+			    TEAM_EXP
+			FROM
+			    TEAM
+			WHERE
+				TEAM_ID=#{IDX}
+		]]>
+	</select>
+	<select id="selectTeamMember" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    M.MBER_EMAIL,
+			    MBER_ROLE,
+			    MBER_IMG,
+                TEAM_NAME,
+                TEAM_IMG,
+                MBER_NAME,
+                L_EMAIL,
+                TMID
+			FROM
+			    TEAM_MBER TM,MBER_INFO MI,TEAM TI,MBER M
+			WHERE
+				TM.MBER_EMAIL=M.MBER_EMAIL
+            AND
+                M.MBER_EMAIL=MI.MBER_EMAIL
+            AND
+                TM.TEAM_ID=TI.TEAM_ID
+            AND
+                TM.TEAM_ID = #{IDX}
+		]]>
+		<!-- 가입된 멤버를 보여줄때는 applied나 invited된 멤버를 출력하지말아야한다 -->
+		<if test="ROLE == null and STATUS==null">
+			AND
+				MBER_STATUS != 'APPLIED'
+			AND
+				MBER_STATUS != 'INVITED'	
+		</if>
+		<!-- 가입된 멤버를 보여줄때는 applied나 invited된 멤버를 출력하지말아야한다 -->
+		<if test="ROLE!=null">
+			AND
+				MBER_ROLE LIKE '%'||#{ROLE}
+			AND
+				MBER_STATUS != 'APPLIED'
+			AND
+				MBER_STATUS != 'INVITED'	
+		</if>
+		<!-- status가 널이아니면 applied나 invited된 멤버이므로 그들을 보여주어야한다 -->
+		<if test="STATUS!=null">
+			AND
+				MBER_STATUS LIKE '%'||#{STATUS}
+		</if>
+	</select>
+	<select id="selectMemberInfo" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+			SELECT
+				MBER_NAME,
+				M.MBER_EMAIL,
+				MBER_IMG
+			FROM
+			    MBER M,MBER_INFO MI
+			WHERE
+				M.MBER_EMAIL=#{SEARCH_MBER_EMAIL}
+				AND
+				M.MBER_EMAIL=MI.MBER_EMAIL
+		]]>
+	</select>
+	<select id="selectBoardList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre" />
+		<![CDATA[
+			SELECT
+                ROW_NUMBER() OVER (ORDER BY BOARD_ID DESC) RNUM,
+    			BOARD_ID,
+   				WRITER_EMAIL,
+   				BOARD_TITLE,
+    			WRITE_TIME,
+    			CONTENT,
+    			TEAM_NAME,
+    			TEAM_IMG
+			FROM
+				TEAM_BOARD tb,TEAM ti
+			WHERE
+				DELETE_GB='N'
+				AND
+				tb.TEAM_ID=#{IDX}
+				AND
+				tb.TEAM_ID=ti.TEAM_ID
+			ORDER BY
+				BOARD_ID DESC
+		]]>
+		<include refid="common.pagingPost" />
+	</select>
+	<select id="insertBoard" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			INSERT INTO TEAM_BOARD
+			(
+				TEAM_ID,
+				BOARD_ID,
+				WRITER_EMAIL,
+				BOARD_TITLE,
+				CONTENT,
+				DELETE_GB
+			)
+			VALUES
+			(
+				#{TEAM_ID},
+				TEAM_BOARD_SEQ.NEXTVAL,
+				#{WRITER},
+				#{TITLE},
+				#{CONTENTS},
+				'N'
+			)
+		]]>
+	</select>
+	<update id="updateBoard" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TEAM_BOARD
+			SET
+				BOARD_TITLE = #{TITLE},
+				CONTENT = #{CONTENTS}
+			WHERE
+				BOARD_ID = #{IDX}
+		]]>
+	</update>
+	<update id="deleteBoard" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TEAM_BOARD
+			SET
+				DELETE_GB = 'Y'
+			WHERE
+				BOARD_ID = #{IDX}
+		]]>
+	</update>
+	<select id="checkStatus" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				MBER_STATUS
+			FROM
+			    TEAM_MBER
+			WHERE
+				TEAM_ID=#{IDX}
+			AND
+				MBER_EMAIL=#{LOGEMAIL}
+		]]>
+	</select>
+	<insert id="teamApply" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TEAM_MBER
+			(
+				TMID,
+				MBER_EMAIL,
+			    TEAM_ID,			    
+			    MBER_STATUS
+			)
+			VALUES
+			(				 
+				TEAM_MBER_SEQ.NEXTVAL,
+				#{LOGEMAIL},
+				#{IDX},
+				'APPLIED'
+			)
+		]]>
+	</insert>
+	<delete id="teamLeave" parameterType="hashmap">
+		<![CDATA[
+			DELETE
+			FROM
+				TEAM_MBER
+			WHERE
+				TEAM_ID = #{IDX}
+			AND
+				MBER_EMAIL = #{LOGEMAIL}
+		]]>
+	</delete>
+<select id="selectBoard" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+  			    (SELECT
+  			  		BOARD_ID,
+   			 		WRITER_EMAIL,
+					BOARD_TITLE,
+					WRITE_TIME,
+					CONTENT,
+					MBER_IMG
+				FROM
+					TEAM_BOARD TB,MBER_INFO MI
+				WHERE
+  			  		DELETE_GB='N'
+  			  	AND
+  			  		TEAM_ID=#{IDX}
+  			  	AND
+  			  		TB.WRITER_EMAIL=MI.MBER_EMAIL
+ 			    ORDER BY
+ 			   		BOARD_ID DESC)
+			WHERE
+  			  	ROWNUM<4
+		]]>
+	</select>
+	<select id="selectUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+  			    (SELECT
+  			  		MBERLOG_EMAIL,
+                    MBER_IMG
+				FROM
+					MBERLOG ML,MBER_INFO MI,TEAM TI
+				WHERE
+  			  		TEAM_ID=#{IDX}
+                AND
+                    ML.MBERLOG_EMAIL=MI.MBER_EMAIL
+ 			    ORDER BY
+ 			   		MBERLOG_IN DESC)
+			WHERE
+  			  	ROWNUM<4
+		]]>
+	</select>
+	<select id="totalUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				COUNT(*) COUNT
+			FROM
+				TEAM_MBER
+			WHERE
+				TEAM_ID=#{IDX}
+		]]>
+	</select>
+	<select id="ingUser" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[		
+			SELECT
+				COUNT(*) COUNT
+			FROM
+				MBERLOG ML,TEAM_MBER TM
+			WHERE
+				ML.MBERLOG_EMAIL=TM.MBER_EMAIL
+			AND
+				(MBER_STATUS='MEMBER' OR MBER_STATUS='LEADER')
+			AND
+				TO_DATE(ML.MBERLOG_IN)-TO_DATE(ML.MBERLOG_OUT)>0
+			AND
+				TM.TEAM_ID=#{IDX}
+		]]>
+	</select>	
+	<update id="accept" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TEAM_MBER
+			SET
+				MBER_STATUS = 'TEAMMBER'
+			WHERE				
+				TMID = #{TMID}
+		]]>
+	</update>	
+</mapper>

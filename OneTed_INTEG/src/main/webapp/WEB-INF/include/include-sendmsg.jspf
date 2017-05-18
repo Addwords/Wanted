@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<div id="id01" class="w3-modal" style="z-index: 4">
+	<div class="w3-modal-content w3-animate-zoom">
+		<div class="w3-container w3-padding w3-black">
+			<span onclick="document.getElementById('id01').style.display='none'"
+				class="w3-button w3-black w3-right w3-xxlarge"><i
+				class="fa fa-remove"></i></span>
+			<h2>Send Message</h2>
+		</div>
+		<div class="w3-panel">
+			<label>To</label> <input id="srecipient"
+				class="w3-input w3-border w3-margin-bottom" type="text"> <label>Subject</label>
+			<input id="ssubject" class="w3-input w3-border w3-margin-bottom"
+				type="text">
+			<div id="scontents" class="w3-input w3-border w3-margin-bottom"
+				style="height: 150px; overflow: scroll; -webkit-user-modify: read-write; word-wrap: break-word; -webkit-line-break: after-white-space;"></div>
+			<div id="invalid"></div>
+			<div class="w3-section">
+				<a class="w3-button w3-red w3-right"
+					id="sendMsg" style="margin-bottom: 10px;">Send  <i class="fa fa-paper-plane"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$("#sendMsg").on("click", function(e) { // 글쓰기 버튼
+			fn_reciValid();
+		});		
+		$(".directEmail").on("click", function(e) { //상세 메시지 열기 버튼
+			e.preventDefault();
+			fn_directEmail($(this));
+			w3_close();
+		});
+	});
+
+	function fn_sendMsg() {
+		var recipient = $("#srecipient").val().toLowerCase();
+		var subject = $("#ssubject").val();
+		var contents = $("#scontents").html();
+		$.ajax({
+			type : 'POST',
+			url : "<c:url value='/message/sendMsg.do'/>",
+			data : "RECIPIENT=" + recipient + "&SUBJECT=" +  subject+ "&CONTENTS=" + contents,
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				alert("메시지를 성공적으로 발송하였습니다");
+				document.getElementById('id01').style.display='none';				
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:" + error);
+			}
+		});
+// 		var comSubmit = new ComSubmit();
+// 		comSubmit.setUrl("<c:url value='/message/sendMsg.do' />");
+// 		comSubmit.addParam("RECIPIENT", $("#srecipient").val().toLowerCase());
+// 		comSubmit.addParam("SUBJECT", $("#ssubject").val());
+// 		comSubmit.addParam("CONTENTS", $("#scontents").html());
+// 		comSubmit.submit();
+	}
+
+	function fn_newMsg() {
+		$("#srecipient").val("");
+		$("#ssubject").val("");
+		$("#scontents").html("");
+		$("#invalid").text("");
+		$("#id01").css("display", "block");		
+	}
+
+	function fn_reciValid() {
+		var recipient = $("#srecipient").val().toLowerCase();
+		$.ajax({
+			type : 'POST',
+			url : "<c:url value='/message/reciValid.do'/>",
+			data : "RECIPIENT=" + recipient,
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				var reciResult = $.parseJSON(data);
+				if (reciResult.EXISTALL == true) {
+					fn_sendMsg();
+				} else {
+					$("#invalid").text(reciResult.INVALID);
+				}
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:" + error);
+			}
+		});
+	}
+	function fn_directEmail(obj) {
+		var toEmail = obj.find(".toEmail").text();
+		$("#srecipient").val(toEmail);
+		$("#ssubject").val("");
+		$("#scontents").html("");
+		$("#invalid").text("");
+		$("#id01").css("display", "block");
+	}
+</script>

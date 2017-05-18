@@ -51,4 +51,33 @@ public class TeamDAO extends AbstractDAO {
 	public void deleteBoard(Map<String, Object> map) {
 		update("team.deleteBoard", map);
 	}
+
+	@SuppressWarnings("unchecked")
+	public  Map<String, Object>  checkStatus(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("team.checkStatus",map);
+	}
+
+	public void teamApply(Map<String, Object> map) {
+		insert("team.teamApply", map);
+	}
+
+	public void teamLeave(Map<String, Object> map) {
+		insert("team.teamLeave", map);
+	}
+
+	public Object selectBoard(Map<String, Object> map) {
+		return selectList("team.selectBoard", map);
+	}
+
+	public Object selectUSER(Map<String, Object> map) {
+		return selectList("team.selectUser", map);
+	}
+
+	public Object totalUser(Map<String, Object> map) {
+		return selectOne("team.totalUser", map);
+	}
+
+	public Object ingUser(Map<String, Object> map) {
+		return selectOne("team.ingUser", map);
+	}
 }

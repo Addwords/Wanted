@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team">
+
+	<insert id="createTeam" parameterType="hashmap">
+		<![CDATA[
+			insert into 
+				team
+			values(
+				team_seq.nextval,  
+				#{USER}, 
+				#{TNAME},
+				#{STORED_FILE_NAME},
+				#{TINFO}
+				)
+		]]>
+	</insert>
+	<select id="searchTeamList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    team
+			WHERE
+				lower(team_name) like '%'||#{search}||'%'
+			ORDER BY
+				team_id desc
+		]]>
+	</select>
+	
+	<select id="searchProjectList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_board
+			WHERE
+				lower(pname) like '%'||#{search}||'%'
+			ORDER BY
+				pid desc
+		]]>
+	</select>
+	
+	<select id="selectTeamList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    team
+			ORDER BY
+				team_id desc
+		]]>
+	</select>
+	
+	<select id="selectProjectList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_board
+			ORDER BY
+				pid desc
+		]]>
+	</select>
+	
+	<select id="selectTeamOne" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    team
+			WHERE
+				team_id = #{IDX}
+		]]>
+	</select>
+	
+	<select id="selectProjectOne" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_board
+			WHERE
+				PID = #{IDX2}
+		]]>
+	</select>
+		
+	<select id="myProject" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				TEAM
+			WHERE 
+				EMAIL = #{LOGEMAIL}
+			
+		]]>
+	</select>
+	
+	<select id="selectProjectMember" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+			    PROJECT_INFO
+			WHERE
+				 PID = #{IDX2}
+		]]>
+	</select>	
+	
+</mapper>

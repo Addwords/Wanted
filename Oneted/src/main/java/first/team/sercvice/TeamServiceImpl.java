@@ -1,5 +1,6 @@
 package first.team.sercvice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,16 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public Map<String, Object> selectTeamInfo(Map<String, Object> map) {
-		return teamDAO.selectTeamInfo(map);
+		Map<String, Object> returnMap = new HashMap<String,Object>();
+		
+		returnMap.put("TEAMINFO", teamDAO.selectTeamInfo(map));
+		returnMap.put("CHECKSTATUS", teamDAO.checkStatus(map));
+		returnMap.put("RECENTBOARD", teamDAO.selectBoard(map));
+		returnMap.put("RECENTUSER", teamDAO.selectUSER(map));
+		
+		returnMap.put("TOTALUSER", teamDAO.totalUser(map));
+		returnMap.put("INGUSER", teamDAO.ingUser(map));		
+		return returnMap;
 	}
 
 	@Override
@@ -64,5 +74,15 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public void deleteBoard(Map<String, Object> map) {
 		teamDAO.deleteBoard(map);
+	}
+
+	@Override
+	public void teamApply(Map<String, Object> map, HttpServletRequest request) {
+		teamDAO.teamApply(map);
+	}
+
+	@Override
+	public void teamLeave(Map<String, Object> map, HttpServletRequest request) {
+		teamDAO.teamLeave(map);
 	}
 }

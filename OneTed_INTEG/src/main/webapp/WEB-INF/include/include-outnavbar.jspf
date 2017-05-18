@@ -1,0 +1,241 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<!--   <link rel="stylesheet" href="./css/w3.css"> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<nav class="navbar navbar-inverse"
+	style="position: fixed; top: 0; width: 100%; z-index: 10;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<c:url value='/common/main.do'/>"><span
+				style="color: #ff0000;">ONE</span>TED</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><input id="search" type="text" class="w3-animate-zoom"
+					style="margin-top: 5%; display: none; margin-left: 15px; width: 320px"></li>
+				<li id="searchLi" class="dropdown"><a id="searchDD"
+					class="dropdown-toggle" data-toggle="dropdown" href="#"
+					onclick="fn_toggleSearch();"><span
+						class="glyphicon glyphicon-search"></span> Search<span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="javascript:fn_allSearch()">All</a></li>
+						<li><a href="javascript:fn_projectSearch()">Project</a></li>
+						<li><a href="javascript:fn_teamSearch()">Team</a></li>
+						<li><a href="javascript:fn_memberSearch()">Member</a></li>
+					</ul></li>
+				<li><a href="#"
+					onclick="document.getElementById('signUp').style.display='block'"><span
+						class="glyphicon glyphicon-file"></span> Sign Up</a></li>
+				<li><a href="#"
+					onclick="document.getElementById('login').style.display='block'"><span
+						class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- signup -->
+<div id="signUp" class="w3-modal" style="z-index: 12;">
+	<div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large"
+		style="max-width: 600px">
+
+		<div class="w3-center">
+			<br>
+			<h2>Sign Up</h2>
+			<span
+				onclick="document.getElementById('signUp').style.display='none'"
+				class="w3-button w3-xlarge w3-hover-red w3-display-topright w3-white tl-round-large"
+				title="Close Modal">&times;</span>
+		</div>
+
+		<form class="w3-container" action="javascript:fn_regValidate();">
+			<div class="w3-section">
+				<label><b>E-Mail</b></label> <input id="regemail"
+					class="w3-input w3-border w3-margin-bottom w3-round-large"
+					type="email" placeholder="Enter User E-mail" required> <label><b>Name</b></label>
+				<input id="regname"
+					class="w3-input w3-border w3-margin-bottom w3-round-large"
+					type="text" placeholder="Enter Username" required> <label><b>Password</b></label>
+				<input id="regpwd"
+					class="w3-input w3-border w3-margin-bottom w3-round-large"
+					type="password" placeholder="Enter Password" required> <label><b>Confirm</b></label>
+				<input id="pwdrep" class="w3-input w3-border w3-round-large"
+					type="password" placeholder="Rewrite Password" required>
+				<button id="register"
+					class="w3-button w3-block w3-red w3-section w3-padding w3-round-large"
+					type="submit">Sign Up</button>
+				<div id="rmsg"></div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+<!-- login -->
+<div id="login" class="w3-modal" style="z-index: 12;">
+	<div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large"
+		style="max-width: 600px">
+
+		<div class="w3-center">
+			<br>
+			<h2>Login</h2>
+			<span onclick="document.getElementById('login').style.display='none'"
+				class="w3-button w3-xlarge w3-hover-red w3-display-topright w3-white tl-round-large"
+				title="Close Modal">&times;</span>
+		</div>
+
+		<form class="w3-container" action="javascript:fn_login();">
+			<div class="w3-section">
+				<label><b>E-Mail</b></label> <input id="logemail"
+					class="w3-input w3-border w3-margin-bottom w3-round-large"
+					type="email" placeholder="Enter User E-mail" required> <label><b>Password</b></label>
+				<input id="logpwd"
+					class="w3-input w3-border w3-margin-bottom w3-round-large"
+					type="password" placeholder="Enter Password" required>
+				<button id="register"
+					class="w3-button w3-block w3-red w3-section w3-padding w3-round-large"
+					type="submit">Login</button>
+				<div id="lmsg"></div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+<%@ include file="/WEB-INF/include/include-header.jspf"%>
+<%@ include file="/WEB-INF/include/include-body.jspf"%>
+<script>
+	function fn_regValidate() {
+		var regemail = $("#regemail").val().toLowerCase();
+		var regpwd = $("#regpwd").val().toLowerCase();
+		var regname = $("#regname").val().toLowerCase();
+		var pwdrep = $("#pwdrep").val().toLowerCase();
+		$.ajax({
+			type : 'POST',
+			url : "<c:url value='/register/regValidate.do'/>",
+			data : "REGEMAIL=" + regemail + "&REGPWD=" + regpwd + "&REGNAME="
+					+ regname + "&PWDREP=" + pwdrep,
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				var regResult = $.parseJSON(data);
+				console.log(regResult);
+				console.log(regResult['REGNAME']);
+				console.log(regResult['RMSG']);
+				console.log(regResult['CORRECT']);
+				$("#rmsg").html(regResult.RMSG);
+				if (regResult.CORRECT == true) {
+					fn_register();
+				}
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:" + error);
+			}
+		});
+	}
+
+	function fn_register() {
+		var comSubmit = new ComSubmit();
+		var regemail = $("#regemail").val().toLowerCase();
+		var regpwd = $("#regpwd").val().toLowerCase();
+		var regname = $("#regname").val().toLowerCase();
+		var pwdrep = $("#pwdrep").val().toLowerCase();
+
+		comSubmit.setUrl("<c:url value='/register/register.do'/>");
+
+		comSubmit.addParam("REGEMAIL", regemail);
+		comSubmit.addParam("REGPWD", regpwd);
+		comSubmit.addParam("REGNAME", regname);
+
+		alert("회원가입에 성공하였습니다");
+		comSubmit.submit();
+	}
+
+	function fn_login() {
+		var logemail = $("#logemail").val().toLowerCase();
+		var logpwd = $("#logpwd").val().toLowerCase();
+		$.ajax({
+			type : 'POST',
+			url : "<c:url value='/logio/login.do'/>",
+			data : "LOGEMAIL=" + logemail + "&LOGPWD=" + logpwd,
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			processData : false,
+			async : false,
+			datatype : 'json',
+			success : function(data, textStatus, xhr) {
+				var logResult = $.parseJSON(data);
+				if (logResult.SUCCESS == true) {
+					console.log("리로드");
+					//							opener.location.reload();	
+					top.document.location.reload();
+
+				} else {
+					$("#lmsg").html(logResult.LMSG);
+					console.log("세션값 null");
+				}
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "error:" + error);
+			}
+		});
+	}
+</script>
+<script>
+	function fn_toggleSearch() {
+		setTimeout(function() {
+			if ($("#searchDD").attr("aria-expanded") === "true") {
+				$("#search").css("display", "block");
+				$("#search").focus();
+			} else {
+				$("#search").css("display", "none");
+			}
+		}, 10);
+	}
+
+	function fn_allSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val());
+		comSubmit.setUrl("<c:url value='/team/searchList.do' />");
+		comSubmit.submit();
+	}
+	function fn_teamSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val());
+		comSubmit.setUrl("<c:url value='/team/openTeamList.do' />");
+		comSubmit.submit();
+	}
+	function fn_projectSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val());
+		comSubmit.setUrl("<c:url value='/team/openProjectList.do' />");
+		comSubmit.submit();
+	}
+	function fn_memberSearch() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("search", $("#search").val());
+		comSubmit.setUrl("<c:url value='/mber/pool.do' />");
+		comSubmit.submit();
+	}
+</script>
