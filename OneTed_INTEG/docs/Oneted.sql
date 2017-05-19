@@ -157,3 +157,24 @@ BEGIN
     INSERT INTO mber_info (mber_info_idx, mber_email, mber_info_del) VALUES (mber_info_seq.NEXTVAL, :NEW.mber_email,'N');    
 
 END;
+
+--------------------------------------------------
+drop sequence project_seq;
+
+create sequence project_seq
+start with 0
+minvalue 0
+increment by 1;
+
+drop table project_info;
+
+create table project_info(
+pid number not null,
+ptitle varchar2(100) not null,
+pimg varchar2(100),
+category varchar2(50),
+dday date,
+contents varchar2(1000),
+sitelink varchar2(200)
+);
+commit;

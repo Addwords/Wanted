@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project">
+
+	<select id="selectProjectList_all" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				lower(ptitle) like '%'||#{search}||'%'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_idea" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='PLAN/IDEA'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_naming" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='NAMING/SLOGAN'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_design" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='DESIGN'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_marketing" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='ADVERTISING/MARKETING'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_video" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='VIDEO/UCC'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectList_sw" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='GAME/SW'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+
+<select id="selectProjectList_founded" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    PROJECT_INFO
+			WHERE
+				CATEGORY='FOUNDED'
+			ORDER BY
+				PID DESC
+		]]>
+	</select>
+	
+	<select id="selectProjectOne" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+			    project_info
+			WHERE
+				PID = #{IDX}
+		]]>
+	</select>
+
+	
+</mapper>

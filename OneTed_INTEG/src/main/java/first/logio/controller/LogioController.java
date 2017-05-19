@@ -1,5 +1,6 @@
 package first.logio.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import com.google.gson.JsonIOException;
 import first.common.common.CommandMap;
 import first.logio.service.LogioService;
 import first.mberlog.service.MLogService;
+import first.teamMber.service.TeamMberService;
 
 @Controller
 public class LogioController {
@@ -27,6 +29,10 @@ public class LogioController {
 	
 	@Resource(name = "mLogService")
 	private MLogService mLogService;
+	
+	@Resource(name = "teamMberService")
+	private TeamMberService teamMberService;
+
 
 	@RequestMapping(value = "/logio/login.do", produces = "application/text; charset=utf-8")
 	public void logIn(CommandMap commandMap, HttpSession session, HttpServletResponse response) throws Exception {
@@ -49,7 +55,10 @@ public class LogioController {
 			session.setAttribute("LOGEMAIL", commandMap.get("LOGEMAIL"));
 			mLogService.inLog(commandMap.getMap());
 			System.out.println("session에 저장됨");
-			System.out.println(session.getAttribute("LOGEMAIL"));
+			System.out.println(session.getAttribute("LOGEMAIL"));			
+			commandMap.put("SELEMAIL", session.getAttribute("LOGEMAIL"));		
+			List<Map<String,Object>> teamList =  teamMberService.selMyTeam(commandMap.getMap());
+			session.setAttribute("teamList", teamList);		
 		}
 		
 		commandMap.put("LMSG", lmsg);

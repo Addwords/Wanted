@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/common.js?ver=2"></script>
 
@@ -129,10 +129,7 @@ footer {
 	color: #ea503d;
 }
 
-.dropdown-menu {
-	top: inherit!important;
-	left: inherit!important;
-}
+
 </style>
 </head>
 
@@ -171,7 +168,7 @@ footer {
 		<div class="container">
 			<div style="width: 100%; margin-bottom: 100px;">
 				<button type="button" class="btn btn-info btn-lg"
-					data-toggle="modal" data-target="#genieModal" style="float: right;">Open
+					data-toggle="modal" id="btn-genieModal" data-target="#genieModal" style="float: right;">Open
 					Genie</button>
 				<%@ include file="/WEB-INF/include/include-ssearch.jsp"%>
 			</div>
@@ -183,7 +180,7 @@ footer {
 								<div class="panel panel-primary">
 									<div class="panel-heading" style="background-color: #333;">
 										<a href="#this" name="mber_name" class='dropdown-toggle'
-											data-toggle='dropdown' style="text-decoration: none">${mber.MBER_NAME }</a>
+											data-toggle='dropdown' style="text-decoration: none;color: white;">${mber.MBER_NAME }</a>
 										<ul class='dropdown-menu' role="menu" aria-labelledby="dLabel"
 											style="top: inherit; left: inherit;">
 											<li><a id="drop-detail" href='#this'>상세정보</a></li>
@@ -207,7 +204,8 @@ footer {
 															<li><a>팀장 권한이 없습니다</a></li>
 														</ul>
 													</c:otherwise>
-												</c:choose></li>
+												</c:choose>
+											</li>
 										</ul>
 									</div>
 									<div class="panel-body"
@@ -254,9 +252,16 @@ footer {
 	<script>
 		$(function(){
 			var hi = '${fn:length(list)}';
-			var asd = '${list[0]}';
 			console.log("list total:"+hi);
-			console.log(asd);
+		});
+		
+		$('#btn-genieModal').on('click', function(e) {
+			var login = '${sessionScope.LOGEMAIL}';
+		    if(login=='')
+		    {
+		    	alert('로그인 부터해주세요');
+		    	e.stopPropagation();
+		    }
 		});
 	
 		//동적으로 생성될 수 있는 요소들
@@ -286,12 +291,11 @@ footer {
 		});
 	
 		function fn_openMberDetail(obj) {
-			console.log(obj.parent().parent().find("#IDX").val());
-		//         var comSubmit = new ComSubmit();
-		//         comSubmit.setUrl("<c:url value='/project/detail.do'/>");
-		//         comSubmit.addParam("IDX", obj.parent().parent().find("#IDX").val());
-		//         comSubmit.addParam("CATEGORY", '${CATEGORY}');
-		//         comSubmit.submit();
+				console.log(obj.parent().parent().find("#EMAIL").val());
+		        var comSubmit = new ComSubmit();
+		        comSubmit.setUrl("<c:url value='/mberDetail/mberDetail.do'/>");
+		        comSubmit.addParam("SELEMAIL", obj.parent().parent().find("#EMAIL").val());
+		        comSubmit.submit();
 		}
 		function fn_sendMessage(obj) {
 			console.log(obj.parent().parent().find("#EMAIL").val());

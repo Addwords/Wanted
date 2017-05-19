@@ -137,3 +137,25 @@ BEGIN
   INSERT INTO project_info(p_id,p_title,p_img,p_category,p_dday,p_content) VALUES(project_info_seq.nextval,'어울림'||i,'p'||i||'.jpg','IT',to_date('17/05/2'||i,'DD/MM/RR'),'웹/어플 제작 공모전'||i);
   END LOOP;
 END;
+----------------------------------
+insert into project_info values(project_seq.nextval,'어울림','ab.jpg','GAME/SW',to_date('17/05/22','YY/MM/DD'),'어울림 공모전 입니다.<br>상금: 500만원','http://ezone.iitp.kr/common/anno/02/form.tab?PMS_TSK_PBNC_ID=PBD201700000052');
+insert into project_info values(project_seq.nextval,'제11회 공개소프트웨어 개발자대회','ab2.png','GAME/SW',to_date('17/05/25','YY/MM/DD'),'제11회 공개소프트웨어 개발자대회 입니다.<br>상금: 1500만원','http://project.oss.kr/index.do');
+
+insert into project_info values(project_seq.nextval,'국민 행복 법령 만들기를 위한 국민 아이디어 공모제','ab3.PNG','PLAN/IDEA',to_date('17/05/26','YY/MM/DD'),'국민 행복 법령 만들기를 위한 국민 아이디어 공모제 입니다.<br>상금: 1500만원','http://community.lawmaking.go.kr/gcom/idea/list');
+insert into project_info values(project_seq.nextval,'생활 속 빗물관리 아이디어 공모전','ab4.PNG','PLAN/IDEA',to_date('17/05/26','YY/MM/DD'),'생활 속 빗물관리 아이디어 공모전 입니다.<br>상금: 1500만원','http://www.raincontest.co.kr/');
+
+insert into project_info values(project_seq.nextval,'청년꿈희망 프로젝트 제이윙스 모집','ab5.PNG','FOUNDED',to_date('17/05/27','YY/MM/DD'),'청년꿈희망 프로젝트 제이윙스 모집 입니다.<br>상금: 1500만원','http://cafe.naver.com/jwa1207');
+insert into project_info values(project_seq.nextval,'취업지원 역량강화 자격증 온라인 무료교육 장학생 공모전','ab6.PNG','FOUNDED',to_date('17/05/27','YY/MM/DD'),'취업지원 역량강화 자격증 온라인 무료교육 장학생 공모전 입니다.<br>상금: 1500만원','http://www.wooriedu.net/');
+
+insert into project_info values(project_seq.nextval,'독립기념관 상설전시관 대국민 명칭공모','ab7.PNG','NAMING/SLOGAN',to_date('17/05/28','YY/MM/DD'),'독립기념관 상설전시관 대국민 명칭공모 입니다.<br>상금: 1500만원','http://www.i815.or.kr/kr/news/news.php?code=notice&mode=V&no=97699');
+insert into project_info values(project_seq.nextval,'해외파병 홍보 경진대회','ab8.PNG','NAMING/SLOGAN',to_date('17/05/27','YY/MM/DD'),'해외파병 홍보 경진대회 입니다.<br>상금: 1500만원','http://www.overseasdeploymentcontest.kr/');
+
+insert into project_info values(project_seq.nextval,'2017 대구 도시디자인공모전','ab9.PNG','DESIGN',to_date('17/05/29','YY/MM/DD'),'2017 대구 도시디자인공모전 입니다.<br>상금: 1500만원','http://www.daegu.go.kr/build/index.do?menu_id=00933848');
+insert into project_info values(project_seq.nextval,'2017 대한민국 가구디자인 공모전','ab10.PNG','DESIGN',to_date('17/05/29','YY/MM/DD'),'2017 대한민국 가구디자인 공모전 입니다.<br>상금: 1500만원','http://www.gfia.or.kr/contest/');
+insert into project_info values(project_seq.nextval,'2017년 제5회 경기으뜸 옥외광고물 공모전','ab11.PNG','DESIGN',to_date('17/05/29','YY/MM/DD'),'2017년 제5회 경기으뜸 옥외광고물 공모전 입니다.<br>상금: 1500만원','http://design.gg.go.kr/');
+
+insert into project_info values(project_seq.nextval,'제2회 동화공모전','ab12.PNG','ADVERTISING/MARKETING',to_date('17/05/30','YY/MM/DD'),'제2회 동화공모전 입니다.<br>상금: 1000만원','https://storynew.kyobobook.co.kr/story/cont/initStoryContFairyPros.ink');
+insert into project_info values(project_seq.nextval,'제5회 스토리공모전','ab13.PNG','ADVERTISING/MARKETING',to_date('17/05/30','YY/MM/DD'),'제5회 스토리공모전 입니다.<br>상금: 1000만원','https://storynew.kyobobook.co.kr/story/cont/initStoryContStoryPros.ink');
+
+insert into project_info values(project_seq.nextval,'제11회 전국 UCC 영상 공모전','ab14.PNG','VIDEO/UCC',to_date('17/05/31','YY/MM/DD'),'제11회 전국 UCC 영상 공모전 입니다.<br>상금: 1000만원','http://itv.chungbuk.go.kr/site/www/boardView.do?post=17885&page=&boardSeq=2&key=17&category=&searchType=&searchKeyword=&subContents=');
+insert into project_info values(project_seq.nextval,'행복나눔 대전이 좋다 UCC 공모전','ab15.PNG','VIDEO/UCC',to_date('17/05/31','YY/MM/DD'),'행복나눔 대전이 좋다 UCC 공모전 입니다.<br>상금: 1000만원','https://storynew.kyobobook.co.kr/story/cont/initStoryContStoryPros.ink');

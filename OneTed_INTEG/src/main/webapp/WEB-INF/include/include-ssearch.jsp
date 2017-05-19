@@ -197,8 +197,8 @@
 					var format = "<div class='col-sm-4' style='width: 25%'>" +
 									"<div class='panel panel-primary'>" +
 										"<div class='panel-heading' style='background-color: #333;'>" +
-											"<a href='#this' class='dropdown-toggle' data-toggle='dropdown' name='mber_name' style='text-decoration:none'>"+val['MBER_NAME']+"</a>" +
-										    	"<ul class='dropdown-menu'>"+
+											"<a href='#this' class='dropdown-toggle' data-toggle='dropdown' name='mber_name' style='text-decoration:none; color: white;'>"+val['MBER_NAME']+"</a>" +
+										    	"<ul class='dropdown-menu' style='top: inherit; left: inherit;'>"+
 											      "<li><a id='drop-detail' href='#this'>상세정보</a></li>"+
 											      "<li class='divider'></li>"+
 											      "<li><a id='drop-message' href='#this'>쪽지보내기</a></li>"+

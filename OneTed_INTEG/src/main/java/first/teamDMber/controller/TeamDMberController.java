@@ -114,7 +114,7 @@ public class TeamDMberController {
 
 	@RequestMapping(value = "/teamDetail/deleteBoard.do")
 	public ModelAndView deleteBoard(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/teamDetail/DetailteamBoardList.do");
+		ModelAndView mv = new ModelAndView("redirect:/teamDetail/teamBoardList.do");
 		teamDMberService.deleteBoard(commandMap.getMap());
 		return mv;
 	}
@@ -138,9 +138,18 @@ public class TeamDMberController {
 	public ModelAndView accept(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/teamDetail/openTeamMember.do");
 		
-		
 		// TMID commandMap으로 뷰에서 넘어와야 : HIDDEN 통해서 TMID전송 - 지원수락, 초대수락 둘 다
 		teamDMberService.accept(commandMap.getMap());
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/teamDetail/ban.do")
+	public ModelAndView teamBan(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/teamDetail/openTeamMember.do");
+		
+		// TMID commandMap으로 뷰에서 넘어와야 : HIDDEN 통해서 TMID전송 - 지원수락, 초대수락 둘 다
+		teamDMberService.banDo(commandMap.getMap());
 		
 		return mv;
 	}

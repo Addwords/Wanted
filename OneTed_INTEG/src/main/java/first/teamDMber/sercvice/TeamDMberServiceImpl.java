@@ -88,8 +88,12 @@ public class TeamDMberServiceImpl implements TeamDMberService {
 	
 	@Override
 	public void accept(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		teamDMberDAO.accept(map);
+	}
+
+	@Override
+	public void banDo(Map<String, Object> map) {
+		teamDMberDAO.banDo(map);	
 	}
 
 }

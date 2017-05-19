@@ -38,7 +38,7 @@
 						class="glyphicon glyphicon-search"></span> Search<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="javascript:fn_allSearch()">All</a></li>
+<!-- 						<li><a href="javascript:fn_allSearch()">All</a></li> -->
 						<li><a href="javascript:fn_projectSearch()">Project</a></li>
 						<li><a href="javascript:fn_teamSearch()">Team</a></li>
 						<li><a href="javascript:fn_memberSearch()">Member</a></li>
@@ -229,7 +229,7 @@
 	function fn_projectSearch() {
 		var comSubmit = new ComSubmit();
 		comSubmit.addParam("search", $("#search").val());
-		comSubmit.setUrl("<c:url value='/team/openProjectList.do' />");
+		comSubmit.setUrl("<c:url value='/project/openProjectList_all.do' />");
 		comSubmit.submit();
 	}
 	function fn_memberSearch() {

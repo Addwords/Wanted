@@ -32,6 +32,7 @@ public class MberDetailDAO extends AbstractDAO {
 		insert("mberDetail.insertMberSkill", map);			
 	}
 	public void insertMberInfo(Map<String, Object> map) {
+		System.out.println("dao MAp"+map);
 		update("mberDetail.insertMberInfo", map);	
 		
 	}

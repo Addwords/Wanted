@@ -32,18 +32,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-
-
-	$(function() {
-
-		$(".resizable").resizable({
-			//aspectRatio: true 아직 어떤기능인지 확인 못함
-			//ghost: true// 사이즈 감소는 안보임 사이즈 증가시 증가하는 부분이 흐리게 보임
-			handles : "e" //구석 부분의 //이부분이 사라짐 사용이 필요할듯 동e서w 남s북n으로 늘어날수 있는 방향 설정
-
-		});
-
-	});
+	
 </script>
 
 
@@ -74,14 +63,15 @@
 		<div class="w3-row-padding">
 
 			<!-- Left Column -->
-			<div class="w3-third" style="min-width: 320px;">
+			<div class="w3-third" style="width: 320px;">
 
 				<div class="w3-white w3-text-grey w3-card-4">
-					<div class="w3-display-container w3-margin-bottom">
+					<div class="w3-display-container w3-margin-bottom"
+						style="overflow: hidden; text-align: center;">
 						<a href="#" class="face_preivew" id="face_preivew"> <c:choose>
-								<c:when test="${map.IDX eq null }">
+								<c:when test="${map.IMG eq null }">
 									<div class="w3-display-container w3-margin-bottom"
-										style="width: 100%; height: 300px">
+										style="width: 100%; height: 300px; overflow: hidden; text-align: center;">
 
 										<p
 											style="width: 100%; height: 100%; border: medium; background-color: #dddddd; text-align: center; font-weight: bold;">
@@ -94,16 +84,18 @@
 								<c:otherwise>
 
 									<div class="w3-display-container w3-margin-bottom"
-										style="width: 100%;">
-										<img
-											id="face"
+										style="width: 100%; text-align: center;">
+										<img id="face"
 											src=<c:url value='/common/getImage.do?IMG_NAME=${map.IMG}' />
-											width="100%">
+											height="300px">
 									</div>
 								</c:otherwise>
 							</c:choose>
-						</a> <input type="file" name="FACEFILE_1" style="display: none;"
-							accept="image/*">
+						</a>
+						<form id="frm" name="frm" enctype="multipart/form-data">
+							<input type="file" name="FACEFILE_1" id="FACEFILE_1"
+								style="display: none;" accept="image/*">
+						</form>
 					</div>
 
 					<div class="w3-container">
@@ -132,7 +124,7 @@
 						<!-- 스킬 표현부 -->
 						<p class="w3-large">
 							<b><i
-									class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
+								class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>
 								Skills</b>
 						</p>
 
@@ -171,103 +163,114 @@
 							class="fa fa-users fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
 						Team
 					</h2>
-					<div class="w3-container">
-						<h5 class="w3-opacity">
-							<b>Front End Developer / w3schools.com</b>
-						</h5>
-						<h6 class="w3-text-teal">
-							<i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span
-								class="w3-tag w3-teal w3-round">Current</span>
-						</h6>
-						<p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur
-							vel in deserunt aspernatur est reprehenderit sunt hic. Nulla
-							tempora soluta ea et odio, unde doloremque repellendus iure,
-							iste.</p>
 
-					</div>
+					<c:choose>
+						<c:when test="${fn:length(teamList) > 0}">
+							<c:forEach items="${teamList}" var="teamList">
+								<a href="#" class="goTeam">
+									<div class="w3-panel w3-gray w3-card-4"
+										style="text-align: center;">
+										<h5 style="color: black; font-weight: bold">
+											<input type="hidden" id="tidx" value="${teamList.TEAM_ID }">
+											${teamList.TEAM_NAME }
+										</h5>
+									</div>
+								</a>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p>소속된 팀이 없습니다</p>
+						</c:otherwise>
+					</c:choose>
+
+
 
 				</div>
 
 				<!-- End Right Column -->
 			</div>
-			<a class="w3-button w3-red" id = "btnUpdate" href="javascript:fn_insertInfo()">DONE</a>
+			<a class="w3-button w3-red" id="btnUpdate"
+				href="javascript:fn_insertInfo()">DONE</a>
 			<!-- End Grid -->
 		</div>
 
 		<!-- End Page Container -->
 
 	</div>
-
 	<br>
 	<jsp:include page="/WEB-INF/include/footer.jspf" flush="false" />
 	<%@ include file="/WEB-INF/include/include-body.jspf"%>
 	<script type="text/javascript">
-	
-		function fn_insertInfo() {
+		function goDirectTeam(obj) {
+
 			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/teamDetail/setTeamId.do' />");
+			comSubmit.addParam("IDX", obj.find("#tidx").val());
+			comSubmit.submit();
+
+		}
+		function fn_insertInfo() {
+			var comSubmit = new ComSubmit('frm');
 			comSubmit.setUrl("<c:url value='/mberDetail/insertInfo.do' />");
 			comSubmit.addParam("LOCAL", $("#LOCAL").val());
 			comSubmit.addParam("PHONE", $("#PHONE").val());
 			comSubmit.addParam("SKILL", $("#SKILL").val());
 			comSubmit.addParam("INTRODUCE", $("#INTRODUCE").html());
-			comSubmit.addParam("IMG", $("#face").attr('src'));
 			comSubmit.submit();
 		}
-		
+
 		$(document).ready(function() {
 			$("#input").click(function() {
 				$("view").toggleClass("input");
-	
+
+			});
+			$(".goTeam").on("click", function(e) { //상세 메시지 열기 버튼
+				e.preventDefault();
+				goDirectTeam($(this));
 			});
 		});
 		//이미지 첨부 펑션
 		$(function() {
 			$('#face_preivew').click(function() {
-				$(
-					"input[name='FACEFILE_1']"
-				).click();
+				$("input[name='FACEFILE_1']").click();
 			});
-			$("input[name='FACEFILE_1']").change(
-				function(e) {
-					var file = this.files[0];
-					if (!file) return;
-					/** 파일 확장자 체크부분 **/
-					var filename = file['name'];
-					var extension = filename.replace(
-						/^.*\./, '');
-					if (extension == filename) {
-						extension = '';
-					} else {
-						extension = extension.toLowerCase();
-					}
-					switch (extension) {
-					case 'jpg':
-					case 'jpeg':
-					case 'png':
-					case 'gif':
-						break;
-					default:
-						alert(
-							"이미지 [jpg,jpeg,png,gif] 파일만 가능합니다."
-						);
-						return;
-					}
-					/*****************************/
-					reader = new FileReader();
-					reader.onload = function(
-						event) {
-						var img = new Image();
-						img.src = event.target.result;
-						img.width = 445;
-						$('#face_preivew').empty();
-						$('#face_preivew').append(
-							img);
-					};
-					reader.readAsDataURL(file);
-					return false;
-				});
+			$("input[name='FACEFILE_1']").change(function(e) {
+				var file = this.files[0];
+				if (!file)
+					return;
+				/** 파일 확장자 체크부분 **/
+				var filename = file['name'];
+				var extension = filename.replace(/^.*\./, '');
+				if (extension == filename) {
+					extension = '';
+				} else {
+					extension = extension.toLowerCase();
+				}
+				switch (extension) {
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				case 'gif':
+					break;
+				default:
+					alert("이미지 [jpg,jpeg,png,gif] 파일만 가능합니다.");
+					return;
+				}
+				/*****************************/
+				reader = new FileReader();
+				reader.onload = function(event) {
+					var img = new Image();
+					img.src = event.target.result;
+					img.height = 300;
+					$('#face_preivew').empty();
+					$('#face_preivew').append(img);
+				};
+				reader.readAsDataURL(file);
+				return false;
+			});
 		});
-		var per = Math.round(($('.resizable').width() * 1) / ($('.resizable').parent("div").width() * 1) * 100);
+		var per = Math.round(($('.resizable').width() * 1)
+				/ ($('.resizable').parent("div").width() * 1) * 100);
 	</script>
 
 

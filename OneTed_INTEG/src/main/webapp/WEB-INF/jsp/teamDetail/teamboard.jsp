@@ -195,7 +195,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		});
 		$(document.body).on("click", "a[id='update']", function(){
 			var creaEmail = $(this).find("#writer_email").html();
-			if(!email.equal(creaEmail))
+			if(!email==creaEmail)
 			{
 				alert("글쓴이가 아닙니다.");
 				return;
@@ -261,7 +261,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		function fn_updateBoard2(obj) {
 			console.log(obj.parent().parent().parent().parent().find("#title").val());
 	        var comSubmit = new ComSubmit();
-	        comSubmit.setUrl("/first/teamDetail/updateBoard.do");
+	        comSubmit.setUrl("<c:url value='/teamDetail/updateBoard.do' />");
 	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().find("#IDX").val());
 	        comSubmit.addParam("TITLE", obj.parent().parent().parent().parent().find("#title").val());
 	        comSubmit.addParam("CONTENTS", obj.parent().parent().parent().parent().find("#contents").val());
@@ -271,7 +271,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 		function fn_deleteBoard(obj) {
 			console.log(obj.parent().parent().parent().parent().parent().find("#IDX").val());
 	        var comSubmit = new ComSubmit();
-	        comSubmit.setUrl("${pageContext.request.contextPath}/teamDetail/deleteBoard.do");
+	        comSubmit.setUrl("<c:url value='/teamDetail/deleteBoard.do'/>");
 	        comSubmit.addParam("IDX", obj.parent().parent().parent().parent().parent().find("#IDX").val());
 	        comSubmit.submit();
 		}

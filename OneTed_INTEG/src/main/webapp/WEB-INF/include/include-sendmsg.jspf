@@ -40,7 +40,6 @@
 		$(".directEmail").on("click", function(e) { //상세 메시지 열기 버튼
 			e.preventDefault();
 			fn_directEmail($(this));
-			w3_close();
 		});
 	});
 

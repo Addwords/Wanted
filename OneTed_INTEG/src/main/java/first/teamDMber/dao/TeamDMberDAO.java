@@ -83,4 +83,9 @@ public class TeamDMberDAO extends AbstractDAO {
 	public Object ingUser(Map<String, Object> map) {
 		return selectOne("teamDMber.ingUser", map);
 	}
+
+	public void banDo(Map<String, Object> map) {
+		delete("teamDMber.banDo", map);
+	}
+
 }

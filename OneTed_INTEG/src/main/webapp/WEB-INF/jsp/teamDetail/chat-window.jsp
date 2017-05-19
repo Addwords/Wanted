@@ -17,7 +17,7 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/fa-comment.png">
 
 <script type="text/javascript">
-var wsUri = 'ws://localhost:8090/OneTed_INTEG/chat';
+var wsUri = 'ws://211.183.9.33:8090/OneTed_INTEG/chat';
 var proxy = CreateProxy(wsUri);
 var name = '${sessionScope.LOGNAME}';
 

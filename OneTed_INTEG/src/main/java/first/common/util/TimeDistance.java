@@ -55,5 +55,18 @@ public class TimeDistance {
         
         return msg;
     }
+    
+    public static String calculateDday(Date date)
+    {
+    	
+    	long curTime = System.currentTimeMillis();
+        long deadTime = date.getTime();
+        long left = deadTime-curTime;
+        
+        int dDay = (int) Math.floor(left/(1000*60*60*24)+1);
+        
+        
+		return String.valueOf(dDay);
+    }
 
 }

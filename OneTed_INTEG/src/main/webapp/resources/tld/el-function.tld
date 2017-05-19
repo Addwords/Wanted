@@ -23,4 +23,11 @@
         <function-class>first.common.util.ContentForm</function-class>
         <function-signature>java.lang.String getContent(java.lang.String)</function-signature>
     </function>
+
+    <function>
+        <description>현재날짜에서 차이계산</description>
+        <name>calculateDday</name>
+        <function-class>first.common.util.TimeDistance</function-class>
+        <function-signature>java.lang.String calculateDday(java.util.Date)</function-signature>
+    </function>
 </taglib>

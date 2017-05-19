@@ -29,4 +29,6 @@ public interface TeamDMberService {
 	void teamLeave(Map<String, Object> map, HttpServletRequest request);
 	
 	void accept(Map<String, Object> map);
+
+	void banDo(Map<String, Object> map);
 }

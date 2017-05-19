@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import first.common.util.FileUtils;
 import first.mberDetail.dao.MberDetailDAO;
 
 
@@ -19,6 +20,9 @@ public class MberDetailServiceImpl implements MberDetailService {
      
     @Resource(name="mberDetailDAO")
     private MberDetailDAO mberDetailDAO;
+    
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
 
 	@Override
 	public Map<String, Object> selectMberDetail(Map<String, Object> map) throws Exception {
@@ -46,8 +50,13 @@ public class MberDetailServiceImpl implements MberDetailService {
 		
 	}
 	@Override
-	public void insertMberInfo(Map<String, Object> map, HttpServletRequest request) {
-		mberDetailDAO.insertMberInfo(map);
+	public void insertMberInfo(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		Map<String, Object> resultMap = fileUtils.parseInsertFileInfoOne(map, request);
+		
+		System.out.println(resultMap.get("STORED_FILE_NAME"));
+		
+		mberDetailDAO.insertMberInfo(resultMap);
 		
 	}
 	@Override

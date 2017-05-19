@@ -80,18 +80,16 @@
 <!-- 				'N' -->
 <!-- 			) -->
 <!-- 	</insert> -->
-		<update id="insertMberInfo" parameterType="hashmap">
+	<update id="insertMberInfo" parameterType="hashmap">
 		UPDATE MBER_INFO 
 			SET
 				MBER_PHONE = #{PHONE},
 				MBER_LOCAL = #{LOCAL},
 				MBER_SKILL = #{SKILL},
 				MBER_INTRODUCE = #{INTRODUCE},
-				MBER_IMG = #{IMG}
-			
+				MBER_IMG = #{STORED_FILE_NAME}
 			WHERE 
 				MBER_EMAIL = #{UEMAIL}	
-			
 	</update>
 
 	

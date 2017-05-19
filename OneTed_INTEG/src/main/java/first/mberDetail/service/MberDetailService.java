@@ -14,7 +14,7 @@ public interface MberDetailService {
 
 	void insertMberSkill(Map<String, Object> map, HttpServletRequest request);
 
-	void insertMberInfo(Map<String, Object> map, HttpServletRequest request);
+	void insertMberInfo(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
 	Map<String, Object> selectMberWrite(Map<String, Object> map) throws Exception;
 

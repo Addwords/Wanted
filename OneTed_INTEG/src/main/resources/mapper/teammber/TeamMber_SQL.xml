@@ -52,7 +52,7 @@
 			)
 			VALUES
 			(				 
-				teammber_seq.NEXTVAL,
+				team_mber_seq.NEXTVAL,
 				#{INVITEEMAIL},
 				#{INVITETEAM},
 				'INVITED'
@@ -193,7 +193,8 @@
 					ON team_mber.team_id = team.team_id
 			WHERE
 				team_mber.mber_email = #{SELEMAIL}
-				AND team_mber.mber_status = 'TEAMMBER'		
+				AND (team_mber.mber_status = 'TEAMMBER'
+				OR team_mber.mber_status = 'LEADER')		
 		]]>
 	</select>
 

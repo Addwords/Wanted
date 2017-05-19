@@ -113,7 +113,7 @@
 			)
 			VALUES
 			(
-				#{TEAM_ID},
+				#{IDX},
 				TEAM_BOARD_SEQ.NEXTVAL,
 				#{WRITER},
 				#{TITLE},
@@ -211,17 +211,20 @@
 	<select id="selectUser" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT
-			    *
+				    *
 			FROM
   			    (SELECT
   			  		MBERLOG_EMAIL,
-                    MBER_IMG
+                    MBER_IMG,
+                    mberlog_in
 				FROM
-					MBERLOG ML,MBER_INFO MI,TEAM TI
+					MBERLOG ML,MBER_INFO MI, TEAM_MBER TM
 				WHERE
-  			  		TEAM_ID=#{IDX}
-                AND
                     ML.MBERLOG_EMAIL=MI.MBER_EMAIL
+                AND
+                    TM.MBER_EMAIL = MI.MBER_EMAIL
+                AND 
+                	TM.TEAM_ID=#{IDX}
  			    ORDER BY
  			   		MBERLOG_IN DESC)
 			WHERE
@@ -247,7 +250,7 @@
 			WHERE
 				ML.MBERLOG_EMAIL=TM.MBER_EMAIL
 			AND
-				(MBER_STATUS='MEMBER' OR MBER_STATUS='LEADER')
+				(MBER_STATUS='TEAMMEMBER' OR MBER_STATUS='LEADER')
 			AND
 				TO_DATE(ML.MBERLOG_IN)-TO_DATE(ML.MBERLOG_OUT)>0
 			AND
@@ -259,6 +262,13 @@
 			UPDATE TEAM_MBER
 			SET
 				MBER_STATUS = 'TEAMMBER'
+			WHERE				
+				TMID = #{TMID}
+		]]>
+	</update>	
+	<update id="banDo" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM TEAM_MBER
 			WHERE				
 				TMID = #{TMID}
 		]]>

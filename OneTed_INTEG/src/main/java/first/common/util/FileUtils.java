@@ -136,7 +136,7 @@ public class FileUtils {
 	            file = new File(CommonUtils.filePath + storedFileName);
 	            multipartFile.transferTo(file);
 	            
-	            FileInfoMap = new HashMap<String,Object>();
+//	            FileInfoMap = new HashMap<String,Object>();
 	            FileInfoMap = map;
 	            
 	            FileInfoMap.put("ORIGINAL_FILE_NAME", originalFileName);

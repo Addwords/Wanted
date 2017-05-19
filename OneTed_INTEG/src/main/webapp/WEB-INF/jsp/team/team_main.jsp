@@ -134,8 +134,7 @@ ft {
 				Category / <span class="fc-orange">ALL</span>
 			</h3>
 			<div class="count-result" id="mber-pool-result">
-				<span class="fw-b fc-black">${list[0].TOTAL_COUNT}</span> People are
-				registered.
+				
 			</div>
 		</div>
 
@@ -229,8 +228,15 @@ ft {
 		}
 	
 		function godetail(obj) {
-			var tet = obj.getAttribute("id");
 			var logEmail = '${sessionScope.LOGEMAIL}';
+			
+			if(logEmail == "")
+			{
+				alert('로그인 먼저 해주세요');
+				return;
+			}
+			
+			var tet = obj.getAttribute("id");
 			//console.log(tet);
 			$('#frm1').append("<input type='hidden' name='IDX' id='IDX' value='" + tet + "'/>");
 			$('#frm1').append("<input type='hidden' name='LOGEMAIL' id='LOGEMAIL' value='" + logEmail + "'/>");

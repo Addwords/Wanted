@@ -147,8 +147,9 @@ body, h1, h2, h3, h4, h5, h6 {
 							<br> <b>${tm.MBER_NAME}</b>
 						</p>
 						<p>${tm.MBER_ROLE}</p>
-						<p>${tm.MBER_EMAIL}</p>
+						<p >${tm.MBER_EMAIL}</p>
 						<input type="hidden" id="tmid" value="${tm.TMID}" >
+						<input type="hidden" id="member-email" value="${tm.MBER_EMAIL}" >
 					</div>
 				</div>
 			</c:forEach>
@@ -168,70 +169,34 @@ body, h1, h2, h3, h4, h5, h6 {
 			</div>
 			<div class="w3-container"
 				style="padding-left: 0px; padding-bottom: 0px;">
-				<form id='frm1' action='../team/openSearchMember.do' method="post">
-					<img id="img1" class="tm_img" width="250px">
+					<img id="img1" class="tm_img" width="250px" height="320px">
 					<button style="width: 250px" class="w3-button w3-black" type='button' id="modal_bt1"
-						name='search_member' onclick="go_detail(this)">Info</button>
-					<button style="width: 250px" onclick="document.getElementById('contact').style.display='block'"
+						name='search_member' onclick="fn_detail($(this).parent())">Info</button>
+					<button style="width: 250px" onclick="fn_message($(this).parent())"
 						class="w3-button w3-black">Contact</button>
 					<c:if test="${ACCEPT_FLAG == 'OK'}">
 						<a style="width: 250px" 
 							class="w3-button w3-black" id="btn_accept" title="관리자만 사용할 수 있습니다.">Accept</a>
 					</c:if>	
+						<a style="width: 250px; opacity: 0.5;"
+							class="w3-button w3-black" id="btn_ban" title="관리자만 사용할 수 있습니다.">Ban/Decline</a>
 					<input type="hidden" id="modal_tmid">
-				</form>
+					<input type="hidden" id="modal_email">
 			</div>
 		</div>
 	</div>
-	<!-- Contact Modal -->
-<!-- 	<div id="contact" class="w3-modal"> -->
-<!-- 		<div class="w3-modal-content w3-animate-zoom"> -->
-<!-- 			<div class="w3-container w3-black"> -->
-<!-- 				<span -->
-<!-- 					onclick="document.getElementById('contact').style.display='none'" -->
-<!-- 					class="w3-button w3-display-topright w3-large">x</span> -->
-<!-- 				<h1>Contact</h1> -->
-<!-- 			</div> -->
-<!-- 			<div class="w3-container"> -->
-<!-- 				<p>Reserve a table, ask for today's special or just send us a -->
-<!-- 					message:</p> -->
-<!-- 				<form action="/action_page.php" target="_blank"> -->
-<!-- 					<p> -->
-<!-- 						<input class="w3-input w3-padding-16 w3-border" type="text" -->
-<!-- 							placeholder="Name" required name="Name"> -->
-<!-- 					</p> -->
-<!-- 					<p> -->
-<!-- 						<input class="w3-input w3-padding-16 w3-border" type="number" -->
-<!-- 							placeholder="How many people" required name="People"> -->
-<!-- 					</p> -->
-<!-- 					<p> -->
-<!-- 						<input class="w3-input w3-padding-16 w3-border" -->
-<!-- 							type="datetime-local" placeholder="Date and time" required -->
-<!-- 							name="date" value="2017-11-16T20:00"> -->
-<!-- 					</p> -->
-<!-- 					<p> -->
-<!-- 						<input class="w3-input w3-padding-16 w3-border" type="text" -->
-<!-- 							placeholder="Message \ Special requirements" required -->
-<!-- 							name="Message"> -->
-<!-- 					</p> -->
-<!-- 					<p> -->
-<!-- 						<button class="w3-button" type="submit">SEND MESSAGE</button> -->
-<!-- 					</p> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+
 	<jsp:include page="/WEB-INF/include/footer.jspf" />
 	<form id="commonForm" name="commonForm"></form>
 	<script>
+		var teamLeader = '${sessionScope.L_EMAIL}';
+		var myEmail = '${sessionScope.LOGEMAIL}';
 		$(function(){
-			var teamLeader = '${sessionScope.L_EMAIL}';
-			var myEmail = '${sessionScope.LOGEMAIL}'	
-			
 			if(myEmail==teamLeader){
 				$('#Apply').prop('disabled', false);
 				$('#Invite').prop('disabled', false);
-			}
+				jQuery('#btn_ban').css('opacity', '1');
+			}	
 		
 		});
 		
@@ -249,15 +214,23 @@ body, h1, h2, h3, h4, h5, h6 {
 			
 			//상하추가부분 모달로 tmid를 넘겨줘야됨
 			document.getElementById("modal_tmid").value = element.find("#tmid").val();
+			document.getElementById("modal_email").value= element.find("#member-email").val();
 		}
 		
-		function go_detail(obj) {
-			var s_email = obj.getAttribute("alt");
-			$('#frm1')
-					.append(
-							"<input type='hidden' name='SEARCH_MEMBER_EMAIL' value='"+s_email+"'/>");
-			var f = document.getElementById("frm1");
-			f.submit();
+		function fn_detail(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/mberDetail/mberDetail.do'/>");
+	        comSubmit.addParam("SELEMAIL", obj.parent().find('#modal_email').val());
+	        comSubmit.submit();
+		}
+				
+		function fn_message(obj) {
+			var toEmail = obj.parent().find('#modal_email').val();
+			$("#srecipient").val(toEmail);
+			$("#ssubject").val("");
+			$("#scontents").html("");
+			$("#invalid").text("");
+			$("#id01").css("display", "block");
 		}
 		
 		function x() {
@@ -291,6 +264,14 @@ body, h1, h2, h3, h4, h5, h6 {
 			console.log(obj.parent().find('#modal_tmid').val());
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/teamDetail/accept.do' />");
+			comSubmit.addParam("TMID", obj.parent().find('#modal_tmid').val());
+			comSubmit.submit();
+		}
+		
+		function fn_ban(obj) {
+			console.log(obj.parent().find('#modal_tmid').val());
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/teamDetail/ban.do' />");
 			comSubmit.addParam("TMID", obj.parent().find('#modal_tmid').val());
 			comSubmit.submit();
 		}
@@ -341,6 +322,14 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 		$("#btn_accept").on("click", function() {
 			fn_accept($(this));
+		});
+		$("#btn_ban").on("click", function() {
+			if(teamLeader != myEmail)
+			{
+				alert('팀 관리자만 사용 가능합니다.');
+				return;
+			}
+			fn_ban($(this));
 		});
 	</script>
 </body>

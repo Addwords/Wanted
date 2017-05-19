@@ -3,6 +3,7 @@ package first.common.controller;
 import java.io.File;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import first.common.common.CommandMap;
 import first.common.service.CommonService;
 import first.common.util.CommonUtils;
+import first.teamMber.service.TeamMberService;
 
 @Controller
 public class CommonController {
@@ -27,14 +29,26 @@ public class CommonController {
 	
 	@Resource(name="commonService")
 	private CommonService commonService;
+	
+	@Resource(name = "teamMberService")
+	private TeamMberService teamMberService;
 
 	@RequestMapping(value = "/common/main.do")
-	public ModelAndView ViewMain(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("/main");
-
+	public ModelAndView ViewMain(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception {		
 		
+		
+		ModelAndView mv = new ModelAndView("/main");
+		if(session.getAttribute("LOGEMAIL")==null){
+			
+		}else{
+			commandMap.put("SELEMAIL", session.getAttribute("LOGEMAIL"));		
+			List<Map<String,Object>> teamList =  teamMberService.selMyTeam(commandMap.getMap());
+			session.setAttribute("teamList", teamList);
+			mv.addObject("teamList", teamList);
+		}
 		return mv;
 	}
+
 	
 	@RequestMapping(value="/common/downloadFile.do")
 	public void downloadFile(CommandMap commandMap, HttpServletResponse response) throws Exception{

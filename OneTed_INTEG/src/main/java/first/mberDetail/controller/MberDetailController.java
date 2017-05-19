@@ -1,5 +1,6 @@
 package first.mberDetail.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import first.common.common.CommandMap;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import first.mberDetail.service.MberDetailService;
+import first.teamMber.service.TeamMberService;
 
 //import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -24,6 +26,9 @@ public class MberDetailController {
      
     @Resource(name="mberDetailService")
     private MberDetailService mberDetailService;
+    
+    @Resource(name = "teamMberService")
+	private TeamMberService teamMberService;
     //재형이형꺼 컨트롤러
 //	@RequestMapping(value="/mber/mberList.do")
 //    public ModelAndView openMberList(CommandMap commandMap) throws Exception{
@@ -42,32 +47,37 @@ public class MberDetailController {
     	commandMap.put("SELEMAIL", session.getAttribute("LOGEMAIL"));
  
 		Map<String,Object> map = mberDetailService.selectMberDetail(commandMap.getMap());
+		List<Map<String,Object>> teamList =  teamMberService.selMyTeam(commandMap.getMap());
 //		Map<String,Object> map1 =  mberDetailService.selectMberSkill(commandMap.getMap());
 		ModelAndView mv = new ModelAndView("/mberDetail/myDetail");//view set
 		mv.addObject("map", map.get("map"));
+		mv.addObject("teamList", teamList);
 //		mv.addObject("skill", map1.get("skill"));
     	return mv;   	
-    }
+    	
+    	}
+    
     
     @RequestMapping(value="/mberDetail/mberDetail.do")
     public ModelAndView mberDetail(CommandMap commandMap, HttpServletRequest request) throws Exception{
     	//view	
-    	commandMap.put("SELEMAIL", request.getParameter("detailEmail"));
 		Map<String,Object> map = mberDetailService.selectMberDetail(commandMap.getMap());
-//		Map<String,Object> map1 =  mberDetailService.selectMberSkill(commandMap.getMap());
+		List<Map<String,Object>> teamList =  teamMberService.selMyTeam(commandMap.getMap());
 		ModelAndView mv = new ModelAndView("/mberDetail/mberDetail");//view set
 		mv.addObject("map", map.get("map"));
-//		mv.addObject("skill", map1.get("skill"));
+		mv.addObject("teamList", teamList);
     	return mv;   	
     }
+    
     @RequestMapping(value="/mberDetail/mberWrite.do")
     public ModelAndView mberWrite(CommandMap commandMap, HttpSession session) throws Exception{
     	//view	
     	commandMap.put("SELEMAIL", session.getAttribute("LOGEMAIL"));
-    	
+    	List<Map<String,Object>> teamList =  teamMberService.selMyTeam(commandMap.getMap());
     	Map<String,Object> map = mberDetailService.selectMberWrite(commandMap.getMap());
 		ModelAndView mv = new ModelAndView("/mberDetail/mberWrite");//view set
 		mv.addObject("map", map.get("map"));
+		mv.addObject("teamList", teamList);
     	return mv;   	
     }    
 // 
@@ -80,17 +90,20 @@ public class MberDetailController {
 //	}
 	@RequestMapping(value="/mberDetail/insertInfo.do")
 	public ModelAndView insertMberInfo(CommandMap commandMap, HttpServletRequest request, HttpSession session) throws Exception{
-		System.out.println(session.getAttribute("LOGEMAIL"));
-		commandMap.put("UEMAIL", session.getAttribute("LOGEMAIL"));
-		commandMap.put("PHONE", request.getParameter("PHONE"));
-		commandMap.put("LOCAL", request.getParameter("LOCAL"));
-		commandMap.put("SKILL", request.getParameter("SKILL"));
-		commandMap.put("INTRODUCE", request.getParameter("INTRODUCE"));
-		if(request.getParameter("IMG")==null)
-		commandMap.put("IMG", request.getParameter("IMG"));
-		System.out.println(commandMap.getMap());
 		ModelAndView mv = new ModelAndView("redirect:/mberDetail/myDetail.do");
+		//수정시지움
+		commandMap.put("UEMAIL", session.getAttribute("LOGEMAIL"));
+//		commandMap.put("PHONE", request.getParameter("PHONE"));
+//		commandMap.put("LOCAL", request.getParameter("LOCAL"));
+//		commandMap.put("SKILL", request.getParameter("SKILL"));
+//		commandMap.put("INTRODUCE", request.getParameter("INTRODUCE"));
+		
+		
+//		if(request.getParameter("IMG")==null)
+//			commandMap.put("IMG", request.getParameter("IMG"));
+		
 		mberDetailService.insertMberInfo(commandMap.getMap(), request);
+		
 		return mv;
 	}
 

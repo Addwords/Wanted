@@ -5,6 +5,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -32,11 +33,23 @@
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Team Menu<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="<c:url value='/team/createTeam.do' />">New Team</a></li>
-						<li><a href="<c:url value='/team/myteam_list.do' />">My
+						<li><a href="<c:url value='/team/createTeam.do' />">New
 								Team</a></li>
 						<li><a href="javascript:fn_teamMberModalOpen()">Invitations</a></li>
-						<li><a href="<c:url value='/teamDetail/openTeamInfo.do' />">임시 팀멤버</a></li>
+						<li class='divider'></li>
+						<c:choose>
+							<c:when test="${fn:length(sessionScope.teamList) > 0}">
+								<c:forEach items="${sessionScope.teamList}" var="teamList">
+									<li><a class="goTeam" href="#"> <input type="hidden"
+											id="tidx" value="${teamList.TEAM_ID}" />
+											${teamList.TEAM_NAME}
+									</a></li>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<li>가입된 팀이 없습니다</li>
+							</c:otherwise>
+						</c:choose>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -48,15 +61,15 @@
 						class="glyphicon glyphicon-search"></span> Search<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="javascript:fn_allSearch()">All</a></li>
+						<!-- 						<li><a href="javascript:fn_allSearch()">All</a></li> -->
 						<li><a href="javascript:fn_projectSearch()">Project</a></li>
 						<li><a href="javascript:fn_teamSearch()">Team</a></li>
 						<li><a href="javascript:fn_memberSearch()">Member</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span
-						class="glyphicon glyphicon-user"></span><%=session.getAttribute("LOGNAME") %>'s Page<span
-						class="caret"></span></a>
+						class="glyphicon glyphicon-user"></span><%=session.getAttribute("LOGNAME")%>'s
+						Page<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="<c:url value='/mberDetail/myDetail.do'/>">Profile</a></li>
 						<li><a href="<c:url value='/message/listMsg.do'/>">Message
@@ -70,6 +83,14 @@
 	</div>
 </nav>
 <script>
+	$(document).ready(function() {
+		// 			fn_listMsg();
+
+		$(".goTeam").on("click", function(e) { //상세 메시지 열기 버튼
+			e.preventDefault();
+			goDirectTeam($(this));
+		});
+	});
 	function fn_toggleSearch() {
 		setTimeout(function() {
 			if ($("#searchDD").attr("aria-expanded") === "true") {
@@ -98,7 +119,7 @@
 	function fn_projectSearch() {
 		var comSubmit = new ComSubmit();
 		comSubmit.addParam("search", $("#search").val().toLowerCase());
-		comSubmit.setUrl("<c:url value='/team/openProjectList.do' />");
+		comSubmit.setUrl("<c:url value='/project/openProjectList_all.do' />");
 		comSubmit.submit();
 	}
 	function fn_memberSearch() {
@@ -107,7 +128,15 @@
 		comSubmit.setUrl("<c:url value='/mber/pool.do' />");
 		comSubmit.submit();
 	}
-	
+
+	function goDirectTeam(obj) {
+
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/teamDetail/setTeamId.do' />");
+		comSubmit.addParam("IDX", obj.find("#tidx").val());
+		comSubmit.submit();
+
+	}
 </script>
 
 <%@ include file="/WEB-INF/include/include-teamMber.jspf"%>
